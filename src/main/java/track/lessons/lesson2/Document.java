@@ -21,8 +21,9 @@ public class Document {
     }
 
     boolean hasToken(String token) {
-        if (tokens == null || token == null)
+        if (tokens == null || token == null) {
             return false;
+        }
         for (int i = 0; i < tokens.length; i++) {
             if (tokens[i] != null && tokens[i].equals(token))
                 return true;
