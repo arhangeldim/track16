@@ -30,7 +30,7 @@ public class Parser {
         // Создайте объект Parser
         Document doc = parser.parse(everything.toString());
         // Получите объект Document, реализовав метод parse()
-        //System.out.print(doc.getTokenCount());
+        System.out.print(doc.getTokenCount());
 
     }
 }
