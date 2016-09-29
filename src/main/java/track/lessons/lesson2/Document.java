@@ -22,7 +22,9 @@ public class Document {
     boolean hasToken(String token) {
         for (int i = 0; i < this.tokens.length; i++) {
             if (token.equals(tokens[i]))
+            {
                 return true;
+            }
         }
         return false;
     }
