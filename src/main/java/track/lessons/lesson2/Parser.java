@@ -21,10 +21,10 @@ public class Parser {
 
         // Создайте объект Parser
         Parser parser = new Parser();
-        String s;
+        String str;
         StringBuilder sb = new StringBuilder("");
-        while ((s = reader.readLine()) != null) {
-            sb.append(s);
+        while ((str = reader.readLine()) != null) {
+            sb.append(str);
             sb.append(" ");
         }
         Document doc = parser.parse(sb.toString());
