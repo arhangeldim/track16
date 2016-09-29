@@ -19,7 +19,7 @@ public class Parser {
         // reader умеет читать по строкам с помощью метода readLine()
         StringBuffer stringBuffer = new StringBuffer();
         String line = reader.readLine();
-        while(line != null) {
+        while (line != null) {
             stringBuffer.append(line);
             line = reader.readLine();
         }
