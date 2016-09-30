@@ -14,7 +14,7 @@ public class Parser {
 
     public static void main(String[] args) throws Exception {
 
-        String path = "src/main/java/track/lessons/lesson2/input.txt";
+        String path = "test.txt";
         BufferedReader reader = new BufferedReader(new FileReader(path));
         // reader умеет читать по строкам с помощью метода readLine()
         StringBuilder text = new StringBuilder();
