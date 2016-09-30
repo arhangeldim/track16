@@ -6,6 +6,7 @@ import java.util.Arrays;
 /**
  *
  */
+
 public class Parser {
 
     Document parse(String data) {
@@ -16,6 +17,7 @@ public class Parser {
 
         String path = "test.txt";
         BufferedReader reader = new BufferedReader(new FileReader(path));
+
         // reader умеет читать по строкам с помощью метода readLine()
         StringBuilder text = new StringBuilder();
 
@@ -27,10 +29,9 @@ public class Parser {
             text.append(line);
             line = reader.readLine();
         }
+
         // Получите объект Document, реализовав метод parse()
         Document document = parser.parse(text.toString());
         System.out.println(Arrays.toString(document.getTokens()));
-
-
     }
 }

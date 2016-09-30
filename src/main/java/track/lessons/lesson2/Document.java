@@ -4,6 +4,7 @@ import java.util.Arrays;
 /**
  *
  */
+
 public class Document {
     String[] tokens;
 
