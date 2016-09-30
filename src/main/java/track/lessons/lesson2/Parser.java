@@ -28,6 +28,6 @@ public class Parser {
         }
 
         Parser parser = new Parser();
-        Document result_document = parser.parse(result.toString());
+        Document resultDocument = parser.parse(result.toString());
     }
 }

@@ -5,9 +5,10 @@ package track.lessons.lesson2;
  */
 public class Document {
 
-    Document(String[] tokens_) {
-        tokens = tokens_;
+    Document(String[] tokens) {
+        this.tokens = tokens;
     }
+
     String[] tokens;
 
     String[] getTokens() {
@@ -21,7 +22,7 @@ public class Document {
     boolean hasToken(String token) {
 
         for (int i = 0; i < tokens.length; i++) {
-            if (token != null && tokens[i] == token){
+            if (token != null && tokens[i] == token) {
                 return true;
             }
         }
