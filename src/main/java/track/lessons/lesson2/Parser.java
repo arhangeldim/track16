@@ -25,7 +25,7 @@ public class Parser {
         Parser parser = new Parser();
 
         String line = reader.readLine();
-        while (line != null){
+        while (line != null) {
             text.append(line);
             line = reader.readLine();
         }
