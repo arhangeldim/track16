@@ -5,7 +5,7 @@ import java.util.Arrays;
  *
  */
 public class Document {
-    private String[] tokens;
+    String[] tokens;
 
     public Document(String[] tokens) {
         this.tokens = tokens;
