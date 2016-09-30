@@ -29,6 +29,6 @@ public class Parser {
 
         // Получите объект Document, реализовав метод parse()
         Document myDoc = myParser.parse(data);
-//        System.out.println(myDoc.getTokens()[0]);
+        System.out.println(myDoc.getTokens()[0]);
     }
 }

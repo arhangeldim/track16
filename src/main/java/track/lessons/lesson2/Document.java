@@ -10,6 +10,7 @@ public class Document {
     Document(String[] tokens) {
         this.tokens = tokens;
     }
+
     String[] getTokens() {
         return tokens;
     }
