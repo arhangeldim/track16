@@ -19,6 +19,10 @@ public class Document {
     }
 
     boolean hasToken(String token) {
-        return token != null;
+        if (token == null) return false;
+        for (int i = 0; i < tokens.length; i++) {
+            if (tokens[i].equals(token)){return true;}
+        }
+        return false;
     }
 }
