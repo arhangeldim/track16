@@ -10,17 +10,15 @@ public class Document {
         return tokens;
     }
 
-    int getTokenCount()
-    {
+    int getTokenCount() {
         return tokens.length;
     }
 
-    boolean hasToken(String token)
-    {
-        for(String tok : tokens)
-        {
-            if(tok.equals(token))
+    boolean hasToken(String token) {
+        for (String tok : tokens) {
+            if ( tok.equals(token) ) {
                 return true;
+            }
         }
         return false;
     }
