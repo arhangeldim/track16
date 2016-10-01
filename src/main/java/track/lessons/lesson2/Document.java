@@ -20,8 +20,8 @@ public class Document {
 
     boolean hasToken(String token) {
         if (token == null) return false;
-        for (int i = 0; i < tokens.length; i++) {
-            if (tokens[i].equals(token)){return true;}
+        for (int j = 0; j < tokens.length; j++) {
+            if (tokens[j].equals(token)){return true;}
         }
         return false;
     }
