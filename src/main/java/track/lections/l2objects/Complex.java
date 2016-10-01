@@ -40,9 +40,12 @@ public class Complex {
 
     // метод объекта, по сути операция над текущим объектом
     void add(Complex other) {
+
         re += other.re;
         im += other.im;
     }
+
+
 
     // MAIN
     public static void main(String[] args) {
