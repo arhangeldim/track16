@@ -38,13 +38,13 @@
                 <configuration>
                     <consoleOutput>true</consoleOutput>
                 </configuration>
-                <dependencies>
+                <!--<dependencies>
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
                         <artifactId>checkstyle</artifactId>
                         <version>6.16.1</version>
                     </dependency>
-                </dependencies>
+                </dependencies>-->
                 <executions>
                     <execution>
                         <id>checkstyle</id>
