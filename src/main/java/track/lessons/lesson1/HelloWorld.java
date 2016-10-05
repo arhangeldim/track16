@@ -7,10 +7,8 @@ public class HelloWorld {
 
     public static void main(String[] args) {
         System.out.println("Hello");
-        try {
-            System.out.println("");
-        } catch (RuntimeException e) {
-            System.out.println("");
+        for (int i = 0; i < args.length; i++) {
+            System.out.println("arg[" + i + "]=" + args[i]);
         }
     }
 }
