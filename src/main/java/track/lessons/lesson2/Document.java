@@ -17,9 +17,11 @@ public class Document {
     }
 
     boolean hasToken(String token) {
-        for (String token1 : tokens)
-            if (Objects.equals(token, token1))
+        for (String token1 : tokens) {
+            if (Objects.equals(token, token1)) {
                 return true;
+            }
+        }
         return false;
     }
 }
