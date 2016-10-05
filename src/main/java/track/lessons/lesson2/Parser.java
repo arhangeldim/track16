@@ -9,19 +9,22 @@ import java.io.FileReader;
 public class Parser {
 
     Document parse(String data) {
-        return null;
+        return new Document(data.split(" "));
     }
 
     public static void main(String[] args) throws Exception {
-
-        String path = "path/to/file";
+        String path = "./test";
         BufferedReader reader = new BufferedReader(new FileReader(path));
-        // reader умеет читать по строкам с помощью метода readLine()
 
-        // Создайте объект Parser
+        StringBuilder stringBuilder = new StringBuilder();
+        String buffer;
 
-        // Получите объект Document, реализовав метод parse()
+        while ((buffer = reader.readLine()) != null) {
+            stringBuilder.append(buffer);
+            stringBuilder.append(" ");
+        }
 
-
+        Parser parser = new Parser();
+        Document doc = parser.parse(stringBuilder.toString());
     }
 }
