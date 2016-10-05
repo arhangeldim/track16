@@ -11,13 +11,7 @@ public class Document {
     }
 
     String[] getTokens() {
-        String[] strings = new String[this.getTokenCount()];
-        int j = 0;
-        for (String iterator : tokens) {
-            strings[j] = iterator;
-            j++;
-        }
-        return strings;
+        return tokens;
     }
 
     int getTokenCount() {
