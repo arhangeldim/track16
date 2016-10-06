@@ -7,7 +7,7 @@ public class Document {
     String[] tokens;
     Document(String[] token)
     {
-	tokens = token;
+	this.tokens = token;
     }
 
     String[] getTokens() {

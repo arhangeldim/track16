@@ -18,19 +18,14 @@ public class Parser {
 
         String path = "path/to/file";
         BufferedReader reader = new BufferedReader(new FileReader(path));
+	StringBuilder builder = new StringBuilder();
 	Parser pars = new Parser();     
-	String line, resline;	
+	String line;	
 	while ((line = reader.readLine()) != null)
 	{
-		resline += line;
+		builder.append(line);
 	}   
-	pars.parse(resline);
-	// reader умеет читать по строкам с помощью метода readLine()
-
-        // Создайте объект Parser
-
-        // Получите объект Document, реализовав метод parse()
-
-
+	String res = builder.toString();
+	Document doc = pars.parse(res);
     }
 }
