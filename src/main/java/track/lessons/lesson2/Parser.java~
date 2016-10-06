@@ -4,10 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class Parser {
-
     Document parse(String data) {
-       Document doc = new Document(data.trim().split(" \\s+"));
-       return doc;
+        String[] tokens = data.split("[ ]");
+        if(tokens == null) {
+            return null;        
+        }       
+        return new Document(tokens);
     }
 
     public static void main(String[] args) throws Exception {
@@ -18,9 +20,9 @@ public class Parser {
         Parser pars = new Parser();     
         String line;	
         while ((line = reader.readLine()) != null) {
-		     builder.append(line);
-		}   
-		String res = builder.toString();
-		Document doc = pars.parse(res);
-   	 }
+            builder.append(line);
+        }   
+        String res = builder.toString();
+        Document doc = pars.parse(res);
+   	}
 }

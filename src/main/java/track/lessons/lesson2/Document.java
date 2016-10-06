@@ -3,7 +3,7 @@ package track.lessons.lesson2;
 public class Document {
     String[] tokens;
     Document(String[] token) {
-	    this.tokens = token;
+        this.tokens = token;
     }
 
     String[] getTokens() {
@@ -15,10 +15,10 @@ public class Document {
     }
 
     boolean hasToken(String token) {
-	    for(int i = 0; i < tokens.length; i++) {
-		    if(token.equals(tokens[i]))
-		    	return true;
-	    }
+        for(int i = 0; i < tokens.length; i++) {
+            if(token.equals(tokens[i]))
+                return true;
+        }
         return false;
     }
 }
