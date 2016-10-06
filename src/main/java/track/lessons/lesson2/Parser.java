@@ -21,7 +21,7 @@ public class Parser {
         String line = null;
         StringBuilder docStrings = new StringBuilder("");
         while ((line = reader.readLine()) != null) {
-            docStrings.append(line);
+            docStrings.append(line + " ");
         }
         Document doc = parse(docStrings.toString());
         System.out.println(doc.getTokenCount());

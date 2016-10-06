@@ -8,12 +8,9 @@ import java.util.regex.Pattern;
 
 public class Document {
     private String[] tokens;
-    private static final String tokenRegexp = "[\\p{Alpha}\\-_'.]+\\b";
-    Pattern pattern = Pattern.compile(tokenRegexp);
 
     private void parse(String data) {
-//        data = data.replaceAll("\\n", " ");
-        tokens = data.trim().split("\\s+");
+        tokens = data.trim().split("[\\s]+");
     }
 
     Document(String data) {
