@@ -6,7 +6,7 @@ package track.lessons.lesson2;
 public class Document {
     private String[] tokens;
 
-    public Document(String[] tokens){
+    public Document(String[] tokens) {
         this.tokens = tokens;
     }
 
