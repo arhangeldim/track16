@@ -28,7 +28,7 @@ public class Parser {
         // Создайте объект Parser
         Parser parser = new Parser();
         // Получите объект Document, реализовав метод parse()
-        Document doc = new parser.parse(builder.toString());
+        Document doc = parser.parse(builder.toString());
 
     }
 }
