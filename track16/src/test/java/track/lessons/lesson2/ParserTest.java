@@ -25,7 +25,6 @@ public class ParserTest {
         String line = null;
         while ((line = reader.readLine()) != null) {
             builder.append(line);
-            builder.append(" ");
         }
         data = builder.toString();
     }
@@ -35,7 +34,7 @@ public class ParserTest {
         Assert.assertTrue(data != null && data.length() > 0);
         Parser parser = new Parser();
         Document doc = parser.parse(data);
-        Assert.assertEquals(246, doc.getTokenCount());
+        Assert.assertEquals(218, doc.getTokenCount());
 
         System.out.println(doc.getTokens());
 
