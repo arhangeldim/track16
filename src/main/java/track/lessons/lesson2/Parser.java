@@ -30,6 +30,5 @@ public class Parser {
 
         Parser parser = new Parser();
         Document document = parser.parse(builder.toString());
-
     }
 }
