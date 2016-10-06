@@ -6,9 +6,8 @@ import java.io.FileReader;
 public class Parser {
     Document parse(String data) {
         String[] tokens = data.split("[ ]");
-        if(tokens == null) {
+        if(tokens == null)
             return null;        
-        }       
         return new Document(tokens);
     }
 
