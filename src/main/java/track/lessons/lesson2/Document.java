@@ -10,7 +10,7 @@ public class Document {
     private String[] tokens;
 
     private void parse(String data) {
-        tokens = data.trim().split("[\\s]+");
+        tokens = data.trim().split(" "); // the right way is "\\s+"
     }
 
     Document(String data) {
