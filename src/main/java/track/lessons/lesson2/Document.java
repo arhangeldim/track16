@@ -15,12 +15,14 @@ public class Document {
     }
 
     boolean hasToken(String token) {
-        if (tokens == null)
+        if (tokens == null) {
             return false;
+        }
 
         boolean flag = false;
-        for (String string : tokens)
+        for (String string : tokens) {
             flag = flag || string.equals(token);
+        }
         return flag;
     }
 }

@@ -22,8 +22,9 @@ public class Parser {
         BufferedReader reader = new BufferedReader(new FileReader(path));
         StringBuilder builder = new StringBuilder();
         String line = null;
-        while ((line = reader.readLine()) != null)
+        while ((line = reader.readLine()) != null) {
             builder.append(line + " ");
+        }
         String data = builder.toString();
         // reader умеет читать по строкам с помощью метода readLine()
 
