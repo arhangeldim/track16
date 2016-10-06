@@ -12,7 +12,7 @@ public class Document {
     Pattern pattern = Pattern.compile(tokenRegexp);
 
     private void parse(String data) {
-        data = data.replaceAll("[^\\p{Alpha}\\-_]+", " ");
+//        data = data.replaceAll("\\n", " ");
         tokens = data.trim().split("\\s+");
     }
 

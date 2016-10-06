@@ -16,7 +16,7 @@ public class Parser {
     }
 
     public static void main(String[] args) throws Exception {
-        String path = "/Users/iv/code/temp/images.py";
+        String path = "/Users/iv/code/track16/target/classes/log4j.xml";
         BufferedReader reader = new BufferedReader(new FileReader(path));
         String line = null;
         StringBuilder docStrings = new StringBuilder("");
@@ -24,7 +24,7 @@ public class Parser {
             docStrings.append(line);
         }
         Document doc = parse(docStrings.toString());
-//        System.out.println(doc.getTokenCount());
+        System.out.println(doc.getTokenCount());
         System.out.println(Arrays.toString(doc.getTokens()));
     }
 }
