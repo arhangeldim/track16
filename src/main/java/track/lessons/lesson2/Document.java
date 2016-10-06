@@ -4,17 +4,25 @@ package track.lessons.lesson2;
  *
  */
 public class Document {
-    String[] tokens;
+    private String[] tokens;
+
+    public Document(String[] tokens){
+        this.tokens = tokens;
+    }
+
+    public void setTokens(String[] tokens) {
+        this.tokens = tokens;
+    }
 
     String[] getTokens() {
-        return null;
+        return tokens;
     }
 
     int getTokenCount() {
-        return 0;
+        return tokens.length;
     }
 
     boolean hasToken(String token) {
-        return false;
+        return tokens.length > 0;
     }
 }
