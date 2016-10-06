@@ -12,7 +12,7 @@ public class Parser {
 
     Document parse(String data) {
         Document doc = new Document();
-        doc.tokens = data.split(" ");
+        doc.tokens = (data == null) ? null : data.split(" ");
         return doc;
     }
 

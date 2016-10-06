@@ -11,10 +11,7 @@ public class Document {
     }
 
     int getTokenCount() {
-        if (tokens == null)
-            return  0;
-        else
-            return tokens.length;
+        return (tokens == null) ? 0 : tokens.length;
     }
 
     boolean hasToken(String token) {
