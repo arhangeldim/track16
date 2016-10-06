@@ -10,7 +10,7 @@ import java.io.FileReader;
 public class Parser {
 
     Document parse(String data) {
-	Document doc = new Document(data.trim().split("[,;:.!?\\s]+"));
+	Document doc = new Document(data.trim().split(" \\s+"));
         return doc;
     }
 
