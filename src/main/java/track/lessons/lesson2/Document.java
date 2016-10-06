@@ -11,13 +11,7 @@ public class Document {
     }
 
     String[] getTokens() {
-        String[] strings = new String[this.getTokenCount()];
-        int j = 0;
-        for (String iterator : tokens) {
-            strings[j] = iterator;
-            j++;
-        }
-        return strings;
+        return tokens;
     }
 
     int getTokenCount() {
@@ -30,7 +24,9 @@ public class Document {
 
     boolean hasToken(String token) {
         for (String iterator : tokens) {
-            if (token.equals(iterator)) return true;
+            if (token.equals(iterator)) {
+                return true;
+            }
         }
         return false;
     }

@@ -16,7 +16,7 @@ public class Parser {
     public static void main(String[] args) throws Exception {
 
         String line;
-        String path = "/home/geoolekom/track/java/test.txt";
+        String path = "./test.txt";
         BufferedReader reader = new BufferedReader(new FileReader(path));
         StringBuilder builder = new StringBuilder();
         // reader умеет читать по строкам с помощью метода readLine()
@@ -30,11 +30,5 @@ public class Parser {
 
         Parser parser = new Parser();
         Document document = parser.parse(builder.toString());
-
-        // Создайте объект Parser
-
-        // Получите объект Document, реализовав метод parse()
-
-
     }
 }
