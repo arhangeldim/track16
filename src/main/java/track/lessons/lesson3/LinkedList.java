@@ -143,3 +143,19 @@ class Node {
         this.prev = prev;
     }
 }
+
+interface Queue {
+
+    void enqueue(int value); // поместить элемент в очередь
+
+    int dequeu(); // вытащить первый элемент из очереди
+}
+
+interface Stack {
+    void push(int value); // положить значение наверх стека
+
+    int pop(); // вытащить верхнее значение со стека
+}
+
+
+
