@@ -26,8 +26,14 @@ public class LinkedList extends List implements Stack, Queue {
             currentNode = currentNode.getNext();
         }
         int item = currentNode.getValue();
-        currentNode.getPrev().setNext(currentNode.getNext());
-        currentNode.getNext().setPrev(currentNode.getPrev());
+        if (currentNode.getPrev() != null) {
+                currentNode.getPrev().setNext(currentNode.getNext());
+        } else {
+            headNode = currentNode.getNext();
+        }
+        if (currentNode.getNext() != null) {
+            currentNode.getNext().setPrev(currentNode.getPrev());
+        }
         return item;
     }
 
@@ -76,8 +82,10 @@ public class LinkedList extends List implements Stack, Queue {
             return -1;
         }
         int item = headNode.getValue();
-        headNode = headNode.getNext();
-        headNode.setPrev(null);
+        if (headNode.getNext() != null) {
+            headNode = headNode.getNext();
+            headNode.setPrev(null);
+        }
         return item;
     }
 
@@ -87,8 +95,10 @@ public class LinkedList extends List implements Stack, Queue {
             return -1;
         }
         int item = endNode.getValue();
-        endNode = endNode.getPrev();
-        endNode.setNext(null);
+        if (endNode.getPrev() != null) {
+            endNode = endNode.getPrev();
+            endNode.setNext(null);
+        }
         return item;
     }
 }

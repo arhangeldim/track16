@@ -45,7 +45,7 @@ public class DynamicList extends List {
             return -1;
         }
         int item = list[idx];
-        System.arraycopy(list, idx + 1, list, idx, --size);
+        System.arraycopy(list, idx + 1, list, idx, size-- - idx);
         return item;
     }
 

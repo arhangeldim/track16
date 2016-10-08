@@ -37,17 +37,19 @@ public class ListTester {
     @Test
     public void listTester() throws Exception {
         for (int i = 0; i < linkedList1.size(); ++i) {
+            System.out.println(linkedList1.get(i) + " " + linkedList2.get(i));
             Assert.assertTrue(linkedList1.get(i) == linkedList2.get(i));
             Assert.assertTrue(dynamicList1.get(i) == dynamicList2.get(i));
         }
         Assert.assertTrue(linkedList1.size() == linkedList2.size());
         Assert.assertTrue(dynamicList1.size() == dynamicList2.size());
         int idx = new Random().nextInt(linkedList1.size());
-        dynamicList1.remove(idx);
-        dynamicList2.remove(idx);
-        linkedList1.remove(idx);
-        linkedList2.remove(idx);
+        System.out.println(idx);
+        Assert.assertTrue(dynamicList1.remove(idx) == dynamicList2.remove(idx));
+        Assert.assertTrue(linkedList1.remove(idx) == linkedList2.remove(idx));
+        Assert.assertTrue(linkedList1.remove(0) == linkedList2.remove(0));
         for (int i = 0; i < linkedList1.size(); ++i) {
+            System.out.println(linkedList1.get(i) + " " + linkedList2.get(i));
             Assert.assertTrue(linkedList1.get(i) == linkedList2.get(i));
             Assert.assertTrue(dynamicList1.get(i) == dynamicList2.get(i));
         }
