@@ -29,4 +29,9 @@ public abstract class AServer {
         // разбираем строку параметров
         return "id=1&req=100&imageId=100".split("&");
     }
+
+    @Override
+    public String toString() {
+        return "AServer";
+    }
 }
