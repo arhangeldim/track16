@@ -27,7 +27,7 @@ public class LinkedList extends List implements Stack, Queue {
         }
         int item = currentNode.getValue();
         if (currentNode.getPrev() != null) {
-                currentNode.getPrev().setNext(currentNode.getNext());
+            currentNode.getPrev().setNext(currentNode.getNext());
         } else {
             headNode = currentNode.getNext();
         }
