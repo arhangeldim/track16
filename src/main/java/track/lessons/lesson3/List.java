@@ -6,8 +6,7 @@ package track.lessons.lesson3;
 public abstract class List {
     abstract void add(int item); //- добавить элемент в конец списка
 
-    abstract int remove(int idx); //- удалить элемент по индексу idx, если idx некорректный напечатать ошибку,
-    // если ок - вернуть удаленный элемент
+    abstract int remove(int idx);
 
     abstract int get(int idx); //- получить элемент по индексу
 
