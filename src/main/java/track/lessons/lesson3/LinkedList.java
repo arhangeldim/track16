@@ -148,7 +148,7 @@ interface Queue {
 
     void enqueue(int value); // поместить элемент в очередь
 
-    int dequeu(); // вытащить первый элемент из очереди
+    int dequeu(); // вытащить первый элемент из очеред
 }
 
 interface Stack {
