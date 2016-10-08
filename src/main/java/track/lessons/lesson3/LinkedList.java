@@ -10,7 +10,7 @@ public class LinkedList extends List implements Stack, Queue {
     private int size;
 
     @Override
-    void add(int item) {
+    public void add(int item) {
         if (head == null) {
             head = tail = new Node(item, null, null);
         } else {
@@ -21,7 +21,7 @@ public class LinkedList extends List implements Stack, Queue {
     }
 
     @Override
-    int remove(int idx) {
+    public int remove(int idx) {
         Node temp = getNode(idx);
         if (temp == null) {
             return -1;
@@ -32,7 +32,7 @@ public class LinkedList extends List implements Stack, Queue {
         return temp.getValue();
     }
 
-    Node getNode(int idx) {
+    private Node getNode(int idx) {
         if (idx + 1 > size) {
             return null;
         } else {
@@ -45,7 +45,7 @@ public class LinkedList extends List implements Stack, Queue {
     }
 
     @Override
-    int get(int idx) {
+    public int get(int idx) {
         Node temp = getNode(idx);
         if (temp == null) {
             return -1;
@@ -55,7 +55,7 @@ public class LinkedList extends List implements Stack, Queue {
     }
 
     @Override
-    int size() {
+    public int size() {
         return size;
     }
 
