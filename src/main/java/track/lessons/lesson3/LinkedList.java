@@ -15,7 +15,7 @@ public class LinkedList extends List implements Stack, Queue {
             head = tail = new Node(item, null, null);
         } else {
             Node node = new Node(item, tail, null);
-            if(tail != null) {
+            if (tail != null) {
                 tail.changeNext(node);
             }
             tail = node;
