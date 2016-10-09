@@ -16,7 +16,7 @@ public class DynamicList extends List implements Stack, Queue {
         list = new int[maxSize];
     }
 
-    DynamicList() {
+    public DynamicList() {
         maxSize = 1;
         list = new int[maxSize];
     }
@@ -74,7 +74,6 @@ public class DynamicList extends List implements Stack, Queue {
     }
 
     public int dequeu() {
-//        System.out.println(firstIdx);
         return remove(0);
     }
 
