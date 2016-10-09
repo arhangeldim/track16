@@ -15,7 +15,6 @@ public class ListMain {
 //        System.out.println(list.dequeu());
 //        list.enqueue(8);
 //        System.out.println(list.size());
-//
 //        DynamicList dynamicList = new DynamicList();
 //        dynamicList.add(10);
 //        dynamicList.add(8);
