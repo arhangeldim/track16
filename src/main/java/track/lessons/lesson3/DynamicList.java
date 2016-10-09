@@ -4,29 +4,20 @@ package track.lessons.lesson3;
  *
  */
 public class DynamicList extends List {
+    public static final int DEFAULT_CAPACITY = 10;
     private int[] list;
-    //private int end; //It is the last free item. If the list is crowded, it is the list size.
 
     public DynamicList(int size) {
-        int maxSize = 1;
+        int capacity = DEFAULT_CAPACITY;
         if (size > 0) {
-            maxSize = size;
+            capacity = size;
         }
-        this.list = new int[maxSize];
+        list = new int[capacity];
     }
 
     public DynamicList() {
-        this.list = new int[1];
+        list = new int[DEFAULT_CAPACITY];
     }
-
-
-
-    public int[] getList() {
-        return list;
-    }
-
-
-
 
     @Override
     public void add(int item) {
@@ -40,17 +31,25 @@ public class DynamicList extends List {
 
     @Override
     public int remove(int idx) {
+        if (idx < 0) {
+            System.out.println("The index can't be less than 0");
+            return -1;
+        }
         if (idx > size - 1) {
             System.out.println("Index out of range");
             return -1;
         }
         int item = list[idx];
-        System.arraycopy(list, idx + 1, list, idx, size-- - idx);
+        System.arraycopy(list, idx + 1, list, idx, --size - idx);
         return item;
     }
 
     @Override
     public int get(int idx) {
+        if (idx < 0) {
+            System.out.println("The index can't be less than 0");
+            return -1;
+        }
         if (idx > size - 1) {
             System.out.println("Index out of range");
             return -1;

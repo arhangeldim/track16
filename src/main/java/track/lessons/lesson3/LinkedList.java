@@ -6,7 +6,7 @@ package track.lessons.lesson3;
  *
  */
 public class LinkedList extends List implements Stack, Queue {
-    private Node endNode;
+    private Node tailNode;
     private Node headNode;
 
     @Override
@@ -17,6 +17,10 @@ public class LinkedList extends List implements Stack, Queue {
 
     @Override
     public int remove(int idx) {
+        if (idx < 0) {
+            System.out.println("The index can't be less than 0");
+            return -1;
+        }
         if (idx > size - 1) {
             System.out.println("Index out of range");
             return -1;
@@ -25,6 +29,7 @@ public class LinkedList extends List implements Stack, Queue {
         for (int i = 0; i != idx; ++i) {
             currentNode = currentNode.getNext();
         }
+        size--;
         int item = currentNode.getValue();
         if (currentNode.getPrev() != null) {
             currentNode.getPrev().setNext(currentNode.getNext());
@@ -39,6 +44,10 @@ public class LinkedList extends List implements Stack, Queue {
 
     @Override
     public int get(int idx) {
+        if (idx < 0) {
+            System.out.println("The index can't be less than 0");
+            return -1;
+        }
         if (idx > size - 1) {
             System.out.println("Index out of range");
             return -1;
@@ -52,15 +61,7 @@ public class LinkedList extends List implements Stack, Queue {
 
     @Override
     public void enqueue(int value) {
-        Node newNode = new Node(value);
-        if (headNode == null) {
-            headNode = newNode;
-            endNode = headNode;
-        } else {
-            endNode.setNext(newNode);
-            newNode.setPrev(endNode);
-            endNode = newNode;
-        }
+        push(value);
     }
 
     @Override
@@ -68,38 +69,22 @@ public class LinkedList extends List implements Stack, Queue {
         Node newNode = new Node(value);
         if (headNode == null) {
             headNode = newNode;
-            endNode = headNode;
+            tailNode = headNode;
         } else {
-            endNode.setNext(newNode);
-            newNode.setPrev(endNode);
-            endNode = newNode;
+            tailNode.setNext(newNode);
+            newNode.setPrev(tailNode);
+            tailNode = newNode;
         }
     }
 
     @Override
     public int dequeu() {
-        if (headNode == null) {
-            return -1;
-        }
-        int item = headNode.getValue();
-        if (headNode.getNext() != null) {
-            headNode = headNode.getNext();
-            headNode.setPrev(null);
-        }
-        return item;
+        return remove(0);
     }
 
     @Override
     public int pop() {
-        if (endNode == null) {
-            return -1;
-        }
-        int item = endNode.getValue();
-        if (endNode.getPrev() != null) {
-            endNode = endNode.getPrev();
-            endNode.setNext(null);
-        }
-        return item;
+        return remove(size - 1);
     }
 }
 
