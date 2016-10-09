@@ -7,13 +7,13 @@ abstract class List<T> {
 
     protected int size;
 
-    abstract void add(T item);
+    public abstract void add(T item);
 
-    abstract T remove(int index);
+    public abstract T remove(int index);
 
-    abstract T get(int index);
+    public abstract T get(int index);
 
-    int size() {
+    public int size() {
         return size;
     }
 }

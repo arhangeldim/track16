@@ -5,8 +5,8 @@ package track.lessons.lesson3;
 
 class LinkedList<T> extends List<T> implements Stack<T>, Queue<T> {
 
-    Node<T> first;
-    Node<T> last;
+    private Node<T> first;
+    private Node<T> last;
 
     LinkedList() {
         first = null;
@@ -15,7 +15,7 @@ class LinkedList<T> extends List<T> implements Stack<T>, Queue<T> {
     }
 
     @Override
-    void add(T item) {
+    public void add(T item) {
         if (size == 0) {
             first = new Node<T>(null, item);
             last = first;
@@ -29,7 +29,7 @@ class LinkedList<T> extends List<T> implements Stack<T>, Queue<T> {
     }
 
     @Override
-    T remove(int index) {
+    public T remove(int index) {
         if (index >= size || index < 0) {
             System.out.println("Error!");
             return null;
@@ -57,7 +57,7 @@ class LinkedList<T> extends List<T> implements Stack<T>, Queue<T> {
     }
 
     @Override
-    T get(int index) {
+    public T get(int index) {
         if (index >= size || index < 0) {
             System.out.println("Error!");
             return null;

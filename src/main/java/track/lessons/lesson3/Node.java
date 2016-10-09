@@ -9,7 +9,7 @@ class Node<T> {
     private Node<T> prev;
     private T value;
 
-    Node(Node<T> prev, T value) {
+    public Node(Node<T> prev, T value) {
         this.value = value;
         this.prev = prev;
         this.next = null;
@@ -19,23 +19,23 @@ class Node<T> {
         return value;
     }
 
-    Node<T> getNext() {
+    public Node<T> getNext() {
         return next;
     }
 
-    Node<T> getPrev() {
+    public Node<T> getPrev() {
         return prev;
     }
 
-    void setValue(T value) {
+    public void setValue(T value) {
         this.value = value;
     }
 
-    void setNext(Node<T> next) {
+    public void setNext(Node<T> next) {
         this.next = next;
     }
 
-    void setPrev(Node<T> prev) {
+    public void setPrev(Node<T> prev) {
         this.prev = prev;
     }
 
