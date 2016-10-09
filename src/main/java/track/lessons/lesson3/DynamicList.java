@@ -17,8 +17,11 @@ public class DynamicList extends List {
     }
 
     public int get(int idx) {
-        if (idx < contents.length) return contents[idx];
-        else return -1;
+        if (idx < contents.length) {
+            return contents[idx];
+        } else {
+            return -1;
+        }
     }
 
     public int remove(int idx) {
@@ -27,7 +30,9 @@ public class DynamicList extends List {
             shift(idx);
             length -= 1;
             return ret;
-        } else return -1;
+        } else {
+            return -1;
+        }
     }
 
     public void add(int item) {

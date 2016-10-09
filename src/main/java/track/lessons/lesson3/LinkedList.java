@@ -80,14 +80,16 @@ public class LinkedList extends List
             if (current.next != null) {
                 current = current.next;
                 count += 1;
-            } else
+            } else {
                 return -1; //some other error handling
+            }
         }
         int ret = current.value;
-        if (idx != 0)
+        if (idx != 0) {
             current.prev.next = current.next;
-        else
+        } else {
             head = current.next;
+        }
         head.setHead();
         return ret;
     }
@@ -101,7 +103,9 @@ public class LinkedList extends List
             if (current.next != null) {
                 current = current.next;
                 count += 1;
-            } else return -1;
+            } else {
+                return -1;
+            }
         }
         return current.value;
     }
