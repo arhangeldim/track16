@@ -55,7 +55,7 @@ public class LinkedList extends List implements Stack, Queue {
     }
 
     @Override
-    public int dequeu() {
+    public int dequeue() {
         return this.remove(0);
     }
 
