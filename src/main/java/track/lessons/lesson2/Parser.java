@@ -1,6 +1,7 @@
 package track.lessons.lesson2;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 
 /**
@@ -14,9 +15,11 @@ public class Parser {
     }
 
     public static void main(String[] args) throws Exception {
-        String path = args[0];
+//        String path = "src/main/resources/file.in";
+        ClassLoader classLoader = Parser.class.getClassLoader();
+        File file = new File(classLoader.getResource("log4j.xml").getFile());
         String line = null;
-        BufferedReader reader = new BufferedReader(new FileReader(path));
+        BufferedReader reader = new BufferedReader(new FileReader(file));
         StringBuilder data = new StringBuilder();
         while ((line = reader.readLine()) != null) {
             data.append(line + " ");

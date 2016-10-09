@@ -1,10 +1,19 @@
 package track.lessons.lesson2;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  *
  */
 public class Document {
     private String[] tokens;
+
+    public void dump() {
+        for (String s : tokens) {
+            System.out.println(s);
+        }
+    }
 
     public Document(String[] tokens) {
         this.tokens = tokens;
@@ -23,6 +32,11 @@ public class Document {
     }
 
     boolean hasToken(String token) {
-        return tokens.length > 0;
+        for (String s : tokens) {
+            if (s.equals(token)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
