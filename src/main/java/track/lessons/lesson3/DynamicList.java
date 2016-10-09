@@ -7,7 +7,7 @@ public class DynamicList extends List implements Stack, Queue {
     private int[] list;
     private int maxSize;
 
-    DynamicList(int size) {
+    public DynamicList(int size) {
         if (size > 0) {
             maxSize = size;
         } else {
@@ -24,13 +24,9 @@ public class DynamicList extends List implements Stack, Queue {
     @Override
     public void add(int item) {
         if (maxSize == size) {
-            maxSize *= 2;
-            int[] newList = new int[maxSize];
-            System.arraycopy(list, 0, newList, 0, size);
-            list = newList;
+            resize();
         }
         list[size++] = item;
-        //printList();
     }
 
     @Override
@@ -41,7 +37,7 @@ public class DynamicList extends List implements Stack, Queue {
         }
 
         int item = list[idx];
-        System.arraycopy(list, idx + 1, list, idx, size-- - idx);
+        System.arraycopy(list, idx + 1, list, idx, --size - idx);
         return item;
     }
 
@@ -71,21 +67,27 @@ public class DynamicList extends List implements Stack, Queue {
         return remove(size - 1);
     }
 
+    private int firstIdx = 0;
+
     public void enqueue(int value) {
-        if (maxSize == size) {
-            maxSize *= 2;
-            int[] newList = new int[maxSize];
-            System.arraycopy(list, 0, newList, 1, size);
-            list = newList;
-        } else {
-            System.arraycopy(list, 0, list, 1, size);
-        }
-        list[0] = value;
-        size++;
+        add(value);
     }
 
     public int dequeu() {
+//        System.out.println(firstIdx);
         return remove(0);
+    }
+
+    private void resize() {
+        maxSize *= 2;
+        int[] newList = new int[maxSize];
+        System.arraycopy(list, 0, newList, 0, size);
+        list = newList;
+    }
+
+    private void shift(int firstIdx) {
+        System.arraycopy(list, firstIdx, list, 0, size - firstIdx);
+        firstIdx = 0;
     }
 
 }

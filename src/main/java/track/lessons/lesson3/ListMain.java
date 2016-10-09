@@ -26,7 +26,7 @@ public class ListMain {
         list.get(0);
 */
 
-
+/*
         List list = new LinkedList();
         list.printList();
         list.add(1);
@@ -45,7 +45,16 @@ public class ListMain {
         System.out.println(list.remove(0));
         System.out.println(list.size());
         list.printList();
-
+*/
+        Queue qu = new DynamicList();
+        qu.enqueue(1);
+        qu.enqueue(2);
+        qu.enqueue(3);
+        qu.enqueue(4);
+        System.out.println(qu.dequeu());
+        System.out.println(qu.dequeu());
+        System.out.println(qu.dequeu());
+        System.out.println(qu.dequeu());
 
     }
 }

@@ -8,7 +8,7 @@ public class LinkedList extends List {
     Node head = null;
     Node tale = null;
 
-    LinkedList() {
+    public LinkedList() {
         head = new Node(0);
         tale = head;
     }
@@ -25,17 +25,17 @@ public class LinkedList extends List {
             System.out.println("Out of range");
             return 0;
         }
-        Node iterator = head.next();
+        Node currNode = head.next();
         for (int i = 0; i < idx; i++) {
-            iterator = iterator.next();
+            currNode = currNode.next();
         }
         size--;
 
-        if (iterator == tale) {
-            tale = iterator.prev();
+        if (currNode == tale) {
+            tale = currNode.prev();
         }
 
-        return iterator.remove();
+        return currNode.remove();
     }
 
     @Override
@@ -44,20 +44,20 @@ public class LinkedList extends List {
             System.out.println("Out of range");
             return 0;
         }
-        Node iterator = head.next();
+        Node currNode = head.next();
         for (int i = 0; i < idx; i++) {
-            iterator = iterator.next();
+            currNode = currNode.next();
         }
-        return iterator.get();
+        return currNode.getValue();
     }
 
     @Override
     public void printList() {
-        Node iterator = head.next();
+        Node currNode = head.next();
         System.out.print("List = { ");
-        while (iterator != null) {
-            System.out.printf("%d ", iterator.get());
-            iterator = iterator.next();
+        while (currNode != null) {
+            System.out.printf("%d ", currNode.getValue());
+            currNode = currNode.next();
         }
         System.out.print("}\n");
     }

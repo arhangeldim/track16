@@ -12,43 +12,43 @@ public class Node {
         this.value = value;
     }
 
-    Node(Node node) {
+    public Node(Node node) {
         prev = node;
         next = null;
     }
 
     public Node append(int value) {
         Node newNode = new Node(value);
-        if (this.next != null) {
-            this.next.prev = newNode;
+        if (next != null) {
+            next.prev = newNode;
         }
-        newNode.next = this.next;
+        newNode.next = next;
         newNode.prev = this;
-        this.next = newNode;
+        next = newNode;
         return newNode;
     }
 
     public void prepend(int value) {
         Node newNode = new Node(value);
-        if (this.prev != null) {
-            this.prev.next = newNode;
+        if (prev != null) {
+            prev.next = newNode;
         }
-        newNode.prev = this.prev;
+        newNode.prev = prev;
         newNode.next = this;
-        this.prev = newNode;
+        prev = newNode;
     }
 
     public int remove() {
-        if (this.prev != null) {
-            this.prev.next = this.next;
+        if (prev != null) {
+            prev.next = next;
         }
-        if (this.next != null) {
-            this.next.prev = this.prev;
+        if (next != null) {
+            next.prev = prev;
         }
         return value;
     }
 
-    public int get() {
+    public int getValue() {
         return value;
     }
 
