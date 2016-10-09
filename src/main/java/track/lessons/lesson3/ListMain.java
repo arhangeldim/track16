@@ -5,14 +5,13 @@ package track.lessons.lesson3;
  */
 public class ListMain {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		DynamicList<Integer> vector = new DynamicList<Integer>();
 
-//        List list = new DynamicList();
-//        list.add(1);
-//        list.add(2);
-//        list.add(10);
-//        int first = list.remove(0);
-
-    }
+        list.add((Integer) 5);
+        list.add(8);
+        System.out.println(list.get(0));
+	}
 }
