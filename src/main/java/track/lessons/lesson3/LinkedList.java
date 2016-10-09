@@ -10,18 +10,21 @@ public class LinkedList extends List implements Stack, Queue {
     private int size;
 
     @Override
-    void add(int item) {
+    public void add(int item) {
         if (head == null) {
             head = tail = new Node(item, null, null);
         } else {
             Node node = new Node(item, tail, null);
+            if(tail != null) {
+                tail.changeNext(node);
+            }
             tail = node;
         }
         size++;
     }
 
     @Override
-    int remove(int idx) {
+    public int remove(int idx) {
         Node temp = getNode(idx);
         if (temp == null) {
             return -1;
@@ -32,8 +35,8 @@ public class LinkedList extends List implements Stack, Queue {
         return temp.getValue();
     }
 
-    Node getNode(int idx) {
-        if (idx + 1 > size) {
+    private Node getNode(int idx) {
+        if (idx + 1 > size || idx < 0) {
             return null;
         } else {
             Node temp = head;
@@ -45,7 +48,7 @@ public class LinkedList extends List implements Stack, Queue {
     }
 
     @Override
-    int get(int idx) {
+    public int get(int idx) {
         Node temp = getNode(idx);
         if (temp == null) {
             return -1;
@@ -55,7 +58,7 @@ public class LinkedList extends List implements Stack, Queue {
     }
 
     @Override
-    int size() {
+    public int size() {
         return size;
     }
 
@@ -112,34 +115,3 @@ public class LinkedList extends List implements Stack, Queue {
     }
 }
 
-class Node {
-    private Node next;
-    private Node prev;
-    private int value;
-
-    public Node(int value, Node prev, Node next) {
-        this.value = value;
-        this.prev = prev;
-        this.next = next;
-    }
-
-    public Node getNext() {
-        return next;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public Node getPrev() {
-        return prev;
-    }
-
-    public void changeNext(Node next) {
-        this.next = next;
-    }
-
-    public void changePrev(Node prev) {
-        this.prev = prev;
-    }
-}

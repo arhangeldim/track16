@@ -10,7 +10,7 @@ public class DynamicList extends List {
     private int buffer;
 
     @Override
-    void add(int item) {
+    public void add(int item) {
         if (buffer >= size + 1) {
             dynamicArray[size] = item;
             size++;
@@ -33,8 +33,8 @@ public class DynamicList extends List {
     }
 
     @Override
-    int remove(int idx) {
-        if (size < 1) {
+    public int remove(int idx) {
+        if (size < 1 || idx < 0) {
             return -1;
         }
         int temp = dynamicArray[idx];
@@ -44,7 +44,7 @@ public class DynamicList extends List {
     }
 
     @Override
-    int get(int idx) {
+    public int get(int idx) {
         if (idx + 1 > size) {
             return -1;
         }
@@ -52,7 +52,7 @@ public class DynamicList extends List {
     }
 
     @Override
-    int size() {
+    public int size() {
         return size;
     }
 }
