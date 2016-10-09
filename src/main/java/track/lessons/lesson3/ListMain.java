@@ -1,17 +1,17 @@
 package track.lessons.lesson3;
 
 /**
- *
+ * Created by geoolekom on 09.10.16.
  */
 public class ListMain {
 
-	public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
-		LinkedList<Integer> list = new LinkedList<Integer>();
-		DynamicList<Integer> vector = new DynamicList<Integer>();
+        Stack<Integer> list = new LinkedList<Integer>();
 
-        list.add((Integer) 5);
-        list.add(8);
-        System.out.println(list.get(0));
-	}
+        DynamicList<Integer> vector = new DynamicList<Integer>();
+
+    }
+
 }
+
