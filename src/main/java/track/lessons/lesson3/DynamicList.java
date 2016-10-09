@@ -23,7 +23,6 @@ public class DynamicList extends List {
         }
         array[size] = item;
         size++;
-        System.out.println(capacity);
     }
 
     @Override
