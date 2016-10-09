@@ -19,6 +19,7 @@ public class LinkedList extends List implements Stack, Queue {
             current.next = new Node(item);
             current.next.prev = current;
         }
+        size++;
     }
 
     @Override
@@ -35,6 +36,7 @@ public class LinkedList extends List implements Stack, Queue {
         if (next != null) {
             next.prev = prev;
         }
+        size--;
         return current.value;
     }
 
