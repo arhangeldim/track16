@@ -16,7 +16,7 @@ public class Document {
 
     boolean hasToken(String token) {
         for (String tok : tokens) {
-            if ( tok.equals(token) ) {
+            if (tok.equals(token)) {
                 return true;
             }
         }

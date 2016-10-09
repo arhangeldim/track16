@@ -34,7 +34,7 @@ public class Parser {
 
         // Получите объект Document, реализовав метод parse()
         Document myDoc = parser.parse(result);
-        for (String tok: myDoc.tokens) {
+        for (String tok : myDoc.tokens) {
             System.out.println(tok);
         }
 
