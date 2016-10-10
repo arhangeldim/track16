@@ -30,7 +30,9 @@ public class ListTest {
         Assert.assertEquals(498, (int) dynList.get(496));     //Проверяем, нормально ли удаляет конец
 
         Assert.assertEquals(null, dynList.remove(500));
-        Assert.assertEquals(null, dynList.remove(-10));     //Проверяем, ругнется ли при несанкционируемом доступе
+        Assert.assertEquals(null, dynList.remove(-10));
+        Assert.assertEquals(null, dynList.get(500));
+        Assert.assertEquals(null, dynList.get(-10));         //Проверяем, ругнется ли при несанкционируемом доступе
     }
     
     @Test
@@ -54,7 +56,10 @@ public class ListTest {
         Assert.assertEquals(498, (int) linList.get(496));     //Проверяем, нормально ли удаляет конец
 
         Assert.assertEquals(null, linList.remove(500));
-        Assert.assertEquals(null, linList.remove(-10));     //Проверяем, ругнется ли при несанкционируемом доступе
+        Assert.assertEquals(null, linList.remove(-10));
+        Assert.assertEquals(null, linList.get(500));
+        Assert.assertEquals(null, linList.get(-10));     //Проверяем, ругнется ли при несанкционируемом доступе
+
     }
 
     @Test

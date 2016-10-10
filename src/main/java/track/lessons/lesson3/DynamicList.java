@@ -53,8 +53,7 @@ class DynamicList<T> extends List<T> {
 
         T removedItem = (T) data[index];
         System.arraycopy(data, index + 1, data, index, size - index - 1);
-        size--;
-
+        data[size--] = null;
         return removedItem;
     }
 
