@@ -19,7 +19,7 @@ public class Parser {
 
     public static void main(String[] args) throws Exception {
 
-        String path = "/home/user/Documents/Git/track16/src/main/java/track/lessons/lesson2/input.txt";
+        String path = "/home/user/";
         BufferedReader reader = new BufferedReader(new FileReader(path));
         StringBuilder stringBuilder = new StringBuilder();
 
