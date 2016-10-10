@@ -42,7 +42,7 @@ public class DynamicList extends List {
 
     @Override
     public int get(int idx) {
-        if (idx + 1 > size || idx<0) {
+        if (idx + 1 > size || idx < 0) {
             return -1;
         }
         return dynamicArray[idx];
