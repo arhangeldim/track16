@@ -5,7 +5,7 @@ package track.lessons.lesson3;
  */
 public class DynamicList extends List {
 
-    private int[] dynamicArray = new int[0];
+    private int[] dynamicArray = new int[1];
     private int size = 0;
 
     @Override
@@ -20,18 +20,14 @@ public class DynamicList extends List {
     }
 
     private void increaseBuffer() {
-        if (dynamicArray.length == 0) {
-            dynamicArray = new int[2];
-        } else {
-            int[] newArray = new int[dynamicArray.length * 2];
-            System.arraycopy(dynamicArray, 0, newArray, 0, size);
-            dynamicArray = newArray;
-        }
+        int[] newArray = new int[dynamicArray.length * 2];
+        System.arraycopy(dynamicArray, 0, newArray, 0, size);
+        dynamicArray = newArray;
     }
 
     @Override
     public int remove(int idx) {
-        if (size < 1 || idx < 0) {
+        if (size < 1 || idx < 0 || idx >= size ) {
             return -1;
         }
         int temp = dynamicArray[idx];
