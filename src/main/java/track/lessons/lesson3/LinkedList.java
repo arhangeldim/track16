@@ -13,30 +13,43 @@ public class LinkedList extends List
     private int length;
 
     private class Node {
-        Node() {
+
+        private Node prev;
+        private Node next;
+        private int value;
+
+        public Node() {
             setHead();
         }
 
-        Node(Node prev) {
+        public Node(Node prev) {
             this.prev = prev;
         }
 
-        void setHead() {
+        public void setHead() {
             prev = null;
         }
 
-        void setTail() {
+        public void setTail() {
             next = null;
         }
 
-        void setValue(int value) {
+        public void setValue(int value) {
             this.value = value;
         }
 
+        public int getValue() {
+            return this.value;
+        }
 
-        Node prev;
-        Node next;
-        int value;
+        private void setPrev(Node prev) {
+            this.prev = prev;
+        }
+
+        private void setNext(Node next) {
+            this.next = next;
+        }
+
     }
 
     public LinkedList() {
@@ -64,7 +77,7 @@ public class LinkedList extends List
 
     @Override
     public void add(int item) {
-        tail.next = new Node(tail);
+        tail.setNext(new Node(tail));
         tail = tail.next;
         tail.setValue(item);
         tail.setTail();
@@ -84,9 +97,9 @@ public class LinkedList extends List
                 return -1; //some other error handling
             }
         }
-        int ret = current.value;
+        int ret = current.getValue();
         if (idx != 0) {
-            current.prev.next = current.next;
+            current.prev.setNext(current.next);
         } else {
             head = current.next;
         }
@@ -107,11 +120,11 @@ public class LinkedList extends List
                 return -1;
             }
         }
-        return current.value;
+        return current.getValue();
     }
 
     public int pop() {
-        int ret = tail.value;
+        int ret = tail.getValue();
         remove(length - 1);
         return ret;
     }
@@ -128,7 +141,7 @@ public class LinkedList extends List
 
     @Override
     public int dequeue() {
-        int ret = head.value;
+        int ret = head.getValue();
         remove(0);
         return ret;
     }

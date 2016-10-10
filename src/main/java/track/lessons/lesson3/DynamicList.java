@@ -5,10 +5,11 @@ public class DynamicList extends List {
 
     private int[] contents;
     private int length;
+    public static final int DEFAULT_CAPACITY = 10;
 
     public DynamicList() {
         length = 0;
-        contents = new int[10];
+        contents = new int[DEFAULT_CAPACITY];
     }
 
     public DynamicList(int[] contents) {
