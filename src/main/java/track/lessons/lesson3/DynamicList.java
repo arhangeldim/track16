@@ -5,13 +5,12 @@ package track.lessons.lesson3;
  */
 public class DynamicList extends List {
 
-    private int[] dynamicArray;
-    private int size;
-    private int buffer;
+    private int[] dynamicArray = new int[0];
+    private int size = 0;
 
     @Override
     public void add(int item) {
-        if (buffer >= size + 1) {
+        if (dynamicArray.length >= size + 1) {
             dynamicArray[size] = item;
             size++;
         } else {
@@ -21,12 +20,10 @@ public class DynamicList extends List {
     }
 
     private void increaseBuffer() {
-        if (buffer == 0) {
-            buffer = 2;
-            dynamicArray = new int[buffer];
+        if (dynamicArray.length == 0) {
+            dynamicArray = new int[2];
         } else {
-            buffer = buffer * 2;
-            int[] newArray = new int[buffer];
+            int[] newArray = new int[dynamicArray.length * 2];
             System.arraycopy(dynamicArray, 0, newArray, 0, size);
             dynamicArray = newArray;
         }
@@ -45,7 +42,7 @@ public class DynamicList extends List {
 
     @Override
     public int get(int idx) {
-        if (idx + 1 > size) {
+        if (idx + 1 > size || idx<0) {
             return -1;
         }
         return dynamicArray[idx];
