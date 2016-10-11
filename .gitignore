@@ -2,3 +2,4 @@ target/
 classes/
 *.iml
 .idea
+.class
