@@ -1,7 +1,5 @@
 package track.lessons.lesson3;
 
-import com.sun.istack.internal.Nullable;
-
 /**
  *
  */
@@ -61,7 +59,6 @@ public class LinkedList extends List {
         return node.getValue();
     }
 
-    @Nullable
     public Node getNode(int idx) throws IndexOutOfBoundsException {
         if (idx < 0 | idx >= size) {
             throw new IndexOutOfBoundsException();
