@@ -9,7 +9,7 @@ import java.io.FileReader;
 public class Parser {
 
     Document parse(String data) {
-        return new Document(data.split(" "));
+        return new Document(data.split(" +"));
     }
 
     public static void main(String[] args) throws Exception {
