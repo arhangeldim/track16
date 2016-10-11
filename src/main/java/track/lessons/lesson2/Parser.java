@@ -30,6 +30,5 @@ public class Parser {
 
         Parser parser = new Parser();
         Document document = parser.parse(stringBuilder.toString());
-        //System.out.print(Arrays.toString(document.getTokens()));
     }
 }
