@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  *
@@ -21,15 +22,17 @@ public class Parser {
         String path = "path/to/file";
         BufferedReader reader = new BufferedReader(new FileReader(path));
 
-        String fileAsText = null;
-        try (InputStreamReader in = new InputStreamReader(System.in);
-             BufferedReader buffer = new BufferedReader(in)) {
-            fileAsText = buffer.lines().collect(Collectors.joining());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        StringBuilder builder = new StringBuilder();
+        while (true) {
+            String line = reader.readLine();
+            if (line != null) {
+                builder.append(line).append(" ");
+            } else {
+                break;
+            }
+         }
 
         Parser parser = new Parser();
-        Document doc = parser.parse(fileAsText);
+        Document doc = parser.parse(builder.toString());
     }
 }
