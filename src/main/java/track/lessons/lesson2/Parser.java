@@ -27,7 +27,7 @@ public class Parser {
             } else {
                 break;
             }
-         }
+        }
 
         Parser parser = new Parser();
         Document doc = parser.parse(builder.toString());
