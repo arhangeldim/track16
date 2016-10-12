@@ -1,20 +1,25 @@
 package track.lessons.lesson2;
-
+import java.security.PublicKey;
 /**
  *
  */
 public class Document {
-    String[] tokens;
-
+    public Document(String[] data) {
+        tokens = data;
+    }
+    private String[] tokens;
     String[] getTokens() {
-        return null;
+        return tokens;
     }
-
     int getTokenCount() {
-        return 0;
+        return tokens.length;
     }
-
     boolean hasToken(String token) {
+        for (String s : tokens) {
+            if (s.equals(token)) {
+                return true;
+            }
+        }
         return false;
     }
 }
