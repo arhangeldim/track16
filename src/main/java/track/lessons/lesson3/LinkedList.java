@@ -13,27 +13,27 @@ public class LinkedList extends List implements Queue, Stack {
             value = 0;
         }
 
-        public void Set_next(Node node) {
+        public void SetNext(Node node) {
             this.next = node;
         }
 
-        public void Set_prev(Node node) {
+        public void SetPrev(Node node) {
             this.prev = node;
         }
 
-        public void Set_value(int value) {
+        public void SetValue(int value) {
             this.value = value;
         }
 
-        public Node Get_next() {
+        public Node GetNext() {
             return this.next;
         }
 
-        public Node Get_prev() {
+        public Node GetPrev() {
             return this.prev;
         }
 
-        public int Get_value() {
+        public int GetValue() {
             return this.value;
         }
     }
@@ -44,22 +44,22 @@ public class LinkedList extends List implements Queue, Stack {
     LinkedList() {
         root = new Node();
         size = 0;
-        root.Set_value(0);
+        root.SetValue(0);
     }
 
     @Override
     public void add(int item) {
-        Node new_node = new Node();
-        new_node.Set_value(item);
+        Node newnode = new Node();
+        newnode.SetValue(item);
         if (size == 0) {
-            root = new_node;
+            root = newnode;
         } else {
             Node search = root;
-            while (search.Get_next() != null) {
-                search = search.Get_next();
+            while (search.GetNext() != null) {
+                search = search.GetNext();
             }
-            search.Set_next(new_node);
-            new_node.Set_prev(search);
+            search.SetNext(newnode);
+            newnode.SetPrev(search);
         }
         size++;
     }
@@ -70,24 +70,24 @@ public class LinkedList extends List implements Queue, Stack {
             throw new IndexOutOfBoundsException("Index is incorrect");
         } else {
             if (idx == 0) {
-                root = root.Get_next();
+                root = root.GetNext();
                 size--;
-                return root.Get_value();
+                return root.GetValue();
             }
             Node delete = root;
-            int i = 0;
+            int item = 0;
             while (i != idx) {
-                delete = delete.Get_next();
-                i = i + 1;
+                delete = delete.GetNext();
+                item = item + 1;
             }
             if (idx != size - 1) {
-                delete.Get_prev().Set_next(delete.Get_next());
-                delete.Get_next().Set_prev(delete.Get_prev());
+                delete.GetPrev().SetNext(delete.GetNext());
+                delete.GetNext().SetPrev(delete.GetPrev());
             } else {
-                delete.Get_prev().Set_next(null);
+                delete.GetPrev().SetNext(null);
             }
             size--;
-            return delete.Get_value();
+            return delete.GetValue();
         }
     }
 
@@ -98,12 +98,12 @@ public class LinkedList extends List implements Queue, Stack {
         } else {
             Node search = new Node();
             search = root;
-            int i = 0;
-            while (i != idx) {
-                search = search.Get_next();
-                i++;
+            int item = 0;
+            while (item != idx) {
+                search = search.GetNext();
+                item++;
             }
-            return search.Get_value();
+            return search.GetValue();
         }
     }
 

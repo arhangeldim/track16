@@ -16,11 +16,11 @@ public class DynamicList extends List {
             array = new int[1];
             array[0] = item;
         } else {
-            int[] new_array = new int[this.size + 1];
-            System.arraycopy(array, 0, new_array, 0, size);
-            new_array[size] = item;
+            int[] newarray = new int[this.size + 1];
+            System.arraycopy(array, 0, newarray, 0, size);
+            newarray[size] = item;
             array = new int[size + 1];
-            array = new_array;
+            array = newarray;
         }
         size++;
     }

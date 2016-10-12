@@ -1,6 +1,6 @@
 package track.lessons.lesson3;
 
-interface Stack {
+public interface Stack {
 	void push(int value);
 
 	int pop();
