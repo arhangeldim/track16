@@ -17,32 +17,32 @@ public class LinkedList extends List implements Stack, Queue {
     }
 
     private Node head;
+    private Node tail;
     private int size;
 
     LinkedList() {
         size = 0;
+        tail = head;
     }
 
     @Override
     void add(int item) {
         size++;
         Node newNode = new Node(item);
-        if (head == null) {
+        if (head == null) {  // first elem in list
             head = newNode;
+            tail = head;
             return;
         }
-        Node cur = head;
-        while (cur.next != null) {
-            cur = cur.next;
-        }
-        newNode.prev = cur;
-        cur.next = newNode;
+        newNode.prev = tail;
+        tail.next = newNode;
+        tail = newNode;
 
     }
 
     @Override
     int remove(int idx) {
-        if (idx >= size) {
+        if (idx >= size || idx < 0) {
             throw new IndexOutOfBoundsException();
         }
         Node cur = head;
@@ -51,11 +51,15 @@ public class LinkedList extends List implements Stack, Queue {
         }
         if (cur == head) {
             head = cur.next;
+            cur.next.prev = cur.prev;
         } else {
             cur.prev.next = cur.next;
-        }
-        if (cur.next != null) {
-            cur.next.prev = cur.prev;
+            if (cur == tail) {
+                tail = cur.prev;
+            } else {
+                cur.next.prev = cur.prev;
+            }
+
         }
         size--;
         return cur.value;
@@ -63,7 +67,7 @@ public class LinkedList extends List implements Stack, Queue {
 
     @Override
     int get(int idx) {
-        if (idx >= size) {
+        if (idx >= size || idx < 0) {
             throw new IndexOutOfBoundsException();
         }
         Node cur = head;
@@ -89,6 +93,7 @@ public class LinkedList extends List implements Stack, Queue {
         if (first == null) {
             throw new EmptyStackException();
         }
+        head.next.prev = head.prev;
         head = head.next;
         size--;
         return first.value;
