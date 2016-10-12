@@ -5,41 +5,44 @@ package track.lessons.lesson3;
  */
 public class DynamicList extends List {
 
-    DynamicList(int size) {
-        if (size > 0) {
-            array = new int[size];
-            this.size = size;
-            this.header = 0;
+    public static final int DEFAULT_SIZE = 10;
+    private int[] array;
+    private int capacity;
+    private int size;
+
+    DynamicList(int cap) {
+        if (cap > 0) {
+            array = new int[cap];
+            this.capacity = cap;
         } else {
             throw new Error("Size is negative!");
         }
     }
 
     DynamicList() {
-        array = new int[10];
-        this.size = 10;
-        this.header = 0;
+        array = new int[DEFAULT_SIZE];
+        this.capacity = DEFAULT_SIZE;
     }
 
     @Override
     void add(int item) {
-        if (header >=  size) {
-            int[] array1 = new int[size * 2];
-            System.arraycopy(array, 0, array1, 0, size);
+        if (size >=  capacity) {
+            int[] array1 = new int[capacity * 2];
+            System.arraycopy(array, 0, array1, 0, capacity);
             array = array1;
-            size = size * 2;
+            capacity = capacity * 2;
 
         }
-        array[header] = item;
-        header++;
+        array[size] = item;
+        size++;
     }
 
     @Override
     int remove(int idx) {
-        if (idx < header) {
+        if (idx < size) {
             int ans = array[idx];
-            System.arraycopy(array, idx + 1, array, idx, header - idx);
-            header--;
+            System.arraycopy(array, idx + 1, array, idx, size - idx);
+            size--;
             return  ans;
         } else {
             throw new Error("Index is bigger than size!");
@@ -48,7 +51,7 @@ public class DynamicList extends List {
 
     @Override
     int get(int idx) {
-        if (idx < header) {
+        if (idx < size) {
             return array[idx];
         } else {
             throw new Error("Index is bigger than size!");
@@ -57,10 +60,6 @@ public class DynamicList extends List {
 
     @Override
     int size() {
-        return header;
+        return size;
     }
-
-    private int[] array;
-    private int size;
-    private int header;
 }

@@ -5,26 +5,9 @@ package track.lessons.lesson3;
  */
 public class LinkedList extends List implements Queue, Stack {
 
-    @Override
-    public void enqueue(int value) {
-        add(value);
-    }
-
-    @Override
-    public int dequeue() {
-        return remove(0);
-    }
-
-    @Override
-    public void push(int value) {
-        add(value);
-
-    }
-
-    @Override
-    public int pop() {
-        return remove(size - 1);
-    }
+    private Node first;
+    private Node last;
+    private int size;
 
     class Node {
         Node previous;
@@ -33,15 +16,7 @@ public class LinkedList extends List implements Queue, Stack {
 
         Node(int data) {
             this.data = data;
-            this.previous = null;
-            this.next = null;
         }
-    }
-
-    LinkedList() {
-        this.size = 0;
-        this.first = null;
-        this.last = null;
     }
 
     @Override
@@ -110,7 +85,24 @@ public class LinkedList extends List implements Queue, Stack {
         return size;
     }
 
-    private Node first;
-    private Node last;
-    private int size;
+    @Override
+    public void enqueue(int value) {
+        add(value);
+    }
+
+    @Override
+    public int dequeue() {
+        return remove(0);
+    }
+
+    @Override
+    public void push(int value) {
+        add(value);
+
+    }
+
+    @Override
+    public int pop() {
+        return remove(size - 1);
+    }
 }
