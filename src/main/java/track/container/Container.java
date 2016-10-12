@@ -19,7 +19,14 @@ public class Container {
         BeanXmlReader bxr = new BeanXmlReader();
         List<Bean> beanList = bxr.parseBeans(file);
 
-        beans = beanList;
+        Graph graph = new Graph(beanList);
+        List<Vertex> initList = graph.sort();
+
+        //  Граф проверяет наличие циклов и плохих штук
+
+        for (Vertex ver : initList) {
+            beans.add(ver.getBean());
+        }
 
         PropBeanMapper propBeans = new PropBeanMapper(beans);
         map = propBeans.getMap();
