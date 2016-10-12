@@ -112,7 +112,7 @@ public class LinkedList extends List implements Stack, Queue {
                 for (int i = 0; i <= idx; i++) {
                         node = node.next;
                 }
-                return node.value;
+                return next.value;
         }
         @Override
         int size(){
