@@ -21,13 +21,6 @@ public class Container {
 
         beans = beanList;
 
-//		Graph graph = new Graph(beanList);
-//		List<Vertex> initList = graph.sort();
-
-//		for (Vertex ver : initList) {
-//			beans.add(ver.getBean());
-//		}
-
         PropBeanMapper propBeans = new PropBeanMapper(beans);
         map = propBeans.getMap();
 

@@ -23,7 +23,6 @@ class Graph {
 
         for (Bean beanIt : beans) {
             Vertex ver = addVertex(beanIt);
-            //	System.out.println("\nProcessing " + ver.toString());
 
             for (Property propIt : beanIt.getProperties()) {
                 Bean bean = map.get(propIt.getReference());

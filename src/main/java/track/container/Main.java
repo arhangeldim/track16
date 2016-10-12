@@ -11,7 +11,6 @@ public class Main {
 
         Container container = new Container("config.xml");
         System.out.println(container.getBeans());
-        //	Class c = container.getBeans().getClass();
         Car car = (Car) container.getByClass("track.container.beans.Car");
         System.out.println(car.getGear().getCount());
         car.getGear().setCount(5);

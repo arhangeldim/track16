@@ -11,7 +11,7 @@ class PropBeanMapper {
 
     public PropBeanMapper(List<Bean> beans) {
 
-        TreeSet<Bean> beanSet = new TreeSet<Bean>((a,b) -> a.getId().compareTo(b.getId()));
+        TreeSet<Bean> beanSet = new TreeSet<Bean>((first,second) -> first.getId().compareTo(second.getId()));
         beanSet.addAll(beans);
 
         TreeSet<String> propSet = new TreeSet<String>();
