@@ -126,7 +126,7 @@ public class LinkedList extends List implements Queue, Stack {
     public void enqueue(int value) {
         add(value);
     }
-    
+
     @Override
     public int dequeu() {
         return remove(0);
