@@ -3,6 +3,8 @@ package track.container;
 /**
  * Created by geoolekom on 12.10.16.
  */
+import org.mockito.internal.matchers.Null;
+
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Map;
@@ -43,7 +45,13 @@ public class Container {
 
     private Object process(Bean bean) throws Exception {
 
-        Class beanClass = Class.forName(bean.getBeanClass());
+        Class beanClass;
+        try {
+            beanClass = Class.forName(bean.getBeanClass());
+        } catch (ClassNotFoundException exception) {
+            System.out.println("Class doesn't exist.");
+            throw (exception);
+        }
         Object obj = beanClass.newInstance();
 
         for (Property prop : bean.getProperties()) {
@@ -59,10 +67,10 @@ public class Container {
                     args = new Object[] { constructor.newInstance(prop.getValue()) };
                 } catch (NoSuchMethodException exception) {
                     System.out.println("No string constructor.");
-                    return null;
+                    throw (exception);
                 } catch (Exception exception) {
                     System.out.println("Wrong data format.");
-                    return null;
+                    throw (exception);
                 }
             } else {
                 Bean childBean = map.get(prop.getReference());
@@ -79,26 +87,24 @@ public class Container {
         return obj;
     }
 
-    public Object getByName(String objectName) {
+    public Object getByName(String objectName) throws Exception {
 
         if (objByName.get(objectName) != null) {
             return objByName.get(objectName);
         }
 
-        for (int i = 0; !beans.get(i).getId().equals(objectName); i++) {
-            try {
-                Object obj = process(beans.get(i));
+        for (Bean bean : beans) {
+            if (bean.getId().equals(objectName)) {
+                Object obj = process(bean);
                 return obj;
-            } catch (Exception exception) {
-                System.out.println("Class doesn't exist.");
-                return null;
             }
         }
+
         System.out.println("Object doesn't exist.");
         return null;
     }
 
-    public Object getByClass(String className) {
+    public Object getByClass(String className) throws Exception  {
 
         if (objByClass.get(className) != null) {
             return objByClass.get(className);
@@ -106,15 +112,11 @@ public class Container {
 
         for (Bean bean : beans) {
             if (bean.getBeanClass().equals(className)) {
-                try {
-                    Object obj = process(bean);
-                    return obj;
-                } catch (Exception exception) {
-                    System.out.println("Class doesn't exist.");
-                    return null;
-                }
+                Object obj = process(bean);
+                return obj;
             }
         }
+
         System.out.println("Object doesn't exist.");
         return null;
     }

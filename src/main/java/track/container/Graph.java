@@ -123,8 +123,4 @@ class Graph {
         return ordered;
     }
 
-    private void dfs(Vertex current) {
-
-    }
-
 }
