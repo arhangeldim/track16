@@ -4,8 +4,9 @@ package track.lessons.lesson3;
  *
  */
 public class DynamicList extends List {
+    private static final int DEFAULT_SIZE = 16;
     private int length = 0;
-    private int bufferSize = 1;
+    private int bufferSize = DEFAULT_SIZE;
     private int[] buffer = new int[bufferSize];
 
     private void reallocate(int newSize) {
@@ -32,7 +33,7 @@ public class DynamicList extends List {
         }
 
         if (length * 4 <= bufferSize) {
-            reallocate(bufferSize * 2);
+            reallocate(bufferSize / 2);
         }
 
         length--;

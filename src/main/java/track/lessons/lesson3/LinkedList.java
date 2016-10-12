@@ -90,6 +90,10 @@ public class LinkedList extends List implements Queue, Stack {
             item.next.prev = item.prev;
         }
 
+        if (idx == length) {
+            end = end.prev;
+        }
+
         return item.value;
     }
 
