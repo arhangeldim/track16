@@ -19,19 +19,21 @@ public class DynamicList extends List {
     }
 
     private void reallocateMemory() {
-        if (data.length <= top) {
+        if (data == null || data.length <= top) {
             int[] newData = new int[top + REALLOC_MEM_SIZE];
             if (newData == null) {
                 throw new OutOfMemoryError("Memory can't be allocated");
             }
-            System.arraycopy(data, 0, newData, 0, data.length);
+            if (data != null) {
+                System.arraycopy(data, 0, newData, 0, top);
+            }
             data = newData;
         }
     }
 
     @Override
     void add(int item) {
-        if (top >= data.length) {
+        if (data == null || top >= data.length) {
             reallocateMemory();
         }
         data[top++] = item;
@@ -40,21 +42,22 @@ public class DynamicList extends List {
     @Override
     int remove(int idx) {
         if (idx < 0 || idx >= top) {
-            return -1;
+            throw new IndexOutOfBoundsException();
         }
+        int value = data[idx];
         for (int i = idx + 1; i < top; i++) {
             data[i - 1] = data[i];
         }
         top--;
-        return 0;
+        return value;
     }
 
     @Override
     int get(int idx) {
-        /*
-        Тут надо обработать ошибку
-        if(idx < 0 || idx >= top)
-         */
+        if (idx < 0 || idx >= top) {
+            throw new IndexOutOfBoundsException();
+        }
+
         return data[idx];
     }
 

@@ -33,7 +33,7 @@ public class LinkedList extends List implements Stack, Queue {
         if (node == null) {
             return null;
         }
-        for (int i = 1; i < idx && node.hasNext(); i++) {
+        for (int i = 0; i < idx && node.hasNext(); i++) {
             node = node.next;
         }
         return node;
@@ -41,9 +41,13 @@ public class LinkedList extends List implements Stack, Queue {
 
     @Override
     int remove(int idx) {
+        if (idx < 0 || idx >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+
         Node node = getNode(idx);
         if (node == null) {
-            return 0;
+            throw new UnknownError("Element not found =(");
         }
         Node prev = node.prev;
         Node next = node.next;
@@ -54,7 +58,13 @@ public class LinkedList extends List implements Stack, Queue {
             next.setPrev(prev);
         }
         size--;
-        return 0;
+        if (idx == 0) {
+            head = next;
+        }
+        if (idx == size) {
+            tail = prev;
+        }
+        return node.getValue();
     }
 
     @Override
