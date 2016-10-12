@@ -5,7 +5,8 @@ package track.lessons.lesson3;
  */
 public class DynamicList extends List {
     private int[] array = new int[1];
-    private int elementsNumber = 0, arraySize = 1;
+    private int elementsNumber = 0;
+    private int arraySize = 1;
 
     public void add(int item) {
         if (elementsNumber >= arraySize) {
