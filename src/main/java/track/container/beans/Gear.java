@@ -6,17 +6,17 @@ package track.container.beans;
 
 public class Gear {
 
-    private int count;
+    private Integer count;
 
     public Gear() {
 
     }
 
-    public void setCount(int count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 
-    public int getCount() {
+    public Integer getCount() {
         return count;
     }
 }

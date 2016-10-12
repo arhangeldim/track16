@@ -5,17 +5,17 @@ package track.container.beans;
  */
 
 public class Engine {
-    private int power;
+    private Integer power;
 
     public Engine() {
 
     }
 
-    public void setPower(int power) {
+    public void setPower(Integer power) {
         this.power = power;
     }
 
-    public int getPower() {
+    public Integer getPower() {
         return power;
     }
 }

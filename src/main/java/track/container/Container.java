@@ -3,11 +3,13 @@ package track.container;
 /**
  * Created by geoolekom on 12.10.16.
  */
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
 import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 
 public class Container {
 
@@ -50,9 +52,18 @@ public class Container {
             Object[] args;
 
             if (prop.getValue() != null) {
-                paramTypes = new Class[] { int.class };
-                args = new Object[] { (int) Integer.valueOf(prop.getValue()) };
-
+                Field field = beanClass.getDeclaredField(prop.getName());
+                try {
+                    Constructor constructor = field.getType().getConstructor(String.class);
+                    paramTypes = new Class[] { field.getType() };
+                    args = new Object[] { constructor.newInstance(prop.getValue()) };
+                } catch (NoSuchMethodException exception) {
+                    System.out.println("No string constructor.");
+                    return null;
+                } catch (Exception exception) {
+                    System.out.println("Wrong data format.");
+                    return null;
+                }
             } else {
                 Bean childBean = map.get(prop.getReference());
                 paramTypes = new Class[] { Class.forName(childBean.getBeanClass()) };

@@ -5,17 +5,17 @@ package track.container.beans;
  */
 
 public class Body {
-    private int weight;
+    private Integer weight;
 
     public Body() {
 
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
-    public int getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 }
