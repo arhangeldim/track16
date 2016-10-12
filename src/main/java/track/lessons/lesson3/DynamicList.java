@@ -47,7 +47,7 @@ public class DynamicList extends List {
                     } else {
                         int[] first = new int[idx];
                         int[] second = new int[size - 1 - idx];
-                        int[] new_array = new int[size - 1];
+                        int[] newarray = new int[size - 1];
                         System.arraycopy(array, 0, first, 0, idx);
                         System.arraycopy(array, idx + 1, second, 0, size - idx - 1);
                         System.arraycopy(first, 0, newarray, 0, idx);

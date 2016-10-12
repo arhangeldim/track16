@@ -112,19 +112,22 @@ public class LinkedList extends List implements Queue, Stack {
         return size;
     }
 
-
+    @Override
     public void push(int value) {
         add(value);
     }
 
+    @Override
     public int pop() {
         return remove(size - 1);
     }
 
+    @Override
     public void enqueue(int value) {
         add(value);
     }
-
+    
+    @Override
     public int dequeu() {
         return remove(0);
     }
