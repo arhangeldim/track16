@@ -1,5 +1,7 @@
 package track.lessons.lesson2;
 
+import java.util.Arrays;
+
 /**
  *
  */
@@ -19,12 +21,6 @@ public class Document {
     }
 
     boolean hasToken(String token) {
-        boolean result = false;
-
-        for (int i = 0; i < tokens.length; ++i) {
-            result = (tokens[i].equals(token)) || result;
-        }
-
-        return result;
+        return Arrays.stream(tokens).anyMatch(token::equals);
     }
 }
