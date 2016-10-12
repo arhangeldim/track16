@@ -12,10 +12,10 @@ public class Document {
 
     String[] getTokens() {
         String[] strings = new String[this.getTokenCount()];
-        int j = 0;
+        int jiter = 0;
         for (String iterator : tokens) {
-            strings[j] = iterator;
-            j++;
+            strings[jiter] = iterator;
+            jiter++;
         }
         return strings;
     }
@@ -30,7 +30,9 @@ public class Document {
 
     boolean hasToken(String token) {
         for (String iterator : tokens) {
-            if (token.equals(iterator)) return true;
+            if (token.equals(iterator)) {
+                return true;
+            }
         }
         return false;
     }
