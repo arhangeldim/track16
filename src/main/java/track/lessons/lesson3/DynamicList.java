@@ -50,10 +50,10 @@ public class DynamicList extends List {
                         int[] new_array = new int[size - 1];
                         System.arraycopy(array, 0, first, 0, idx);
                         System.arraycopy(array, idx + 1, second, 0, size - idx - 1);
-                        System.arraycopy(first, 0, new_array, 0, idx);
-                        System.arraycopy(second, 0, new_array, idx, size - idx - 1);
+                        System.arraycopy(first, 0, newarray, 0, idx);
+                        System.arraycopy(second, 0, newarray, idx, size - idx - 1);
                         array = new int[size - 1];
-                        array = new_array;
+                        array = newarray;
                     }
                 }
                 return 0;

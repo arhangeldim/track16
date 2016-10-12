@@ -13,27 +13,27 @@ public class LinkedList extends List implements Queue, Stack {
             value = 0;
         }
 
-        public void SetNext(Node node) {
+        public void setNext(Node node) {
             this.next = node;
         }
 
-        public void SetPrev(Node node) {
+        public void setPrev(Node node) {
             this.prev = node;
         }
 
-        public void SetValue(int value) {
+        public void setValue(int value) {
             this.value = value;
         }
 
-        public Node GetNext() {
+        public Node getNext() {
             return this.next;
         }
 
-        public Node GetPrev() {
+        public Node getPrev() {
             return this.prev;
         }
 
-        public int GetValue() {
+        public int getValue() {
             return this.value;
         }
     }
@@ -44,22 +44,22 @@ public class LinkedList extends List implements Queue, Stack {
     LinkedList() {
         root = new Node();
         size = 0;
-        root.SetValue(0);
+        root.setValue(0);
     }
 
     @Override
     public void add(int item) {
         Node newnode = new Node();
-        newnode.SetValue(item);
+        newnode.setValue(item);
         if (size == 0) {
             root = newnode;
         } else {
             Node search = root;
-            while (search.GetNext() != null) {
-                search = search.GetNext();
+            while (search.getNext() != null) {
+                search = search.getNext();
             }
-            search.SetNext(newnode);
-            newnode.SetPrev(search);
+            search.setNext(newnode);
+            newnode.setPrev(search);
         }
         size++;
     }
@@ -70,24 +70,24 @@ public class LinkedList extends List implements Queue, Stack {
             throw new IndexOutOfBoundsException("Index is incorrect");
         } else {
             if (idx == 0) {
-                root = root.GetNext();
+                root = root.getNext();
                 size--;
-                return root.GetValue();
+                return root.getValue();
             }
             Node delete = root;
             int item = 0;
-            while (i != idx) {
-                delete = delete.GetNext();
+            while (item != idx) {
+                delete = delete.getNext();
                 item = item + 1;
             }
             if (idx != size - 1) {
-                delete.GetPrev().SetNext(delete.GetNext());
-                delete.GetNext().SetPrev(delete.GetPrev());
+                delete.getPrev().setNext(delete.getNext());
+                delete.getNext().setPrev(delete.getPrev());
             } else {
-                delete.GetPrev().SetNext(null);
+                delete.getPrev().setNext(null);
             }
             size--;
-            return delete.GetValue();
+            return delete.getValue();
         }
     }
 
@@ -100,10 +100,10 @@ public class LinkedList extends List implements Queue, Stack {
             search = root;
             int item = 0;
             while (item != idx) {
-                search = search.GetNext();
+                search = search.getNext();
                 item++;
             }
-            return search.GetValue();
+            return search.getValue();
         }
     }
 
