@@ -3,11 +3,15 @@ package track.container;
 /**
  * Created by geoolekom on 12.10.16.
  */
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.util.List;
+import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Element;
 
 class BeanXmlReader {
 

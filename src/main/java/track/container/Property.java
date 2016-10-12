@@ -11,9 +11,7 @@ class Property {
     private String reference;
 
     public Property() {
-        name = null;
-        value = null;
-        reference = null;
+
     }
 
     public void setName(String name) {
@@ -51,6 +49,13 @@ class Property {
 
     @Override
     public boolean equals(Object obj) {
-        return this.name.equals(((Property) obj).name);
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Property)) {
+            return false;
+        }
+        Property prop = (Property) obj;
+        return this.name.equals(prop.name);
     }
 }

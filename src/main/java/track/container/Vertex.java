@@ -27,7 +27,14 @@ class Vertex {
 
     @Override
     public boolean equals(Object obj) {
-        return this.bean.getId().equals(((Vertex) obj).bean.getId());
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Vertex)) {
+            return false;
+        }
+        Vertex ver = (Vertex) obj;
+        return this.bean.getId().equals(ver.bean.getId());
     }
 
 }

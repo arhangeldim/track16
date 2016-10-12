@@ -4,20 +4,20 @@ package track.container;
  * Created by geoolekom on 12.10.16.
  */
 
-import java.util.*;
+import java.util.List;
 
 class Bean {
 
     private String id;
-    private String beanclass;
+    private String beanClass;
     private List<Property> properties;
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public void setClass(String beanclass) {
-        this.beanclass = beanclass;
+    public void setClass(String beanClass) {
+        this.beanClass = beanClass;
     }
 
     public void setProperties(List<Property> properties) {
@@ -29,7 +29,7 @@ class Bean {
     }
 
     public String getBeanClass() {
-        return beanclass;
+        return beanClass;
     }
 
     public List<Property> getProperties() {
@@ -43,7 +43,14 @@ class Bean {
 
     @Override
     public boolean equals(Object obj) {
-        return this.id.equals(((Bean) obj).id);
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Bean)) {
+            return false;
+        }
+        Bean bean = (Bean) obj;
+        return this.id.equals(bean.id);
     }
 
 }

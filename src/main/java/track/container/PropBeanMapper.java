@@ -3,7 +3,11 @@ package track.container;
 /**
  * Created by geoolekom on 12.10.16.
  */
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.TreeSet;
+import java.util.Iterator;
 
 class PropBeanMapper {
 
