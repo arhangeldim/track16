@@ -9,8 +9,9 @@ public class LinkedList extends List implements Stack, Queue {
     }
 
     public int pop() throws Exception {
-        if (begin == end)
+        if (begin == end) {
             throw new Exception();
+        }
         Node endNode = end;
         endNode.prev.next = endNode.prev;
         end = endNode.prev;
@@ -36,7 +37,9 @@ public class LinkedList extends List implements Stack, Queue {
             prev = this;
         }
     }
-    private Node begin = new Node(0), end = begin;
+
+    private Node begin = new Node(0);
+    private Node end = begin;
 
     private Node getNode(int idx) throws Exception {
         if (idx < 0) {
@@ -44,8 +47,9 @@ public class LinkedList extends List implements Stack, Queue {
         }
         Node node = begin;
         for (int i = 0; i <= idx; ++i) {
-            if (node == node.next)
+            if (node == node.next) {
                 throw new Exception();
+            }
             node = node.next;
         }
         return node;
@@ -78,11 +82,11 @@ public class LinkedList extends List implements Stack, Queue {
 
     public int size() {
         Node node = begin;
-        int i = 0;
+        int cnt = 0;
         while (node != node.next) {
             node = node.next;
-            i++;
+            cnt++;
         }
-        return i;
+        return cnt;
     }
 }
