@@ -23,9 +23,9 @@ public class LinkedList extends List implements Stack, Queue {
         
         private boolean isEmpty() {
                 if (size > 0) {
-                        return true;
+                        return false;
                 }
-                return false;
+                return true;
         }
         
         @Override
@@ -41,6 +41,7 @@ public class LinkedList extends List implements Stack, Queue {
                         newNode.next = first;
                 }
                 last = newNode;
+		first.prev  = last;
                 newNode.value = item;
                 size++;
         }
