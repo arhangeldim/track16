@@ -6,7 +6,6 @@ package track.lessons.lesson3;
 public class DynamicList extends List {
     private static final int DEFAULT_CAPACITY = 16;
     private static final int INVALID_VALUE = -1;
-    private int capacity;
     private int size;
     private int[] array;
 
@@ -16,11 +15,10 @@ public class DynamicList extends List {
      */
     public DynamicList(int initialCapacity) {
         if (initialCapacity > 0) {
-            this.capacity = initialCapacity;
+            this.array = new int[initialCapacity];
         } else {
-            this.capacity = DEFAULT_CAPACITY;
+            this.array = new int[DEFAULT_CAPACITY];
         }
-        this.array = new int[capacity];
     }
 
     public DynamicList() {
@@ -29,9 +27,8 @@ public class DynamicList extends List {
 
     @Override
     public void add(int item) {
-        if (size == capacity) {
-            capacity *= 2;
-            int[] newArray = new int[capacity];
+        if (size == array.length) {
+            int[] newArray = new int[array.length * 2];
             System.arraycopy(array, 0, newArray, 0, size);
             array = newArray;
         }

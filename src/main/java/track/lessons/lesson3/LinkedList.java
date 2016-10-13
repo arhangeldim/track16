@@ -5,20 +5,19 @@ package track.lessons.lesson3;
  */
 public class LinkedList extends List implements Stack, Queue {
     private LinkedListNode first;
+    private LinkedListNode last;
     private int size;
 
     @Override
     public void add(int item) {
         if (first == null) {
             first = new LinkedListNode(item);
+            last = first;
             size++;
         } else {
-            LinkedListNode last = first;
-            for (int i = 0; i < size - 1; i++) {
-                last = last.getNext();
-            }
             last.setNext(new LinkedListNode(item));
             last.getNext().setPrevious(last);
+            last = last.getNext();
             size++;
         }
     }
@@ -41,6 +40,9 @@ public class LinkedList extends List implements Stack, Queue {
             }
             if (current == first) {
                 first = first.getNext();
+            }
+            if (current == last) {
+                last = last.getPrevious();
             }
             value = current.getValue();
             size--;
