@@ -5,6 +5,7 @@ package track.lessons.lesson3;
  */
 public class ListMain {
     private static final int[] testArray = {1, 2, 3, 40, 500, 666, 777};
+
     public static void main(String[] args) {
         showDynamicListUsage();
         showLinkedListUsage();
