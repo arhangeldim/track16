@@ -18,5 +18,10 @@ public class ImageServer extends AServer {
     protected String onError() {
         return "Failed to parse ImageId";
     }
+
+    @Override
+    public String toString() {
+        return "ImageServer";
+    }
 }
 

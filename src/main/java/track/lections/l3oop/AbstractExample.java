@@ -11,6 +11,10 @@ public class AbstractExample {
         AServer imageServer = new ImageServer();
         imageServer.processContent();
 
+        "abc".hashCode();
+
+        System.out.println(imageServer);
+
         // Нельзя создать инстанс абстрактного класса
         // AServer aserver = new AServer();
 
