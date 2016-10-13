@@ -5,19 +5,21 @@ package track.lessons.lesson3;
  * Created by frystile on 13.10.16.
  */
 
-class Node {
-    Node next;
-    Node prev;
-    int value;
 
-    Node(Node next, Node prev, int value) {
-        this.next = next;
-        this.prev = prev;
-        this.value = value;
-    }
-}
 
 class LinkedList extends List implements Stack, Queue {
+    private class Node {
+        Node next;
+        Node prev;
+        int value;
+
+        Node(Node next, Node prev, int value) {
+            this.next = next;
+            this.prev = prev;
+            this.value = value;
+        }
+    }
+
     private Node first;
     private Node last;
     private int size;

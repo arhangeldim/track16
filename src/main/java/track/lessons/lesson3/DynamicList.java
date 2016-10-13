@@ -45,10 +45,11 @@ class  DynamicList extends List {
             return 0;
         }
 
-        int result = dynamics[idx];
+
         int[] temp = new int[reserve];
         System.arraycopy(dynamics, 0, temp, 0, idx);
         System.arraycopy(dynamics, idx + 1, temp, idx, size - idx - 1);
+        int result = dynamics[idx];
         dynamics = temp;
         --size;
         return result;
