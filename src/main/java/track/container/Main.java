@@ -9,12 +9,12 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        Container container = new Container("config.xml");
+        Container container = new Container("cycle.xml");
         System.out.println(container.getBeans());
-        Car car = (Car) container.getByClass("track.container.beans.Car");
-        System.out.println(car.getGear().getCount());
-        car.getGear().setCount(5);
-        System.out.println(car.getGear().getCount());
+        Gear gear = (Gear) container.getByClass("track.container.beans.Gear");
+        System.out.println(gear.getCount());
+        gear.setCount(5);
+        System.out.println(gear.getCount());
     }
 
 }

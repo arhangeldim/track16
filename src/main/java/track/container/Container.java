@@ -19,21 +19,23 @@ public class Container {
     private Map<String, Bean> map;
     private Map<String, Object> objByName = new HashMap<>();
     private Map<String, Object> objByClass = new HashMap<>();
+    private Map<String, Integer> generated = new HashMap<>();
 
     public Container(String file) throws Exception {
 
         BeanXmlReader bxr = new BeanXmlReader();
         List<Bean> beanList = bxr.parseBeans(file);
 
-        Graph graph = new Graph(beanList);
-        List<Vertex> initList = graph.sort();
+//        Graph graph = new Graph(beanList);
+//        List<Vertex> initList = graph.sort();
 
         //  Граф проверяет наличие циклов и плохих штук
 
-        for (Vertex ver : initList) {
-            beans.add(ver.getBean());
-        }
+//        for (Vertex ver : initList) {
+//            beans.add(ver.getBean());
+//        }
 
+        beans = beanList;
         PropBeanMapper propBeans = new PropBeanMapper(beans);
         map = propBeans.getMap();
 
@@ -45,6 +47,12 @@ public class Container {
 
     private Object process(Bean bean) throws Exception {
 
+        if (generated.get(bean.getId()) == null) {
+            generated.put(bean.getId(), 0);
+        } else {
+            System.out.println("Cycle!");
+            throw new Exception();
+        }
         Class beanClass;
         try {
             beanClass = Class.forName(bean.getBeanClass());
@@ -79,9 +87,9 @@ public class Container {
             }
             Method setter = beanClass.getMethod(methodName, paramTypes);
             setter.invoke(obj, args);
-
         }
 
+        generated.put(bean.getId(), 1);
         objByClass.put(bean.getBeanClass(), obj);
         objByName.put(bean.getId(), obj);
         return obj;
@@ -95,8 +103,12 @@ public class Container {
 
         for (Bean bean : beans) {
             if (bean.getId().equals(objectName)) {
-                Object obj = process(bean);
-                return obj;
+                try {
+                    Object obj = process(bean);
+                    return obj;
+                } catch (Exception exception) {
+                    throw exception;
+                }
             }
         }
 
@@ -112,8 +124,12 @@ public class Container {
 
         for (Bean bean : beans) {
             if (bean.getBeanClass().equals(className)) {
-                Object obj = process(bean);
-                return obj;
+                try {
+                    Object obj = process(bean);
+                    return obj;
+                } catch (Exception exception) {
+                    throw exception;
+                }
             }
         }
 

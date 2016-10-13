@@ -3,6 +3,7 @@ package track.container;
 import org.junit.Assert;
 import org.junit.Test;
 import track.container.beans.Car;
+import track.container.beans.Gear;
 
 /**
  * Created by geoolekom on 12.10.16.
@@ -13,6 +14,7 @@ public class ContainerTest {
     public void cyclesTest() throws Exception {
         try {
             Container container = new Container("cycle.xml");
+            container.getByClass("track.container.beans.Gear");
             System.out.println("- Cycle wasn't recognized.");
             Assert.assertEquals(1, 0);
         } catch (Exception exception) {
@@ -65,11 +67,26 @@ public class ContainerTest {
     @Test
     public void wrongQueryTest() throws Exception {
         Container container = new Container("config.xml");
-        Car car = (Car) container.getByClass("track.container.beans.Far");
-        if (car == null) {
+        Car car1 = (Car) container.getByClass("track.container.beans.Far");
+        Car car2 = (Car) container.getByName("carbean");
+        if (car1 == null && car2 == null) {
             System.out.println("+ Working with wrong queries is OK.");
         } else {
             System.out.println("- Wrong query wasn't recognized.");
+            Assert.assertEquals(1, 0);
+        }
+    }
+
+    @Test
+    public void duplicatesTest() throws Exception {
+        Container container = new Container("config.xml");
+        Car car = (Car) container.getByClass("track.container.beans.Car");
+        car.getGear().setCount(3);
+        Gear gear = (Gear) container.getByName("gearBean");
+        if (gear.getCount() == 3) {
+            System.out.println("+ Each bean is unique.");
+        } else {
+            System.out.println("- Beans are duplicating by multiple queries.");
             Assert.assertEquals(1, 0);
         }
     }
