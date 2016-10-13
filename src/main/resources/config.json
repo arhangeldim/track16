@@ -1,0 +1,38 @@
+{
+  "beans": [
+    {
+      "id": "carBean",
+      "class": "track.container.beans.Car",
+      "properties": [
+        {
+          "name": "gear",
+          "ref": "gearBean"
+        },
+        {
+          "name": "engine",
+          "ref": "engineBean"
+        }
+      ]
+    },
+    {
+      "id": "gearBean",
+      "class": "track.container.beans.Gear",
+      "properties": [
+        {
+          "name": "count",
+          "val": "6"
+        }
+      ]
+    },
+    {
+      "id": "engineBean",
+      "class": "track.container.beans.Engine",
+      "properties": [
+        {
+          "name": "power",
+          "val": "200"
+        }
+      ]
+    }
+  ]
+}
