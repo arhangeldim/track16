@@ -18,12 +18,12 @@ class Node {
     }
 }
 
-public class LinkedList extends List implements Stack, Queue {
+class LinkedList extends List implements Stack, Queue {
     private Node first;
     private Node last;
     private int size;
 
-    public LinkedList() {
+    LinkedList() {
         first = new Node(null, null, -1);
         first.next = first;
         last = first;

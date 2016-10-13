@@ -7,7 +7,7 @@ package track.lessons.lesson3;
 // Для удобства, в динамическом листе у меня есть фиктивная первая нода
 
 
-public class  DynamicList extends List {
+class  DynamicList extends List {
     private int[] dynamics;
     private int size;
     private int reserve;
@@ -19,7 +19,7 @@ public class  DynamicList extends List {
         System.arraycopy(array, 0, dynamics, 0, size);
     }
 
-    public DynamicList() {
+    DynamicList() {
         dynamics = new int[1];
         size = 0;
         reserve = 1;
