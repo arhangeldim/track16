@@ -1,6 +1,7 @@
 package track.lessons.lesson3;
 
 /**
+<<<<<<< HEAD
  * Created by frystile on 13.10.16.
  */
 public class ListMain {
@@ -45,6 +46,20 @@ public class ListMain {
         System.out.println("\nпервый в стеке = " + first);
         System.out.println("второй в стеке = " + second);
 
+=======
+ *
+ */
+public class ListMain {
+
+    public static void main(String[] args) {
+
+
+//        List list = new DynamicList();
+//        list.add(1);
+//        list.add(2);
+//        list.add(10);
+//        int first = list.remove(0);
+>>>>>>> arch/master
 
     }
 }

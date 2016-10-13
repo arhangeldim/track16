@@ -1,5 +1,6 @@
 package track.lessons.lesson3;
 
+<<<<<<< HEAD
 import org.mockito.internal.matchers.Null;
 
 /**
@@ -113,4 +114,10 @@ class LinkedList extends List implements Stack, Queue {
         }
         return remove(size - 1);
     }
+=======
+/**
+ *
+ */
+public class LinkedList {
+>>>>>>> arch/master
 }

@@ -1,6 +1,7 @@
 package track.lessons.lesson3;
 
 /**
+<<<<<<< HEAD
  * Created by frystile on 13.10.16.
  */
 
@@ -67,4 +68,9 @@ class  DynamicList extends List {
         return size;
     }
 
+=======
+ *
+ */
+public class DynamicList {
+>>>>>>> arch/master
 }
