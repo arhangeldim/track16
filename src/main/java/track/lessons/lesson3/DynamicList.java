@@ -67,10 +67,10 @@ class  DynamicList extends List {
     int size() {
         return size;
     }
-
+/*
 =======
- *
- */
+
 public class DynamicList {
 >>>>>>> arch/master
+            */
 }

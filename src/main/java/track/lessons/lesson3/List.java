@@ -1,7 +1,6 @@
 package track.lessons.lesson3;
 
 /**
-<<<<<<< HEAD
  * Created by frystile on 13.10.16.
  */
 public abstract class List {
@@ -9,9 +8,4 @@ public abstract class List {
     abstract int remove(int idx); //- удалить элемент по индексу idx, если idx некорректный напечатать ошибку, если ок - вернуть удаленный элемент
     abstract int get(int idx); //- получить элемент по индексу
     abstract int size();  // - сколько элементов в данный момент в списке
-=======
- *
- */
-public class List {
->>>>>>> arch/master
 }

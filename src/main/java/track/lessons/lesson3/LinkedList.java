@@ -1,7 +1,5 @@
 package track.lessons.lesson3;
 
-<<<<<<< HEAD
-import org.mockito.internal.matchers.Null;
 
 /**
  * Created by frystile on 13.10.16.
@@ -114,10 +112,4 @@ class LinkedList extends List implements Stack, Queue {
         }
         return remove(size - 1);
     }
-=======
-/**
- *
- */
-public class LinkedList {
->>>>>>> arch/master
 }
