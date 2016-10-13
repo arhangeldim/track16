@@ -64,9 +64,9 @@ public class LinkedList extends List implements Queue, Stack {
             return null;
         }
 
-        int i = 0;
+        int currentIndex = 0;
         Node current = head;
-        while(i++ != index) {
+        while (currentIndex++ != index) {
             current = current.getNext();
         }
 
