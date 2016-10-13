@@ -39,10 +39,10 @@ public class DynamicListTest {
         for (int i = 0; i < countOfAttempt / 10; ++i) {
             int value = dt.remove(0);
             Assert.assertEquals(i, value);
-            Assert.assertEquals(countOfAttempt - 2*i - 1, dt.size());
+            Assert.assertEquals(countOfAttempt - 2 * i - 1, dt.size());
             value = dt.remove(dt.size() - 1);
             Assert.assertEquals(countOfAttempt - i - 1, value);
-            Assert.assertEquals(countOfAttempt - 2*i - 2, dt.size());
+            Assert.assertEquals(countOfAttempt - 2 * i - 2, dt.size());
         }
         int size = dt.size();
         Assert.assertEquals(dt.remove(-1), 0);
