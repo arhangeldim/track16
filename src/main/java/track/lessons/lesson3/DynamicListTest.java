@@ -1,13 +1,12 @@
 package track.lessons.lesson3;
 
-// import org.junit.Assert;
+import org.junit.*;
 // import org.junit.Test;
 
 // import static org.junit.Assert.*;
 
 public class DynamicListTest {
 
-    /*
     public static final int countOfAttempt = 4242;
 
     @Test
@@ -79,5 +78,4 @@ public class DynamicListTest {
         Assert.assertEquals(size, dt.size());
 
     }
-    */
 }
