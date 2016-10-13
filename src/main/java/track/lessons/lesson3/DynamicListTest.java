@@ -1,9 +1,7 @@
 package track.lessons.lesson3;
 
-import org.junit.*;
-// import org.junit.Test;
-
-// import static org.junit.Assert.*;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class DynamicListTest {
 
