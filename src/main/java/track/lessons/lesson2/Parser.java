@@ -6,6 +6,10 @@ import java.io.FileReader;
 import java.util.Arrays;
 
 /**
+ *  lipsum 69
+ *  ya 618
+ *  simple 2
+ *  log 68
  *
  */
 
@@ -16,7 +20,7 @@ public class Parser {
     }
 
     public static void main(String[] args) throws Exception {
-        String path = "/Users/iv/code/track16/target/classes/log4j.xml";
+        String path = "/Users/iv/code/track16/test/log4j.xml";
         BufferedReader reader = new BufferedReader(new FileReader(path));
         String line = null;
         StringBuilder docStrings = new StringBuilder("");
