@@ -3,6 +3,7 @@ package track.lessons.lesson3;
 /**
  *
  */
+<<<<<<< HEAD
 public class LinkedList extends List implements Stack, Queue {
         
         private class Node {
@@ -139,4 +140,7 @@ public class LinkedList extends List implements Stack, Queue {
         public int pop() {
                 return remove(size - 1);
         }
+=======
+public class LinkedList {
+>>>>>>> upstream/master
 }

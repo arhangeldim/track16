@@ -3,6 +3,7 @@ package track.lessons.lesson3;
 /**
  *
  */
+<<<<<<< HEAD
 public class DynamicList extends List{
         private static final int DEFAULT_SIZE = 1000;
         private int[] array;
@@ -49,4 +50,7 @@ public class DynamicList extends List{
                         throw new IndexOutOfBoundsException("Invalid index");
                 }
         }
+=======
+public class DynamicList {
+>>>>>>> upstream/master
 }
