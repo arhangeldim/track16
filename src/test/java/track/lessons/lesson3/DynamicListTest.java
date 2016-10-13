@@ -1,5 +1,6 @@
 package track.lessons.lesson3;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -15,16 +16,16 @@ public class DynamicListTest {
     @Test
     public void construct() throws Exception {
         List list = new DynamicList();
-        assert (list.size() == 0);
+        Assert.assertEquals(0, list.size());
 
         list = new DynamicList(1);
-        assert (list.size() == 0);
+        Assert.assertEquals(0, list.size());
 
         list = new DynamicList(0);
-        assert (list.size() == 0);
+        Assert.assertEquals(0, list.size());
 
         list = new DynamicList(-1);
-        assert (list.size() == 0);
+        Assert.assertEquals(0, list.size());
     }
 
     /**
@@ -33,18 +34,18 @@ public class DynamicListTest {
     @Test
     public void add() throws Exception {
         List list = new DynamicList();
-        assert (list.size() == 0);
+        Assert.assertEquals(0, list.size());
 
         list.add(5);
-        assert (list.size() == 1);
-        assert (list.get(0) == 5);
+        Assert.assertEquals(1, list.size());
+        Assert.assertEquals(5, list.get(0));
 
         for (int i = 0; i < 100; i++) {
             list.add(i);
         }
 
-        assert (list.size() == 101);
-        assert (list.get(100) == 99);
+        Assert.assertEquals(101, list.size());
+        Assert.assertEquals(99, list.get(100));
     }
 
     /**
@@ -54,26 +55,26 @@ public class DynamicListTest {
     @Test
     public void remove() throws Exception {
         List list = new DynamicList();
-        assert (list.size() == 0);
-        assert (list.remove(0) == List.INVALID_VALUE);
-        assert (list.size() == 0);
-        assert (list.remove(1) == List.INVALID_VALUE);
-        assert (list.size() == 0);
-        assert (list.remove(-1) == List.INVALID_VALUE);
-        assert (list.size() == 0);
+        Assert.assertEquals(0, list.size());
+        Assert.assertEquals(List.INVALID_VALUE, list.remove(0));
+        Assert.assertEquals(0, list.size());
+        Assert.assertEquals(List.INVALID_VALUE, list.remove(1));
+        Assert.assertEquals(0, list.size());
+        Assert.assertEquals(List.INVALID_VALUE, list.remove(-1));
+        Assert.assertEquals(0, list.size());
 
         list.add(1234);
-        assert (list.remove(0) == 1234);
-        assert (list.size() == 0);
+        Assert.assertEquals(1234, list.remove(0));
+        Assert.assertEquals(0, list.size());
 
         list.add(4321);
-        assert (list.size() == 1);
+        Assert.assertEquals(1, list.size());
 
-        assert (list.remove(1) == List.INVALID_VALUE);
-        assert (list.size() == 1);
+        Assert.assertEquals(List.INVALID_VALUE, list.remove(1));
+        Assert.assertEquals(1, list.size());
 
-        assert (list.remove(-1) == List.INVALID_VALUE);
-        assert (list.size() == 1);
+        Assert.assertEquals(List.INVALID_VALUE, list.remove(-1));
+        Assert.assertEquals(1, list.size());
         list.remove(0);
 
         for (int i = 0; i < 100; i++) {
@@ -81,10 +82,10 @@ public class DynamicListTest {
         }
 
         for (int i = 0; i < 100; i++) {
-            assert (list.remove(0) == i);
+            Assert.assertEquals(i, list.remove(0));
         }
 
-        assert (list.size() == 0);
+        Assert.assertEquals(0, list.size());
     }
 
     /**
@@ -94,11 +95,11 @@ public class DynamicListTest {
     @Test
     public void get() throws Exception {
         List list = new DynamicList();
-        assert (list.get(0) == List.INVALID_VALUE);
+        Assert.assertEquals(List.INVALID_VALUE, list.get(0));
         list.add(1234);
-        assert (list.get(0) == 1234);
-        assert (list.get(1) == List.INVALID_VALUE);
-        assert (list.get(-1) == List.INVALID_VALUE);
+        Assert.assertEquals(1234, list.get(0));
+        Assert.assertEquals(List.INVALID_VALUE, list.get(1));
+        Assert.assertEquals(List.INVALID_VALUE, list.get(-1));
         list.remove(0);
 
         for (int i = 0; i < 100; i++) {
@@ -107,7 +108,7 @@ public class DynamicListTest {
 
 
         for (int i = 99; i >= 0; i--) {
-            assert (list.get(i) == i);
+            Assert.assertEquals(i, list.get(i));
         }
     }
 
@@ -117,26 +118,26 @@ public class DynamicListTest {
     @Test
     public void size() throws Exception {
         List list = new DynamicList();
-        assert (list.size() == 0);
+        Assert.assertEquals(0, list.size());
 
         list.add(1234);
-        assert (list.size() == 1);
+        Assert.assertEquals(1, list.size());
 
         list.remove(0);
-        assert (list.size() == 0);
+        Assert.assertEquals(0, list.size());
 
 
         for (int i = 0; i < 1024; i++) {
             list.add(i);
         }
 
-        assert (list.size() == 1024);
+        Assert.assertEquals(1024, list.size());
 
         for (int i = 0; i < 1024; i++) {
             list.remove(0);
         }
 
-        assert (list.size() == 0);
+        Assert.assertEquals(0, list.size());
     }
 
 }
