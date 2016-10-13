@@ -19,10 +19,11 @@ public class Document {
             return false;
         }
 
-        boolean flag = false;
         for (String string : tokens) {
-            flag = flag || string.equals(token);
+            if (string.equals(token)) {
+                return true;
+            }
         }
-        return flag;
+        return false;
     }
 }
