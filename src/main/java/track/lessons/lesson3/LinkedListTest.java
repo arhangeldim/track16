@@ -1,13 +1,14 @@
 package track.lessons.lesson3;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+// import org.junit.Assert;
+// import org.junit.Before;
+// import org.junit.Test;
 
-import static org.junit.Assert.*;
+// import static org.junit.Assert.*;
 
 public class LinkedListTest {
 
+    /*
     public static final int countOfAttempt = 4242;
 
     @Test
@@ -146,4 +147,5 @@ public class LinkedListTest {
         Assert.assertEquals(lt.pop(), 0);
         Assert.assertEquals(size, lt.size());
     }
+    */
 }
