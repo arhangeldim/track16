@@ -5,8 +5,8 @@ package track.lessons.lesson3;
  */
 public class DynamicList extends List {
 
-    int[] array;
-    int capacity;
+    private int[] array;
+    private int capacity;
 
     DynamicList(int size) {
         array = new int[size];
@@ -50,5 +50,9 @@ public class DynamicList extends List {
         }
 
         return array[idx];
+    }
+
+    public int getCapacity() {
+        return capacity;
     }
 }
