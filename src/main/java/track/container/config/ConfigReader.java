@@ -23,9 +23,9 @@ public interface ConfigReader {
      * Для методов интерфейса стоит писать документацию
      *
      *
-     * @param pathToFile - Файл конфигурации (Сигнатуру не менять, используется в тестах)
+     * @param configFile - Файл конфигурации (Сигнатуру не менять, используется в тестах)
      * @return - список бинов
      */
-    List<Bean> parseBeans(File pathToFile) throws InvalidConfigurationException;
+    List<Bean> parseBeans(File configFile) throws InvalidConfigurationException;
 
 }

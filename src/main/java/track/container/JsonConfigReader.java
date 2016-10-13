@@ -13,7 +13,7 @@ import track.container.config.InvalidConfigurationException;
 public class JsonConfigReader implements ConfigReader {
 
     @Override
-    public List<Bean> parseBeans(File pathToFile) throws InvalidConfigurationException {
+    public List<Bean> parseBeans(File configFile) throws InvalidConfigurationException {
         return null;
     }
 }
