@@ -6,7 +6,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.sun.xml.internal.ws.util.StringUtils;
 import track.container.config.Bean;
 import track.container.config.Property;
 import track.container.config.ValueType;
@@ -90,7 +89,7 @@ public class Container {
                     /* Если тип поля — значение, то найдём для него сеттер и запишем его в объект через сеттер */
                     try {
                         /* Пока обрабатываем только int */
-                        Method setter = clazz.getMethod("set" + StringUtils.capitalize(property.getName()), int.class);
+                        Method setter = clazz.getMethod("set" + capitalize(property.getName()), int.class);
                         setter.invoke(object, Integer.parseInt(property.getValue()));
                     } catch (NoSuchMethodException | InvocationTargetException e) {
                         System.out.println(e.toString());
@@ -115,7 +114,7 @@ public class Container {
 
                     /* Найдём для поля сеттер и запишем через него ссылку */
                     try {
-                        Method setter = clazz.getMethod("set" + StringUtils.capitalize(property.getName()),
+                        Method setter = clazz.getMethod("set" + capitalize(property.getName()),
                                 ref.getClass());
                         setter.invoke(object, ref);
                     } catch (NoSuchMethodException | InvocationTargetException e) {
@@ -128,5 +127,9 @@ public class Container {
         }
 
         return object;
+    }
+
+    private String capitalize(final String line) {
+        return Character.toUpperCase(line.charAt(0)) + line.substring(1);
     }
 }
