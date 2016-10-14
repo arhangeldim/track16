@@ -9,6 +9,9 @@ public class Property {
     private String value; // Значение поля
     private ValueType type; // Метка ссылочное значение или примитив
 
+    public Property() {
+    }
+
     public Property(String name, String value, ValueType type) {
         this.name = name;
         this.value = value;
@@ -27,8 +30,12 @@ public class Property {
         return value;
     }
 
+    /**
+     * Установить значение в поле и указать тип поля как значение
+     */
     public void setValue(String value) {
         this.value = value;
+        setType(ValueType.VAL);
     }
 
     public ValueType getType() {
@@ -37,6 +44,14 @@ public class Property {
 
     public void setType(ValueType type) {
         this.type = type;
+    }
+
+    /**
+     * Установить ссылку в поле и указать тип поля как ссылку
+     */
+    public void setRef(String ref) {
+        this.value = ref;
+        setType(ValueType.REF);
     }
 
     @Override
