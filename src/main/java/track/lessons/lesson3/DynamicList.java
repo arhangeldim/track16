@@ -16,7 +16,7 @@ public class DynamicList extends List {
 
     public void add(int item) {
 
-        int[] newArray = new int[array.length + 1]; // size new int[]{1,2,3,5,5};
+        int[] newArray = new int[array.length + 1];
         System.arraycopy(array, 0, newArray, 0, array.length);
         newArray[array.length] = item;
         array = newArray;
