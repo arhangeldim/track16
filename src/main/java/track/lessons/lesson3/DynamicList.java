@@ -1,7 +1,7 @@
 package track.lessons.lesson3;
 
 
-public class DynamicList extends List{
+public class DynamicList extends List {
     private static final int DEFAULT_SIZE = 1000;
     private int[] array;
     private int size;
@@ -12,7 +12,7 @@ public class DynamicList extends List{
 
     @Override
     public void add(int value) {
-        if(size == array.length) {
+        if (size == array.length) {
             allocate();
         }
         array[size++] = value;
@@ -31,6 +31,7 @@ public class DynamicList extends List{
         valid_index(idx);
         return array[idx];
     }
+    
     @Override
     public int size() {
         return size;

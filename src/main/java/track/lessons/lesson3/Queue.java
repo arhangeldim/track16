@@ -1,6 +1,6 @@
 package track.lessons.lesson3;
 
-interface Queue {
+public interface Queue {
     void enqueue(int value); 
-    int dequeu(); 
+    int dequeu();
 }

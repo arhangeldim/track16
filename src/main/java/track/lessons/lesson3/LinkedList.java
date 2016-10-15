@@ -33,8 +33,7 @@ public class LinkedList extends List implements Stack, Queue {
             newNode.prev = newNode;
             newNode.next = newNode;
             first = newNode;
-        }
-        else {
+        } else {
             newNode.prev = last;
             newNode.next = first;
         }
@@ -78,8 +77,7 @@ public class LinkedList extends List implements Stack, Queue {
         if (last.prev != null) {
             last = last.prev;
             last.prev.next = null;
-        }
-        else {
+        } else {
             last = null;
         }
         return value;
@@ -90,15 +88,14 @@ public class LinkedList extends List implements Stack, Queue {
         if(first.next != null) {
             first = first.next;
             first.next.prev = null;
-        }
-        else {
+        } else {
             first = null;
         }
         return value;
     }
 
     @Override
-    int get(int idx){
+    int get(int idx) {
         valid_index(idx);
         if (idx == 0) {
             return first.value;
@@ -113,6 +110,7 @@ public class LinkedList extends List implements Stack, Queue {
         }
         return node.value;
     }
+
     @Override
     int size(){
         return size;
