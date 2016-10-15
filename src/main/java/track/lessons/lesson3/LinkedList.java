@@ -64,6 +64,7 @@ public class LinkedList extends List implements Stack, Queue {
         for (int i = 0; i <= idx; i++) {
             node = node.next;
         }
+        
         int cur_value = node.value;
         Node next = new Node();
         next = node.next;
@@ -85,7 +86,7 @@ public class LinkedList extends List implements Stack, Queue {
 
     private int removeFirst() {
         int value = first.value;
-        if(first.next != null) {
+        if (first.next != null) {
             first = first.next;
             first.next.prev = null;
         } else {
@@ -112,7 +113,7 @@ public class LinkedList extends List implements Stack, Queue {
     }
 
     @Override
-    int size(){
+    int size() {
         return size;
     }
 

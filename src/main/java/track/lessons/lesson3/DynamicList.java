@@ -31,7 +31,7 @@ public class DynamicList extends List {
         valid_index(idx);
         return array[idx];
     }
-    
+
     @Override
     public int size() {
         return size;
