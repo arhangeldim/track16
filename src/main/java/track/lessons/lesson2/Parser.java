@@ -5,10 +5,10 @@ import java.io.FileReader;
 
 public class Parser {
     Document parse(String data) {
+        if (data == null) {
+            return null;
+        }
         String[] tokens = data.split("[ ]");
-        if (tokens == null) {
-            return null;     
-        }   
         return new Document(tokens);
     }
 
@@ -21,6 +21,7 @@ public class Parser {
         String line;
         while ((line = reader.readLine()) != null) {
             builder.append(line);
+            builder.append(" ");
         }   
         String res = builder.toString();
         Document doc = pars.parse(res);

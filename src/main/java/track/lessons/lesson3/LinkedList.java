@@ -29,7 +29,7 @@ public class LinkedList extends List implements Stack, Queue {
     @Override
     public void add(int item) {
         Node newNode = new Node();
-        if (isEmpty() == true) {
+        if (isEmpty()) {
             newNode.prev = newNode;
             newNode.next = newNode;
             first = newNode;
