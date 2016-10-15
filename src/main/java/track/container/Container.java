@@ -33,7 +33,7 @@ public class Container {
             return objById.get(id);
         } else {
             Bean bean = null;
-            for(Bean b : beans) {
+            for (Bean b : beans) {
                 if (b.getId().equals(id)) {
                     bean = b;
                     break;
@@ -55,7 +55,7 @@ public class Container {
             return objByClass.get(className);
         } else {
             Bean bean = null;
-            for(Bean b : beans) {
+            for (Bean b : beans) {
                 if (b.getClassName().equals(className)) {
                     bean = b;
                     break;
@@ -124,7 +124,7 @@ public class Container {
             case("double") : return new Double(value);
             case("boolean") : return Boolean.valueOf(value);
             case("char") : return value.charAt(0);
+            default : return null;
         }
-        return null;
     }
 }

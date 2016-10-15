@@ -29,8 +29,9 @@ public class Main {
             e.printStackTrace();
             return;
         }
-        for (Bean bean : beans)
+        for (Bean bean : beans) {
             System.out.println(bean);
+        }
         Container container = new Container(beans);
         Engine engine = (Engine) container.getById("engineBean");
         Car car = (Car) container.getByClass("track.container.beans.Car");
