@@ -18,12 +18,11 @@ public class Parser {
         Parser currParcer = new Parser();
         // Создайте объект Parser
         StringBuilder data = new StringBuilder();
-        String currLine;
-        do {
+        String currLine = reader.readLine();
+        while (!currLine.isEmpty()) {
             currLine = reader.readLine();
             data.append(currLine).append(' ');
         }
-        while (!currLine.isEmpty());
         currParcer.parse(data.toString());
         // Получите объект Document, реализовав метод parse()
     }
