@@ -64,13 +64,12 @@ public class LinkedList extends List implements Stack, Queue {
         for (int i = 0; i <= idx; i++) {
             node = node.next;
         }
-        
-        int cur_value = node.value;
+
         Node next = new Node();
         next = node.next;
         node.prev.next = node.next;
         next.prev = node.prev;
-        return cur_value;
+        return node.value;
     }
 
     private int removeLast() {
