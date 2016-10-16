@@ -7,7 +7,7 @@ public class LinkedList extends List implements Queue, Stack {
         private Node prev;
         private int value;
 
-        Node() {
+        public Node() {
             next = null;
             prev = null;
             value = 0;
@@ -41,10 +41,9 @@ public class LinkedList extends List implements Queue, Stack {
     private int size;
     private Node root;
 
-    LinkedList() {
-        root = new Node();
+    public LinkedList() {
+        root = null;
         size = 0;
-        root.setValue(0);
     }
 
     @Override
@@ -66,7 +65,7 @@ public class LinkedList extends List implements Queue, Stack {
 
     @Override
     public int remove(int idx) {
-        if (idx < 0 || idx > size - 1) {
+        if (index(idx)) {
             throw new IndexOutOfBoundsException("Index is incorrect");
         } else {
             if (idx == 0) {
@@ -91,13 +90,16 @@ public class LinkedList extends List implements Queue, Stack {
         }
     }
 
+    private boolean index(int idx) {
+        return idx < 0 || idx > size - 1;
+    }
+
     @Override
     public int get(int idx) {
-        if (idx < 0 || idx > size - 1) {
+        if (index(idx)) {
             throw new IndexOutOfBoundsException("Index is incorrect");
         } else {
-            Node search = new Node();
-            search = root;
+            Node search = root;
             int item = 0;
             while (item != idx) {
                 search = search.getNext();
@@ -112,22 +114,22 @@ public class LinkedList extends List implements Queue, Stack {
         return size;
     }
 
-    @Override
+
     public void push(int value) {
         add(value);
     }
 
-    @Override
+
     public int pop() {
         return remove(size - 1);
     }
 
-    @Override
+
     public void enqueue(int value) {
         add(value);
     }
 
-    @Override
+
     public int dequeu() {
         return remove(0);
     }
