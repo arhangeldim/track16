@@ -19,7 +19,7 @@ public class DynamicList extends List {
         if (capacity >= 0) {
             elements = new int[capacity];
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Invalid capacity");
         }
     }
 
@@ -39,12 +39,12 @@ public class DynamicList extends List {
 
     @Override
     public int remove(int idx) {
-        if (idx < 0 || idx >= size) {
+        if (!isValidId(idx)) {
             throw new IndexOutOfBoundsException("Invalid index");
         }
-
-        int item = elements[idx];
-        System.arraycopy(elements, idx + 1, elements, idx, size-- - idx);
+        final int item = elements[idx];
+        System.arraycopy(elements, idx + 1, elements, idx, (size - 1) - idx);
+        size--;
         if (size > 0 && size == elements.length / 4) {
             resize(elements.length / 2);
         }
@@ -53,7 +53,7 @@ public class DynamicList extends List {
 
     @Override
     public int get(int idx) {
-        if (idx < 0 || idx >= size) {
+        if (!isValidId(idx)) {
             throw new IndexOutOfBoundsException("Invalid index");
         }
         return elements[idx];
@@ -66,6 +66,10 @@ public class DynamicList extends List {
 
     public int capacity() {
         return elements.length;
+    }
+
+    private boolean isValidId(int id) {
+        return id >= 0 || id < size;
     }
 
     @Override

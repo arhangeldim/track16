@@ -11,6 +11,16 @@ public class LinkedList extends List implements Stack, Queue {
         public Node prev;
         public Node next;
         public int item;
+
+        public Node(int item) {
+            this.item = item;
+        }
+
+        public Node(int item, Node prev, Node next) {
+            this.item = item;
+            this.prev = prev;
+            this.next = next;
+        }
     }
 
     private Node first;
@@ -18,22 +28,15 @@ public class LinkedList extends List implements Stack, Queue {
     private int size;
 
     public LinkedList() {
-        first = null;
-        last = null;
-        size = 0;
     }
 
     @Override
     public void add(int item) {
         if (isEmpty()) {
-            first = last = new Node();
-            first.item = item;
+            first = last = new Node(item);
         } else {
             Node oldLast = last;
-            last = new Node();
-            last.item = item;
-            last.prev = oldLast;
-            last.next = null;
+            last = new Node(item, oldLast, null);
             oldLast.next = last;
         }
         size++;
@@ -102,7 +105,7 @@ public class LinkedList extends List implements Stack, Queue {
         }
 
         Node current = first;
-        for (int id = 0; id < idx; id++) {
+        for (int i = 0; i < idx; i++) {
             current = current.next;
         }
 
