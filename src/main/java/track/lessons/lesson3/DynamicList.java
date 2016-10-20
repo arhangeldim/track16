@@ -28,7 +28,7 @@ public class DynamicList extends List implements Stack,Queue {
     }
 
     @Override
-    public int remove(int idx) throws IndexOutOfBoundsException {
+    public int remove(int idx) {
         if (idx < 0 | idx >= size) {
             throw new IndexOutOfBoundsException();
         }
@@ -39,7 +39,7 @@ public class DynamicList extends List implements Stack,Queue {
     }
 
     @Override
-    public int get(int idx) throws IndexOutOfBoundsException {
+    public int get(int idx) {
         if (idx < 0 | idx >= size) {
             throw new IndexOutOfBoundsException();
         }
@@ -53,7 +53,7 @@ public class DynamicList extends List implements Stack,Queue {
     }
 
     @Override
-    public int dequeue() throws IndexOutOfBoundsException {
+    public int dequeue() {
         int elem = -1;
         try {
             elem = get(0);
@@ -70,7 +70,7 @@ public class DynamicList extends List implements Stack,Queue {
     }
 
     @Override
-    public int pop() throws IndexOutOfBoundsException {
+    public int pop() {
         int elem = get(size - 1);
         remove(size - 1);
         return elem;

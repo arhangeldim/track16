@@ -10,10 +10,6 @@ public class LinkedList extends List {
 
     private int size;
 
-    LinkedList() {
-        super();
-    }
-
     @Override
     public void add(int item) {
         Node newNode = new Node(item);
@@ -29,7 +25,7 @@ public class LinkedList extends List {
     }
 
     @Override
-    public int remove(int idx) throws IndexOutOfBoundsException {
+    public int remove(int idx) {
         Node node = getNode(idx);
         if (node != null) {
             if (size == 1) {
@@ -54,12 +50,12 @@ public class LinkedList extends List {
     }
 
     @Override
-    public int get(int idx) throws IndexOutOfBoundsException {
+    public int get(int idx) {
         Node node = getNode(idx);
         return node.getValue();
     }
 
-    public Node getNode(int idx) throws IndexOutOfBoundsException {
+    public Node getNode(int idx) {
         if (idx < 0 | idx >= size) {
             throw new IndexOutOfBoundsException();
         }
