@@ -5,7 +5,7 @@ package track.lessons.lesson3;
  */
 
 
-public class LinkedList extends List implements Queue, Stack{
+public class LinkedList extends List implements Queue, Stack {
 
     @Override
     public void push(int item) {
@@ -37,7 +37,9 @@ public class LinkedList extends List implements Queue, Stack{
             this.prev = prev;
             this.value = value;
         }
-        public Node(){}
+
+        public Node() {
+        }
     }
 
     private Node start;
@@ -51,12 +53,11 @@ public class LinkedList extends List implements Queue, Stack{
 
     @Override
     void add(int item) {
-        if (isEmpty()){
+        if (isEmpty()) {
             Node newNode = new Node(null, null, item);
             this.start = newNode;
             this.end = newNode;
-        }
-        else{
+        } else {
             Node newNode = new Node(null, this.end, item);
             this.end.next = newNode;
             this.end = newNode;
@@ -66,10 +67,9 @@ public class LinkedList extends List implements Queue, Stack{
     }
 
     private boolean isEmpty() {
-        if (this.size > 0){
+        if (this.size > 0) {
             return false;
-        }
-        else{
+        } else {
             return true;
         }
     }
@@ -77,7 +77,7 @@ public class LinkedList extends List implements Queue, Stack{
     @Override
     int remove(int idx) {
         isValid(idx);
-        if (this.size == 1){
+        if (this.size == 1) {
             int currvalue = this.start.value;
             this.start = null;
             this.end = null;
@@ -103,32 +103,24 @@ public class LinkedList extends List implements Queue, Stack{
         }
     }
 
-    private int removeEnd()
-    {
+    private int removeEnd() {
         int currvalue = this.end.value;
-        if(this.end.prev != null)
-        {
+        if (this.end.prev != null) {
             this.end = this.end.prev;
             this.end.next = null;
-        }
-        else
-        {
+        } else {
             this.end = null;
         }
         this.size--;
         return currvalue;
     }
 
-    private int removeStart()
-    {
+    private int removeStart() {
         int currvalue = this.start.value;
-        if(!(this.start.next == null))
-        {
+        if (!(this.start.next == null)) {
             this.start = this.start.next;
             this.start.prev = null;
-        }
-        else
-        {
+        } else {
             this.start = null;
         }
         this.size--;
@@ -138,19 +130,18 @@ public class LinkedList extends List implements Queue, Stack{
     @Override
     int get(int idx) {
         isValid(idx);
-            if (idx == 0) {
-                return this.start.value;
-            } else if (idx == size - 1) {
-                return this.end.value;
-            } else {
-                Node iter = new Node();
-                iter = this.start;
-                for(int i = 0; i < idx; i++)
-                {
-                    iter = iter.next;
-                }
-                return iter.value;
+        if (idx == 0) {
+            return this.start.value;
+        } else if (idx == size - 1) {
+            return this.end.value;
+        } else {
+            Node iter = new Node();
+            iter = this.start;
+            for (int i = 0; i < idx; i++) {
+                iter = iter.next;
             }
+            return iter.value;
+        }
     }
 
 
@@ -161,10 +152,10 @@ public class LinkedList extends List implements Queue, Stack{
 
     @Override
     void print() {
-        if(this.size == 0){
+        if (this.size == 0) {
             System.out.print("List is empty\n");
         }
-        for(int i = 0; i < this.size; i++){
+        for (int i = 0; i < this.size; i++) {
             System.out.println(this.get(i));
         }
     }
