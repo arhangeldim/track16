@@ -27,6 +27,10 @@ public class LinkedList extends List implements Queue,Stack {
     }
 
     public int remove(int idx) {
+        if (idx > countOfItems - 1 || idx < 0){
+            System.err.println("Illegal index");
+            return -1;
+        }
         Node currNode = head;
         for (int i = 0; i < idx; i++) {
             currNode = currNode.getNext();

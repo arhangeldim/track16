@@ -19,7 +19,7 @@ public class ListMain {
         linkedList.get(5);
         dynamicLict.get(7);
         //Пример удаления
-        linkedList.remove(2);
+        linkedList.remove(0);
         dynamicLict.remove(6);
         //Cтек
         Stack stack = (Stack) linkedList;

@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class DynamicList extends List {
 
-    private int size = 10;
+    public int size = 10;
     private int countOfItems = 0;
     private int[] list  = new int[size];
 
