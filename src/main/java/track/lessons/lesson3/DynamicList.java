@@ -6,7 +6,7 @@ import track.lessons.lesson3.List;
  *
  */
 public class DynamicList extends List {
-    final int baseSize = 5;
+    public static final int baseSize = 5;
 
     private int[] data;
 
