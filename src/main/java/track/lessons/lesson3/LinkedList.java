@@ -5,28 +5,11 @@ package track.lessons.lesson3;
  */
 public class LinkedList extends List implements Queue, Stack {
 
-    @Override
-    public void enqueue(int value) {
-        add(value);
-    }
+    private Node first;
+    private Node last;
+    private int size;
 
-    @Override
-    public int dequeue() {
-        return remove(0);
-    }
-
-    @Override
-    public void push(int value) {
-        add(value);
-
-    }
-
-    @Override
-    public int pop() {
-        return remove(size - 1);
-    }
-
-    class Node {
+    private class Node {
         Node previous;
         Node next;
         int data;
@@ -36,12 +19,6 @@ public class LinkedList extends List implements Queue, Stack {
             this.previous = null;
             this.next = null;
         }
-    }
-
-    LinkedList() {
-        this.size = 0;
-        this.first = null;
-        this.last = null;
     }
 
     @Override
@@ -66,7 +43,7 @@ public class LinkedList extends List implements Queue, Stack {
     int remove(int idx) {
         int ans;
         if (idx > size) {
-            throw new Error("Index in bigger than size!");
+            throw new IllegalArgumentException("Index cannot be bigger than size!");
         } else if (size == 1) {
             ans = first.data;
             first = null;
@@ -95,7 +72,7 @@ public class LinkedList extends List implements Queue, Stack {
     @Override
     int get(int idx) {
         if (idx > size) {
-            throw new Error("Index is bigger than size!");
+            throw new IllegalArgumentException("Index cannot be bigger than size!");
         } else {
             Node ans = first;
             for (int i = 0; i < idx; i++) {
@@ -110,7 +87,24 @@ public class LinkedList extends List implements Queue, Stack {
         return size;
     }
 
-    private Node first;
-    private Node last;
-    private int size;
+    @Override
+    public void enqueue(int value) {
+        add(value);
+    }
+
+    @Override
+    public int dequeue() {
+        return remove(0);
+    }
+
+    @Override
+    public void push(int value) {
+        add(value);
+
+    }
+
+    @Override
+    public int pop() {
+        return remove(size - 1);
+    }
 }
