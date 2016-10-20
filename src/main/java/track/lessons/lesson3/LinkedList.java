@@ -65,20 +65,20 @@ public class LinkedList extends List {
         adding.prev = last;
         last.next = adding;
 //        System.out.println("Adding: new " + last.next);
-        size += 1;
+        size++;
     }
 
     public int remove(int idx) throws Exception {
         Node node = findIdx(idx);
         if (node == null) {
-            throw new Exception("No element with such index:" + idx);
+            throw new IllegalArgumentException("No element with such index:" + idx);
         }
         int returnValue = get(idx);
         node.prev.next = node.next;
         if (node.next != null) {
             node.next.prev = node.prev;
         }
-        size -= 1;
+        size--;
         return node.value;
 
     }
@@ -86,7 +86,7 @@ public class LinkedList extends List {
     public int get(int idx) throws Exception {
         Node node = findIdx(idx);
         if (node == null) {
-            throw new Exception("No element with such index:" + idx);
+            throw new IllegalArgumentException("No element with such index:" + idx);
         }
         return node.value;
     }

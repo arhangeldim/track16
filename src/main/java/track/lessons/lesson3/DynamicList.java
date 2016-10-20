@@ -8,7 +8,7 @@ import track.lessons.lesson3.List;
 public class DynamicList extends List {
     final int baseSize = 5;
 
-    int[] data;
+    private int[] data;
 
     int allocSize;
 
@@ -18,6 +18,20 @@ public class DynamicList extends List {
         data = new int[baseSize];
         size = 0;
         allocSize = baseSize;
+    }
+
+    public DynamicList(int listsize) {
+        if (listsize <= 0) {
+            data = new int[baseSize];
+            size = 0;
+            allocSize = baseSize;
+        }
+        allocSize = listsize * 2;
+        data = new int[allocSize];
+        size = listsize;
+        for (int i = 0; i < size; i++){
+            data[i] = 0;
+        }
     }
 
     @Override
@@ -42,7 +56,7 @@ public class DynamicList extends List {
 
     private void insert(int idx, int val) {
         System.arraycopy(data, idx, data, idx + 1, size - idx);
-        size += 1;
+        size++;
         data[idx] = val;
         if (conditionForIncrease()) {
             allocateMore();
@@ -63,7 +77,7 @@ public class DynamicList extends List {
 
     public void add(int item) {
         data[size] = item;
-        size += 1;
+        size++;
         if (conditionForIncrease()) {
             allocateMore();
         }
@@ -71,17 +85,17 @@ public class DynamicList extends List {
 
     public int remove(int idx) throws Exception {
         if (! (0 <= idx && idx < size)) {
-            throw new Exception("No element of such index:" + idx);
+            throw new IllegalArgumentException("No element of such index:" + idx);
         }
         int ret = data[idx];
         System.arraycopy(data, idx + 1, data, idx, size - (idx + 1));
-        size -= 1;
+        size--;
         return ret;
     }
 
     public int get(int idx) throws Exception {
         if (! (0 <= idx && idx < size)) {
-            throw new Exception("No element of such index:" + idx);
+            throw new IllegalArgumentException("No element of such index:" + idx);
         }
         return data[idx];
     }
