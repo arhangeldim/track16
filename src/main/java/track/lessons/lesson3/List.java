@@ -4,6 +4,7 @@ package track.lessons.lesson3;
  *
  */
 public abstract class List {
+
     abstract void add(int item);
 
     abstract int remove(int idx);

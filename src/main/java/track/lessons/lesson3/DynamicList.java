@@ -10,18 +10,18 @@ public class DynamicList extends List {
     private int capacity;
     private int size;
 
-    DynamicList(int cap) {
+    public DynamicList(int cap) {
         if (cap > 0) {
             array = new int[cap];
-            this.capacity = cap;
+            capacity = cap;
         } else {
-            throw new Error("Size is negative!");
+            throw new IllegalArgumentException("Capacity cannot be negative!");
         }
     }
 
-    DynamicList() {
+    public DynamicList() {
         array = new int[DEFAULT_SIZE];
-        this.capacity = DEFAULT_SIZE;
+        capacity = DEFAULT_SIZE;
     }
 
     @Override
@@ -45,7 +45,8 @@ public class DynamicList extends List {
             size--;
             return  ans;
         } else {
-            throw new Error("Index is bigger than size!");
+
+            throw new IllegalArgumentException("Index cannot be bigger than size!");
         }
     }
 
@@ -54,7 +55,8 @@ public class DynamicList extends List {
         if (idx < size) {
             return array[idx];
         } else {
-            throw new Error("Index is bigger than size!");
+
+            throw new IllegalArgumentException("Index cannot be bigger than size!");
         }
     }
 
