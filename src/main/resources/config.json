@@ -2,7 +2,7 @@
   "beans": [
     {
       "id": "carBean",
-      "class": "track.container.beans.Car",
+      "className": "track.container.beans.Car",
       "properties": [
         {
           "name": "gear",
@@ -16,7 +16,7 @@
     },
     {
       "id": "gearBean",
-      "class": "track.container.beans.Gear",
+      "className": "track.container.beans.Gear",
       "properties": [
         {
           "name": "count",
@@ -26,7 +26,7 @@
     },
     {
       "id": "engineBean",
-      "class": "track.container.beans.Engine",
+      "className": "track.container.beans.Engine",
       "properties": [
         {
           "name": "power",
