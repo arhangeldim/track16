@@ -13,6 +13,16 @@ public class Box<T> {
         this.item = item;
     }
 
+    public static void main(String[] args) {
+
+        Box<String> stringBox = new Box<String>();
+        stringBox.setItem("A");
+//        stringBox.setItem(2); // compile time err
+
+        Box<Number> num = new Box<>();
+        num.setItem(2.6);
+    }
+
     public T getItem() {
         return item;
     }
@@ -27,15 +37,5 @@ public class Box<T> {
         return "Box{" +
                 "item=" + item +
                 '}';
-    }
-
-    public static void main(String[] args) {
-
-        Box<String> stringBox = new Box<String>();
-        stringBox.setItem("A");
-//        stringBox.setItem(2); // compile time err
-
-        Box<Number> num = new Box<>();
-        num.setItem(2.6);
     }
 }

@@ -2,6 +2,10 @@ package track.lections.l3oop;
 
 import java.net.URI;
 
+interface Loader {
+    Resource load(URI uri);
+}
+
 /**
  *
  */
@@ -16,10 +20,6 @@ public class LoaderDemo {
 
 class Resource {
     // класс с настройками
-}
-
-interface Loader {
-    Resource load(URI uri);
 }
 
 class XmlLoader implements Loader {

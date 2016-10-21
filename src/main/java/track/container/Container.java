@@ -1,20 +1,15 @@
 package track.container;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import sun.rmi.runtime.Log;
 import track.container.config.Bean;
 import track.container.config.InvalidConfigurationException;
 import track.container.config.Property;
 import track.container.config.ValueType;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Основной класс контейнера
@@ -28,13 +23,10 @@ class Container {
 
     public Container(String path) throws InvalidConfigurationException, IOException {
         File config = new File(path);
-        if(config.exists())
-        {
+        if (config.exists()) {
             JsonConfigReader jsonConfigReader = new JsonConfigReader();
             beans = jsonConfigReader.parseBeans(config);
-        }
-        else
-        {
+        } else {
             throw new IOException("There's no such File");
         }
     }
@@ -45,15 +37,12 @@ class Container {
     }
 
     public Object getById(String id) throws ClassNotFoundException {
-        if(objByName.containsKey(id))
-        {
+        if (objByName.containsKey(id)) {
             return objByName.get(id);
         }
 
-        for(Bean bean: beans)
-        {
-            if(bean.getId().equals(id))
-            {
+        for (Bean bean : beans) {
+            if (bean.getId().equals(id)) {
                 return createObject(bean);
             }
         }
@@ -79,23 +68,18 @@ class Container {
         HashMap<String, Property> propertyHashMap = (HashMap<String, Property>) bean.getProperties();
 
         Method[] methods = myNewBean.getMethods();
-        for(String key: propertyHashMap.keySet())
-        {
+        for (String key : propertyHashMap.keySet()) {
             Property property = propertyHashMap.get(key);
-            if(property.getType() == ValueType.REF)
-            {
-                if(objByClassName.containsKey(property.getName() + " is Creating now, abort!!!"))
-                {
+            if (property.getType() == ValueType.REF) {
+                if (objByClassName.containsKey(property.getName() + " is Creating now, abort!!!")) {
                     return null; // ЦИКЛ!!!!!!
-                }
-                else
-                {
+                } else {
                     Object newPropClass1 = getById(property.getValue().toString());
-                    String methodName = "set" + property.getName().toString().substring(0, 1).toUpperCase() + property.getName().toString().substring(1);
-                    for(Method method: methods)
-                    {
-                        if(method.getName().toString().equals(methodName))
-                        {
+                    // To Upper First Character
+                    String methodName = "set" + property.getName().toString().substring(0, 1).toUpperCase();
+                    methodName += property.getName().toString().substring(1);
+                    for (Method method : methods) {
+                        if (method.getName().toString().equals(methodName)) {
                             try {
                                 method.invoke(object, newPropClass1);
                             } catch (Exception e) {
@@ -104,15 +88,13 @@ class Container {
                         }
                     }
                 }
-            }
-            else
-            {
-                String methodName = "set" + property.getName().toString().substring(0, 1).toUpperCase() + property.getName().toString().substring(1);
+            } else {
+                // To Upper First Character
+                String methodName = "set" + property.getName().toString().substring(0, 1).toUpperCase();
+                methodName += property.getName().toString().substring(1);
 
-                for(Method method: methods)
-                {
-                    if(method.getName().toString().equals(methodName))
-                    {
+                for (Method method : methods) {
+                    if (method.getName().toString().equals(methodName)) {
                         int value = Integer.parseInt(property.getValue().toString());
                         try {
                             method.invoke(object, value);
@@ -124,7 +106,7 @@ class Container {
             }
         }
 
-        objByClassName.remove(bean.getId() +  " is Creating now, abort!!!");
+        objByClassName.remove(bean.getId() + " is Creating now, abort!!!");
         objByClassName.put(bean.getClassName(), object);
         objByName.put(bean.getId(), object);
         return object;
@@ -135,15 +117,12 @@ class Container {
      * Например, Car car = (Car) container.getByClass("track.container.beans.Car")
      */
     public Object getByClass(String className) throws ClassNotFoundException {
-        if(objByClassName.containsKey(className))
-        {
+        if (objByClassName.containsKey(className)) {
             return objByClassName.get(className);
         }
 
-        for(Bean bean: beans)
-        {
-            if(bean.getClassName().equals(className))
-            {
+        for (Bean bean : beans) {
+            if (bean.getClassName().equals(className)) {
                 return createObject(bean);
             }
         }

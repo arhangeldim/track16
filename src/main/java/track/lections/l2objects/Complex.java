@@ -23,29 +23,10 @@ public class Complex {
         this.im = im;
     }
 
-    // метод, который печатает текущий объект
-    @Override
-    public String toString() {
-        return "Complex{" +
-                "re=" + re +
-                ", im=" + im +
-                '}';
-    }
-
-
     // метод класса, ему не нужен объект
     static Complex add(Complex c1, Complex c2) {
         return new Complex(c1.re + c2.re, c1.im + c2.im);
     }
-
-    // метод объекта, по сути операция над текущим объектом
-    void add(Complex other) {
-
-        re += other.re;
-        im += other.im;
-    }
-
-
 
     // MAIN
     public static void main(String[] args) {
@@ -73,5 +54,21 @@ public class Complex {
 
     static void print() {
         System.out.println("\n***************");
+    }
+
+    // метод, который печатает текущий объект
+    @Override
+    public String toString() {
+        return "Complex{" +
+                "re=" + re +
+                ", im=" + im +
+                '}';
+    }
+
+    // метод объекта, по сути операция над текущим объектом
+    void add(Complex other) {
+
+        re += other.re;
+        im += other.im;
     }
 }

@@ -1,13 +1,15 @@
 package track.lessons.lesson2;
 
-import java.util.Arrays;
-
 /**
  *
  */
 public class Document {
 
     private String[] tokens;
+
+    public Document(String[] tokens) {
+        this.tokens = tokens;
+    }
 
     String[] getTokens() {
         return tokens;
@@ -27,9 +29,5 @@ public class Document {
             }
         }
         return false;
-    }
-
-    public Document(String[] tokens) {
-        this.tokens = tokens;
     }
 }

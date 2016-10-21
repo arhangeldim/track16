@@ -1,21 +1,10 @@
 package track.lessons.lesson2;
 
-import javax.print.Doc;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.Arrays;
 
 public class Parser {
     //Second trying
-
-    Document parse(String data) {
-
-        String[] tokens = data.split(" ");
-
-        Document document = new Document(tokens);
-
-        return document;
-    }
 
     public static void main(String[] args) throws Exception {
 
@@ -30,5 +19,14 @@ public class Parser {
 
         Parser parser = new Parser();
         Document document = parser.parse(stringBuilder.toString());
+    }
+
+    Document parse(String data) {
+
+        String[] tokens = data.split(" ");
+
+        Document document = new Document(tokens);
+
+        return document;
     }
 }
