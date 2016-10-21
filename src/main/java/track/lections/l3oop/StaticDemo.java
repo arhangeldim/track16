@@ -26,7 +26,7 @@ public class StaticDemo {
         Account acc = null;
 
         // Так делать нехорошо!
-        acc.idCounter = 10;
+        Account.idCounter = 10;
 
         // А так можно
         Account.idCounter = 10;

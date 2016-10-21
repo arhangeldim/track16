@@ -55,6 +55,6 @@ public class Bean {
                 "id='" + id + '\'' +
                 ", className='" + className + '\'' +
                 ", properties=" + properties +
-                '}';
+                "}\n";
     }
 }
