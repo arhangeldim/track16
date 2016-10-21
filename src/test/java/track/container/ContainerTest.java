@@ -1,6 +1,7 @@
 package track.container;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -25,7 +26,7 @@ public class ContainerTest {
     private static Engine expectedEngine;
 
     @BeforeClass
-    public static void init() {
+    public static void init() throws IOException {
         try {
             ClassLoader classLoader = Container.class.getClassLoader();
             File file = new File(classLoader.getResource("config.json").getFile());
