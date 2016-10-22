@@ -8,5 +8,5 @@ package track.lessons.lesson3;
 public interface Queue {
     void enqueue(int value); // поместить элемент в очередь
 
-    int dequeue() throws Exception; // вытащить первый элемент из очереди
+    int dequeue() throws IndexOutOfRangeException; // вытащить первый элемент из очереди
 }

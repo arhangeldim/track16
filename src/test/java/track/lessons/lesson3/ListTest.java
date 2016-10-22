@@ -8,24 +8,16 @@ import org.junit.Test;
  */
 public class ListTest {
     @Test
-    public void correctTestLists() throws Exception {
+    public void correctTestLists() throws IndexOutOfRangeException {
         List[] lists = new List[2];
         lists[0] = new DynamicList();
         lists[1] = new LinkedList();
+        int[] testData1 = {1, 2, 10, 5, 6};
+        int[] testData2 = {1000, 2, 1, 2, 90, 100, 99};
         for (int i = 0; i < 2; ++i) {
-            lists[i].add(1);
-            lists[i].add(2);
-            lists[i].add(10);
-            lists[i].add(5);
-            lists[i].add(6);
+            lists[i].addAll(testData1);
             Assert.assertTrue(lists[i].remove(4) == 6);
-            lists[i].add(1000);
-            lists[i].add(2);
-            lists[i].add(1);
-            lists[i].add(2);
-            lists[i].add(90);
-            lists[i].add(100);
-            lists[i].add(99);
+            lists[i].addAll(testData2);
             Assert.assertTrue(lists[i].remove(0) == 1);
             Assert.assertTrue(lists[i].remove(2) == 5);
             Assert.assertTrue(lists[i].get(6) == 90);
@@ -36,7 +28,7 @@ public class ListTest {
     }
 
     @Test
-    public void correctTestStack() throws Exception {
+    public void correctTestStack() throws IndexOutOfRangeException {
         Stack stack = new LinkedList();
         stack.push(1);
         stack.push(2);
@@ -49,7 +41,7 @@ public class ListTest {
     }
 
     @Test
-    public void correctTestQueue() throws Exception {
+    public void correctTestQueue() throws IndexOutOfRangeException {
         Queue queue = new LinkedList();
         queue.enqueue(1);
         queue.enqueue(2);
@@ -62,35 +54,33 @@ public class ListTest {
 
     }
 
-    @Test(expected=Exception.class)
-    public void exceptionTestLinkedList() throws Exception {
+    @Test(expected=IndexOutOfRangeException.class)
+    public void exceptionTestLinkedList() throws IndexOutOfRangeException {
         List list = new LinkedList();
         list.add(10);
         list.get(1);
     }
 
-    @Test(expected=Exception.class)
-    public void exceptionTestDynamicList() throws Exception {
+    @Test(expected=IndexOutOfRangeException.class)
+    public void exceptionTestDynamicList() throws IndexOutOfRangeException {
         List list = new DynamicList();
         list.add(5);
         list.remove(1);
     }
 
-    @Test(expected=Exception.class)
-    public void exceptionTestStack() throws Exception {
+    @Test(expected=IndexOutOfRangeException.class)
+    public void exceptionTestStack() throws IndexOutOfRangeException {
         Stack stack = new LinkedList();
         stack.push(1);
         stack.pop();
         stack.pop();
     }
 
-    @Test(expected=Exception.class)
-    public void exceptionTestQueue() throws Exception {
+    @Test(expected=IndexOutOfRangeException.class)
+    public void exceptionTestQueue() throws IndexOutOfRangeException {
         Queue queue = new LinkedList();
         queue.enqueue(10);
         queue.dequeue();
         queue.dequeue();
     }
-
-
 }

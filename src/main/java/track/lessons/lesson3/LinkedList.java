@@ -1,5 +1,7 @@
 package track.lessons.lesson3;
 
+import java.text.MessageFormat;
+
 /**
  *
  */
@@ -8,12 +10,17 @@ public class LinkedList extends List implements Stack, Queue {
         add(value);
     }
 
-    public int pop() throws Exception {
-        if (begin == end) {
-            throw new Exception();
+    public int pop() throws IndexOutOfRangeException {
+        size--;
+        if (end == null) {
+            throw new IndexOutOfRangeException("You want to pop from the empty list");
         }
         Node endNode = end;
-        endNode.prev.next = endNode.prev;
+        if (begin == end) {
+            begin = null;
+        } else{
+            endNode.prev.next = null;
+        }
         end = endNode.prev;
         return endNode.value;
     }
@@ -22,7 +29,7 @@ public class LinkedList extends List implements Stack, Queue {
         add(value);
     }
 
-    public int dequeue() throws Exception {
+    public int dequeue() throws IndexOutOfRangeException {
         return remove(0);
     }
 
@@ -33,60 +40,65 @@ public class LinkedList extends List implements Stack, Queue {
 
         Node(int item) {
             value = item;
-            next = this;
-            prev = this;
+            next = null;
+            prev = null;
         }
     }
 
-    private Node begin = new Node(0);
-    private Node end = begin;
+    private Node begin = null;
+    private Node end = null;
+    private int size = 0;
 
-    private Node getNode(int idx) throws Exception {
-        if (idx < 0) {
-            throw new Exception();
+    private Node getNode(int idx, String action) throws IndexOutOfRangeException {
+        if (0 > idx || idx >= size) {
+            throw new IndexOutOfRangeException(MessageFormat.format("You want to {0} {1} element from" +
+                            " dynamic list with {2} elements.", action, Integer.toString(idx),
+                            Integer.toString(size)));
         }
         Node node = begin;
-        for (int i = 0; i <= idx; ++i) {
-            if (node == node.next) {
-                throw new Exception();
-            }
+        for (int i = 0; i < idx; ++i) {
             node = node.next;
         }
         return node;
     }
 
     public void add(int item) {
+        size++;
         Node newNode = new Node(item);
-        end.next = newNode;
-        newNode.prev = end;
-        end = newNode;
+        if (end == null) {
+            begin = newNode;
+            end = newNode;
+        } else {
+            end.next = newNode;
+            newNode.prev = end;
+            end = newNode;
+        }
     }
 
-    public int remove(int idx) throws Exception {
-        Node node = getNode(idx);
-        Node prevNode = node.prev;
-        if (node == end) {
-            prevNode.next = prevNode;
-            end = prevNode;
+    public int remove(int idx) throws IndexOutOfRangeException {
+        Node node = getNode(idx, "remove");
+        size--;
+        if (node == begin && node == end) {
+            begin = null;
+            end = null;
+        } else if (node == begin) {
+            node.next.prev = null;
+            begin = node.next;
+        } else if (node == end) {
+            node.prev.next = null;
+            end = node.prev;
         } else {
-            Node nextNode = node.next;
-            prevNode.next = nextNode;
-            nextNode.prev = prevNode;
+            node.next.prev = node.prev;
+            node.prev.next = node.next;
         }
         return node.value;
     }
 
-    public int get(int idx) throws Exception {
-        return getNode(idx).value;
+    public int get(int idx) throws IndexOutOfRangeException {
+        return getNode(idx, "get").value;
     }
 
     public int size() {
-        Node node = begin;
-        int cnt = 0;
-        while (node != node.next) {
-            node = node.next;
-            cnt++;
-        }
-        return cnt;
+        return size;
     }
 }

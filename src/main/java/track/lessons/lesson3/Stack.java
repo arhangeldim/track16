@@ -8,5 +8,5 @@ package track.lessons.lesson3;
 public interface Stack {
     void push(int value); // положить значение наверх стека
 
-    int pop() throws Exception; // вытащить верхнее значение со стека
+    int pop() throws IndexOutOfRangeException; // вытащить верхнее значение со стека
 }
