@@ -5,6 +5,8 @@ package track.lessons.lesson3;
  */
 public class DynamicList extends List {
     int[] content;
+    int size = 0;
+    static final int MINIMAL_SIZE = 10;
 
     public DynamicList() {
         content = null;
@@ -12,33 +14,35 @@ public class DynamicList extends List {
 
     void add(int item) {
         if (content == null) {
-            content = new int[1];
+            content = new int[MINIMAL_SIZE];
             content[0] = item;
+            size++;
         } else {
-            int[] newContent = new int[content.length + 1];
-            System.arraycopy(content, 0, newContent, 0, content.length);
-            content = newContent;
-            content[content.length - 1] = item;
+            size++;
+            if (size > content.length) {
+                int[] newContent = new int[2 * content.length];
+                System.arraycopy(content, 0, newContent, 0, content.length);
+                content = newContent;
+            }
+            content[size - 1] = item;
         }
     }
 
     int remove(int idx) {
-        int[] newContent = new int[content.length - 1];
-        if (idx >= content.length ) {
+        if ((idx >= content.length ) || (idx < 0)) {
             System.out.println("This list doesn't have element with this index.");
             return -1;
         }
-        System.arraycopy(content, 0, newContent, 0, idx);
-        if (idx < content.length - 1) {
-            System.arraycopy(content, idx + 1 , newContent, idx, content.length - idx - 1);
-        }
         int value = content[idx];
-        content = newContent;
+        if (idx < size - 1) {
+            System.arraycopy(content, idx + 1 , content, idx, size - idx - 1);
+        }
+        size--;
         return value;
     }
 
     int get(int idx) {
-        if (idx >= content.length ) {
+        if ((idx >= content.length ) || (idx < 0)) {
             System.out.println("This list doesn't have element with this index.");
             return -1;
         }
@@ -46,6 +50,6 @@ public class DynamicList extends List {
     }
 
     int size() {
-        return content.length;
+        return size;
     }
 }

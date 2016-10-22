@@ -23,60 +23,43 @@ public class LinkedList extends List implements Queue, Stack {
             this.next = next;
         }
 
-        public void setNext(int value) {
-            next = new Node(this, value);
+        public Node getNext() {
+            return this.next;
         }
 
         public int getValue() {
             return value;
         }
-
-        public Node getLast() {
-            if (this.next == null) {
-                return this;
-            } else {
-                return this.next.getLast();
-            }
-        }
-
-        public Node getN(int number) {
-            if (number == 0) {
-                return this;
-            } else if (this.next == null) {
-                return null;
-            } else {
-                return this.next.getN(number - 1);
-            }
-        }
-
-        public int size() {
-            if (next == null) {
-                return 1;
-            } else {
-                return 1 + next.size();
-            }
-        }
     }
 
     Node content;
-
-    public LinkedList() {
-        content = null;
-    }
+    int size;
 
     void add(int item) {
         if (content == null) {
             content = new Node(null, item);
         } else {
-            content.getLast().setNext(item);
+            Node tmp = content;
+            while (tmp.getNext() != null) {
+                tmp = tmp.getNext();
+            }
+            tmp.setNext(new Node(null, item));
         }
+        size++;
     }
 
     int remove(int idx) {
-        Node numberN = content.getN(idx);
-        if (numberN == null) {
+        Node numberN = content;
+        if (idx < 0) {
             System.out.println("This list doesn't have element with this index.");
-            return 0;
+            return -1;
+        }
+        for (int i = 0; i < idx; i++) {
+            numberN = numberN.getNext();
+            if (numberN == null) {
+                System.out.println("This list doesn't have element with this index.");
+                return -1;
+            }
         }
         if (numberN.prev != null) {
             numberN.prev.setNext(numberN.next);
@@ -87,20 +70,28 @@ public class LinkedList extends List implements Queue, Stack {
         if (idx == 0) {
             content = content.next;
         }
+        size--;
         return numberN.value;
     }
 
     int get(int idx) {
-        Node numberN = content.getN(idx);
-        if (numberN == null) {
+        if (idx < 0) {
             System.out.println("This list doesn't have element with this index.");
-            return 0;
+            return -1;
+        }
+        Node numberN = content;
+        for (int i = 0; i < idx; i++) {
+            numberN = numberN.getNext();
+            if (numberN == null) {
+                System.out.println("This list doesn't have element with this index.");
+                return -1;
+            }
         }
         return numberN.getValue();
     }
 
     int size() {
-        return content.size();
+        return size;
     }
 
     public void enqueue(int value) {
