@@ -5,15 +5,14 @@ package track.container.config;
  * Тег описывает поля определенного бина
  */
 public class Property {
-    private String name; // Имя поля
-    private String value; // Значение поля
-    private ValueType type; // Метка ссылочное значение или примитив
 
-    public Property(String name, String value, ValueType type) {
-        this.name = name;
-        this.value = value;
-        this.type = type;
+
+    public Property() {
     }
+
+    private String name; // Имя поля
+    private String val; // Значение поля
+    private ValueType type; // Метка ссылочное значение или примитив
 
     public String getName() {
         return name;
@@ -23,12 +22,18 @@ public class Property {
         this.name = name;
     }
 
-    public String getValue() {
-        return value;
+    public String getVal() {
+        return val;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setVal(String val) {
+        this.val = val;
+        setType(ValueType.VAL);
+    }
+
+    public void setRef(String ref){
+        this.val = ref;
+        setType(ValueType.REF);
     }
 
     public ValueType getType() {
@@ -43,7 +48,7 @@ public class Property {
     public String toString() {
         return "Property{" +
                 "name='" + name + '\'' +
-                ", value='" + value + '\'' +
+                ", val='" + val + '\'' +
                 ", type=" + type +
                 '}';
     }
