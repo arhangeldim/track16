@@ -11,6 +11,7 @@ public class Property {
     }
 
     private String name; // Имя поля
+    private String value;
     private String val; // Значение поля
     private ValueType type; // Метка ссылочное значение или примитив
 
@@ -28,11 +29,13 @@ public class Property {
 
     public void setVal(String val) {
         this.val = val;
+        this.value = val;
         setType(ValueType.VAL);
     }
 
     public void setRef(String ref){
         this.val = ref;
+        this.value = ref;
         setType(ValueType.REF);
     }
 
