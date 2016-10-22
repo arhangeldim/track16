@@ -27,10 +27,11 @@ public class Container {
      */
     public Object getById(String id) {
 
-        for (Bean bean: beans)
+        for (Bean bean: beans) {
             if (bean.getId().equals(id)) {
                 return makeRequeredObject(bean);
             }
+        }
         return null;
     }
 
@@ -39,28 +40,29 @@ public class Container {
      * Например, Car car = (Car) container.getByClass("track.container.beans.Car")
      */
     public Object getByClass(String className) {
-        for (Bean bean: beans)
+        for (Bean bean: beans) {
             if (bean.getClassName().equals(className)) {
                 return makeRequeredObject(bean);
             }
+        }
         return null;
     }
 
-    public Object makeRequeredObject(Bean bean){
+    public Object makeRequeredObject(Bean bean) {
         try {
             Class beanClass = Class.forName(bean.getClassName());
             Object object = beanClass.getConstructor().newInstance();
-            for (Property property: bean.getProperties()){
+            for (Property property: bean.getProperties()) {
                 Object propertyValue = null;
-                if (property.getType().equals(ValueType.VAL)){
+                if (property.getType().equals(ValueType.VAL)) {
                     propertyValue = property.getVal();
                 }
-                if (property.getType().equals(ValueType.REF)){
+                if (property.getType().equals(ValueType.REF)) {
                     propertyValue = getById(property.getVal());
                 }
-                for (Field field: object.getClass().getDeclaredFields()){
-                    if (field.getName().equals(property.getName())){
-                        if (field.getType().getName().equals("int")){
+                for (Field field: object.getClass().getDeclaredFields()) {
+                    if (field.getName().equals(property.getName())) {
+                        if (field.getType().getName().equals("int")) {
                             propertyValue = Integer.parseInt((String) propertyValue);
                         }
                         field.setAccessible(true);

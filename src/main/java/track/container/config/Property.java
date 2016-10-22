@@ -33,7 +33,7 @@ public class Property {
         setType(ValueType.VAL);
     }
 
-    public void setRef(String ref){
+    public void setRef(String ref) {
         this.val = ref;
         this.value = ref;
         setType(ValueType.REF);
