@@ -32,31 +32,30 @@ public class LinkedList extends List implements Queue, Stack {
         }
     }
 
-    Node content;
+    Node first;
+    Node last;
     int size;
 
     void add(int item) {
-        if (content == null) {
-            content = new Node(null, item);
+        if (first == null) {
+            first = new Node(null, item);
+            last = first;
         } else {
-            Node tmp = content;
-            while (tmp.getNext() != null) {
-                tmp = tmp.getNext();
-            }
-            tmp.setNext(new Node(null, item));
+            last.setNext(new Node(null, item));
+            last = last.getNext();
         }
         size++;
     }
 
     int remove(int idx) {
-        Node numberN = content;
-        if (idx < 0) {
+        Node numberN = first;
+        if (idx < 0 || idx >= size) { // * (idx >= size)
             System.out.println("This list doesn't have element with this index.");
             return -1;
         }
         for (int i = 0; i < idx; i++) {
             numberN = numberN.getNext();
-            if (numberN == null) {
+            if (numberN == null) { // Нам ведь получается не нужна эта проверка если есть *(52 строка).
                 System.out.println("This list doesn't have element with this index.");
                 return -1;
             }
@@ -66,23 +65,25 @@ public class LinkedList extends List implements Queue, Stack {
         }
         if (numberN.next != null) {
             numberN.next.setPrev(numberN.prev);
+        } else {
+            last = numberN.prev;
         }
         if (idx == 0) {
-            content = content.next;
+            first = first.next;
         }
         size--;
         return numberN.value;
     }
 
     int get(int idx) {
-        if (idx < 0) {
+        if (idx < 0 || idx >= size) {
             System.out.println("This list doesn't have element with this index.");
             return -1;
         }
-        Node numberN = content;
+        Node numberN = first;
         for (int i = 0; i < idx; i++) {
             numberN = numberN.getNext();
-            if (numberN == null) {
+            if (numberN == null) { //Аналогично проверке в ремуве.
                 System.out.println("This list doesn't have element with this index.");
                 return -1;
             }

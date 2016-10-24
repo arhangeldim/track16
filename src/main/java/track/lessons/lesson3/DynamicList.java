@@ -16,9 +16,7 @@ public class DynamicList extends List {
         if (content == null) {
             content = new int[MINIMAL_SIZE];
             content[0] = item;
-            size++;
         } else {
-            size++;
             if (size > content.length) {
                 int[] newContent = new int[2 * content.length];
                 System.arraycopy(content, 0, newContent, 0, content.length);
@@ -26,15 +24,17 @@ public class DynamicList extends List {
             }
             content[size - 1] = item;
         }
+        size++;
     }
 
     int remove(int idx) {
-        if ((idx >= content.length ) || (idx < 0)) {
+        if ((idx >= size ) || (idx < 0)) {
             System.out.println("This list doesn't have element with this index.");
             return -1;
         }
         int value = content[idx];
-        if (idx < size - 1) {
+        if (idx < size - 1) { //Эта проверка остается т.к. если мы удаляем последний
+                              // элемент то можно просто уменьшить size.
             System.arraycopy(content, idx + 1 , content, idx, size - idx - 1);
         }
         size--;
