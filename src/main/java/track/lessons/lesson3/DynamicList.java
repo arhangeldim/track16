@@ -42,7 +42,7 @@ public class DynamicList extends List {
     }
 
     int get(int idx) {
-        if ((idx >= content.length ) || (idx < 0)) {
+        if ((idx >= size ) || (idx < 0)) {
             System.out.println("This list doesn't have element with this index.");
             return -1;
         }
