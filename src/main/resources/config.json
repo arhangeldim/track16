@@ -3,36 +3,36 @@
     {
       "id": "carBean",
       "className": "track.container.beans.Car",
-      "properties": [
-        {
+      "properties": {
+        "gear": {
           "name": "gear",
           "ref": "gearBean"
         },
-        {
-          "name": "engine",
-          "ref": "engineBean"
+        "power": {
+          "name": "power",
+          "ref": "powerBean"
         }
-      ]
+      }
     },
     {
       "id": "gearBean",
       "className": "track.container.beans.Gear",
-      "properties": [
-        {
+      "properties": {
+        "count": {
           "name": "count",
-          "val": "6"
+          "val": 6
         }
-      ]
+      }
     },
     {
       "id": "engineBean",
       "className": "track.container.beans.Engine",
-      "properties": [
-        {
+      "properties": {
+        "power": {
           "name": "power",
-          "val": "200"
+          "val": 200
         }
-      ]
+      }
     }
   ]
 }
