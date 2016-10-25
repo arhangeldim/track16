@@ -10,7 +10,6 @@ public class LinkedList extends List implements Stack, Queue {
 
     //Конец списка
     private Node tail = null;
-    private int size = 0;
 
     @Override
     void add(int item) {
@@ -26,9 +25,7 @@ public class LinkedList extends List implements Stack, Queue {
     }
 
     Node getNode(int idx) {
-        if (idx < 0 || idx >= size) {
-            return null;
-        }
+        validateIndex(idx);
         Node node = head;
         if (node == null) {
             return null;
@@ -41,9 +38,7 @@ public class LinkedList extends List implements Stack, Queue {
 
     @Override
     int remove(int idx) {
-        if (idx < 0 || idx >= size) {
-            throw new IndexOutOfBoundsException();
-        }
+        //validateIndex(idx);
 
         Node node = getNode(idx);
         if (node == null) {
@@ -71,7 +66,7 @@ public class LinkedList extends List implements Stack, Queue {
     int get(int idx) {
         Node node = getNode(idx);
         if (node == null) {
-            throw new IndexOutOfBoundsException();
+            throw new IllegalArgumentException();
         }
         return node.getValue();
     }

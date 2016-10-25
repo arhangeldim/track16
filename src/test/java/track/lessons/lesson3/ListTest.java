@@ -10,7 +10,7 @@ import org.junit.Test;
  */
 public class ListTest {
 
-    static public void test(List list) throws Exception {
+    static private void getAndRemoveFromEmptyList(List list) {
         Throwable e = null;
 
         try {
@@ -18,7 +18,7 @@ public class ListTest {
         } catch (Exception ex) {
             e = ex;
         }
-        Assert.assertTrue(e instanceof IndexOutOfBoundsException);
+        Assert.assertTrue(e instanceof IllegalArgumentException);
 
         e = null;
         try {
@@ -26,7 +26,11 @@ public class ListTest {
         } catch (Exception ex) {
             e = ex;
         }
-        Assert.assertTrue(e instanceof IndexOutOfBoundsException);
+        Assert.assertTrue(e instanceof IllegalArgumentException);
+    }
+
+    static private void addOneAndRemove(List list) {
+        Throwable e = null;
 
         list.add(1);
         Assert.assertEquals(list.remove(0), 1);
@@ -37,8 +41,11 @@ public class ListTest {
         } catch (Exception ex) {
             e = ex;
         }
-        Assert.assertTrue(e instanceof IndexOutOfBoundsException);
+        Assert.assertTrue(e instanceof IllegalArgumentException);
+    }
 
+    //После этого метода в списке 10 элементов от 0 до 10 по порядку
+    static private void addElementsAndGet(List list) {
         for(int i = 0; i < 10; i++) {
             list.add(i);
         }
@@ -50,6 +57,39 @@ public class ListTest {
             Assert.assertEquals(list.get(i), i);
         }
         Assert.assertEquals(list.size(), 10);
+    }
+
+    static private void unboundaryIndex(List list) {
+        Throwable e = null;
+        try {
+            list.get(100);
+        } catch (Exception ex) {
+            e = ex;
+        }
+        Assert.assertTrue(e instanceof IllegalArgumentException);
+
+        e = null;
+        try {
+            list.remove(100);
+        } catch (Exception ex) {
+            e = ex;
+        }
+        Assert.assertTrue(e instanceof IllegalArgumentException);
+
+        e = null;
+        try {
+            list.get(-1);
+        } catch (Exception ex) {
+            e = ex;
+        }
+        Assert.assertTrue(e instanceof IllegalArgumentException);
+    }
+
+    static private void test(List list) throws Exception {
+
+        getAndRemoveFromEmptyList(list);
+        addOneAndRemove(list);
+        addElementsAndGet(list);
 
         Assert.assertEquals(list.remove(0), 0);
         Assert.assertEquals(list.size(), 9);
@@ -60,29 +100,8 @@ public class ListTest {
         list.add(10);
         Assert.assertEquals(list.size(), 9);
 
-        e = null;
-        try {
-            list.get(100);
-        } catch (Exception ex) {
-            e = ex;
-        }
-        Assert.assertTrue(e instanceof IndexOutOfBoundsException);
+        unboundaryIndex(list);
 
-        e = null;
-        try {
-            list.remove(100);
-        } catch (Exception ex) {
-            e = ex;
-        }
-        Assert.assertTrue(e instanceof IndexOutOfBoundsException);
-
-        e = null;
-        try {
-            list.get(-1);
-        } catch (Exception ex) {
-            e = ex;
-        }
-        Assert.assertTrue(e instanceof IndexOutOfBoundsException);
     }
 
     @Test
@@ -94,11 +113,4 @@ public class ListTest {
     public void linkedTest() throws Exception {
         test(new LinkedList());
     }
-
-    @Test
-    public void allTest() throws Exception {
-        dynamicTest();
-        linkedTest();
-    }
-
 }
