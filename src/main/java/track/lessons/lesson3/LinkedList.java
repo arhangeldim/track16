@@ -10,10 +10,10 @@ public class LinkedList extends List implements Queue, Stack {
         Node prev;
         Node next;
 
-        Node(int newValue, Node newPrev, Node newNext) {
-            value = newValue;
-            prev = newPrev;
-            next = newNext;
+        Node(int value, Node prev, Node next) {
+            this.value = value;
+            this.prev = prev;
+            this.next = next;
         }
     }
 
