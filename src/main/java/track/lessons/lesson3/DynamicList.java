@@ -6,63 +6,54 @@ package track.lessons.lesson3;
 public class DynamicList extends List {
 
     private int[] data = null;
-    private int top = 0;
 
-    static final int REALLOC_MEM_SIZE = 5;
+    private static final int DEFAULT_SIZE = 2;
 
     public DynamicList() {
-
+        this(DEFAULT_SIZE);
     }
 
     public DynamicList(int defaultSize) {
         data = new int[defaultSize];
     }
 
+    private boolean isValid() {
+        return data != null && data.length > size;
+    }
+
     private void reallocateMemory() {
-        if (data == null || data.length <= top) {
-            int[] newData = new int[top + REALLOC_MEM_SIZE];
-            if (newData == null) {
-                throw new OutOfMemoryError("Memory can't be allocated");
-            }
-            if (data != null) {
-                System.arraycopy(data, 0, newData, 0, top);
-            }
+        if (!isValid()) {
+            int[] newData = new int[data.length * 2];
+            System.arraycopy(data, 0, newData, 0, size);
             data = newData;
         }
     }
 
     @Override
     void add(int item) {
-        if (data == null || top >= data.length) {
+        if (!isValid()) {
             reallocateMemory();
         }
-        data[top++] = item;
+        data[size++] = item;
     }
 
     @Override
     int remove(int idx) {
-        if (idx < 0 || idx >= top) {
-            throw new IndexOutOfBoundsException();
-        }
+        validateIndex(idx);
         int value = data[idx];
-        for (int i = idx + 1; i < top; i++) {
-            data[i - 1] = data[i];
-        }
-        top--;
+        System.arraycopy(data, idx + 1, data, idx + 1 - 1, size - (idx + 1));
+        size--;
         return value;
     }
 
     @Override
     int get(int idx) {
-        if (idx < 0 || idx >= top) {
-            throw new IndexOutOfBoundsException();
-        }
-
+        validateIndex(idx);
         return data[idx];
     }
 
     @Override
     int size() {
-        return top;
+        return size;
     }
 }
