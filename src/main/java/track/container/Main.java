@@ -39,8 +39,7 @@ public class Main {
 //            Engine engine = (Engine) container.getById("engineBean");
 //            System.out.println(engine.getPower());
 
-        } catch (InvalidConfigurationException | ClassNotFoundException | IllegalAccessException |
-                InvocationTargetException | InstantiationException | NoSuchFieldException | NoSuchMethodException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.println(beans);

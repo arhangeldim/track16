@@ -33,8 +33,7 @@ public class Container {
      * Вернуть объект по имени бина из конфига
      * Например, Car car = (Car) container.getById("carBean")
      */
-    public Object getById(String id) throws ClassNotFoundException, IllegalAccessException,
-            InstantiationException, NoSuchMethodException, InvocationTargetException, NoSuchFieldException {
+    public Object getById(String id) throws Exception {
         if (!objByName.containsKey(id)) {
             Bean bean = null;
             for (Bean curBean : beans) {
@@ -55,8 +54,7 @@ public class Container {
      * Вернуть объект по имени класса
      * Например, Car car = (Car) container.getByClass("track.container.beans.Car")
      */
-    public Object getByClass(String className) throws ClassNotFoundException, IllegalAccessException,
-            InstantiationException, NoSuchMethodException, InvocationTargetException, NoSuchFieldException {
+    public Object getByClass(String className) throws Exception {
         if (!objByClassName.containsKey(className)) {
             Bean bean = null;
             for (Bean curBean : beans) {
@@ -74,8 +72,7 @@ public class Container {
         return objByClassName.get(className);
     }
 
-    private void newObject(Bean bean) throws ClassNotFoundException, IllegalAccessException,
-            InstantiationException, NoSuchMethodException, InvocationTargetException, NoSuchFieldException {
+    private void newObject(Bean bean) throws Exception {
         Class<?> clazz;
         clazz = Class.forName(bean.getClassName());
         Object object = clazz.newInstance();
