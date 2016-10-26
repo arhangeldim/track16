@@ -6,11 +6,9 @@ package track.lessons.lesson3;
 public class DynamicList extends List {
 
     private int[] array;
-    private int capacity;
 
     DynamicList(int size) {
         array = new int[size];
-        capacity = size;
     }
 
     DynamicList() {
@@ -19,10 +17,8 @@ public class DynamicList extends List {
 
     @Override
     public void add(int item) {
-
-        if (size >= capacity) {
-            capacity = 2 * capacity;
-            int[] newArray = new int[capacity];
+        if (size >= array.length) {
+            int[] newArray = new int[2 * array.length];
             System.arraycopy(array, 0, newArray, 0, array.length);
             array = newArray;
         }
@@ -33,10 +29,7 @@ public class DynamicList extends List {
 
     @Override
     public int remove(int idx) {
-        if (idx >= size || idx < 0) {
-            throw new IndexOutOfBoundsException("No such index in array");
-        }
-
+        checkIndex(idx);
         int removeElement = array[idx];
         System.arraycopy(array, idx + 1, array, idx, array.length - idx - 1);
         size--;
@@ -45,14 +38,9 @@ public class DynamicList extends List {
 
     @Override
     public int get(int idx) {
-        if (idx >= size || idx < 0) {
-            throw new IndexOutOfBoundsException("No such index in array");
-        }
-
+        checkIndex(idx);
         return array[idx];
     }
 
-    public int getCapacity() {
-        return capacity;
-    }
+
 }

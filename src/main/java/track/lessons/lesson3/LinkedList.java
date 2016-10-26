@@ -16,9 +16,7 @@ public class LinkedList extends List implements Stack, Queue {
     }
 
     public Node getNode(int idx) {
-        if (idx >= size || idx < 0) {
-            throw new IndexOutOfBoundsException("No such index in array");
-        }
+        checkIndex(idx);
 
         Node element;
 
@@ -104,7 +102,7 @@ public class LinkedList extends List implements Stack, Queue {
     }
 
     @Override
-    public int dequeu() {
+    public int dequeue() {
         return remove(0);
     }
 }

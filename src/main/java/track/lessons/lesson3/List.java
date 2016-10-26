@@ -1,7 +1,7 @@
 package track.lessons.lesson3;
 
 /**
- *Created by Konstantin on 13.10.2016.
+ * Created by Konstantin on 13.10.2016.
  */
 
 public abstract class List {
@@ -17,5 +17,11 @@ public abstract class List {
 
     public int size() {
         return size;
+    }
+
+    protected void checkIndex(int index) {
+        if (index >= size || index < 0) {
+            throw new IllegalArgumentException("No such index in array");
+        }
     }
 }
