@@ -102,7 +102,7 @@ public class LinkedList extends List implements Stack, Queue {
     }
 
     @Override
-    public int dequeue() {
+    public int dequeu() {
         return remove(0);
     }
 }
