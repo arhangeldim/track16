@@ -53,7 +53,7 @@ public class ListTest {
         boolean excep = false;
         try {
             list.get(-1);
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (IllegalArgumentException ex) {
             excep = true;
         }
         Assert.assertTrue(excep);
@@ -61,7 +61,7 @@ public class ListTest {
         excep = false;
         try {
             list.get(100);
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (IllegalArgumentException ex) {
             excep = true;
         }
         Assert.assertTrue(excep);
@@ -69,7 +69,7 @@ public class ListTest {
         excep = false;
         try {
             list.remove(100);
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (IllegalArgumentException ex) {
             excep = true;
         }
         Assert.assertTrue(excep);
@@ -109,7 +109,7 @@ public class ListTest {
         boolean excep = false;
         try {
             list.get(-1);
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (IllegalArgumentException ex) {
             excep = true;
         }
         Assert.assertTrue(excep);
@@ -117,7 +117,7 @@ public class ListTest {
         excep = false;
         try {
             list.get(18);
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (IllegalArgumentException ex) {
             excep = true;
         }
         Assert.assertTrue(excep);
@@ -125,7 +125,7 @@ public class ListTest {
         excep = false;
         try {
             list.remove(100);
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (IllegalArgumentException ex) {
             excep = true;
         }
         Assert.assertTrue(excep);
@@ -148,7 +148,7 @@ public class ListTest {
         boolean excep = false;
         try {
             queue.dequeu();
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (IllegalArgumentException ex) {
             excep = true;
         }
 
@@ -172,7 +172,7 @@ public class ListTest {
         boolean excep = false;
         try {
             stack.pop();
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (IllegalArgumentException ex) {
             excep = true;
         }
 
