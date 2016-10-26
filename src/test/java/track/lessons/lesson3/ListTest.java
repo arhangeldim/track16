@@ -23,9 +23,9 @@ public class ListTest {
         //assert (list.getCapacity() == 10);
 
         //проверка методов get и add
-//        for (int i = 0; i < 21; i++) {
-//            list.add(i);
-//            assert (list.get(i) == i);
+        for (int i = 0; i < 21; i++) {
+            list.add(i);
+            assert (list.get(i) == i);
 //            if (i == 9) {
 //              //  assert (list.getCapacity() == 10);
 //            }
@@ -35,7 +35,7 @@ public class ListTest {
 //            if (i == 20) {
 //               // assert (list.getCapacity() == 40);
 //            }
-//        }
+        }
 
 
         //проверка метода remove
