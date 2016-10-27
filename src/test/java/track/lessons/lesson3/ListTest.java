@@ -56,7 +56,7 @@ public class ListTest {
     }
 
     @Test
-    public void removeDynamicListTest(){
+    public void removeDynamicListTest() {
         List list = new DynamicList();
         for (int i = 0; i < 21; i++) {
             list.add(i);
@@ -72,19 +72,19 @@ public class ListTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void exceptionGetDynamicListTest1(){
+    public void exceptionGetDynamicListTest1() {
         List list = new DynamicList();
         list.get(100);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void exceptionGetDynamicListTest2(){
+    public void exceptionGetDynamicListTest2() {
         List list = new DynamicList();
         list.get(-1);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void exceptionRemoveDynamicListTest1(){
+    public void exceptionRemoveDynamicListTest1() {
         List list = new DynamicList();
         for (int i = 0; i < 10; i++) {
             list.add(i);
@@ -100,7 +100,7 @@ public class ListTest {
     }
 
     @Test
-    public void addAndGetLinkedListTest(){
+    public void addAndGetLinkedListTest() {
         List list = new LinkedList();
         for (int i = 0; i < 21; i++) {
             list.add(i);
@@ -109,7 +109,7 @@ public class ListTest {
     }
 
     @Test
-    public void removeLinkedListTest(){
+    public void removeLinkedListTest() {
         List list = new LinkedList();
         for (int i = 0; i < 21; i++) {
             list.add(i);
@@ -129,19 +129,19 @@ public class ListTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void exceptionGetLinkedListTest1(){
+    public void exceptionGetLinkedListTest1() {
         List list = new LinkedList();
         list.get(100);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void exceptionGetLinkedListTest2(){
+    public void exceptionGetLinkedListTest2() {
         List list = new LinkedList();
         list.get(-1);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void exceptionGetLinkedListTest3(){
+    public void exceptionGetLinkedListTest3() {
         List list = new LinkedList();
         for (int i = 0; i < 10; i++) {
             list.add(i);
@@ -151,7 +151,7 @@ public class ListTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void exceptionRemoveLinkedListTest1(){
+    public void exceptionRemoveLinkedListTest1() {
         List list = new LinkedList();
         for (int i = 0; i < 10; i++) {
             list.add(i);
@@ -172,7 +172,7 @@ public class ListTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void queueTest2(){
+    public void queueTest2() {
         Queue queue = new LinkedList();
         for (int i = 0; i < 9; i++) {
             queue.enqueue(i);
