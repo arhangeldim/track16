@@ -4,7 +4,6 @@ package track.lessons.lesson3;
  * Created by Konstantin on 13.10.2016.
  */
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.junit.*;
 
 import java.lang.reflect.Field;
