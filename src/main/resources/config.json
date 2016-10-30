@@ -2,37 +2,37 @@
   "beans": [
     {
       "id": "carBean",
-      "class": "track.container.beans.Car",
-      "properties": [
-        {
+      "className": "track.container.beans.Car",
+      "properties": {
+        "gear": {
           "name": "gear",
           "ref": "gearBean"
         },
-        {
-          "name": "engine",
-          "ref": "engineBean"
+        "power": {
+          "name": "power",
+          "ref": "powerBean"
         }
-      ]
+      }
     },
     {
       "id": "gearBean",
-      "class": "track.container.beans.Gear",
-      "properties": [
-        {
+      "className": "track.container.beans.Gear",
+      "properties": {
+        "count": {
           "name": "count",
-          "val": "6"
+          "val": 6
         }
-      ]
+      }
     },
     {
       "id": "engineBean",
-      "class": "track.container.beans.Engine",
-      "properties": [
-        {
+      "className": "track.container.beans.Engine",
+      "properties": {
+        "power": {
           "name": "power",
-          "val": "200"
+          "val": 200
         }
-      ]
+      }
     }
   ]
 }
