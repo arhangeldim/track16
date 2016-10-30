@@ -9,11 +9,8 @@ import track.container.config.Bean;
  * У него определено 2 публичных метода, можете дописывать свои методы и конструкторы
  */
 public class Container {
-
-
     // Реализуйте этот конструктор, используется в тестах!
     public Container(List<Bean> beans) {
-
     }
 
     /**
