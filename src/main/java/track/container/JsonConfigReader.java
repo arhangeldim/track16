@@ -29,9 +29,9 @@ public class JsonConfigReader implements ConfigReader {
         }
     }
 
-    public Map<String, Property> createProperty(JsonNode jNode) throws InvalidConfigurationException {
+    public Map<String, Property> createProperty(JsonNode jsonNode) throws InvalidConfigurationException {
         Map<String, Property> properties = new HashMap<>();
-        for (JsonNode indexNode : jNode) {
+        for (JsonNode indexNode : jsonNode) {
             String name = indexNode.path("name").asText();
             Property property = null;
             if (indexNode.has("ref")) {

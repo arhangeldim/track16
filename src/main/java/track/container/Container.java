@@ -67,7 +67,7 @@ public class Container {
         }
     }
 
-    public boolean isDepend (String classN, Field[] declaredF) {
+    public boolean isDepend(String classN, Field[] declaredF) {
         for (Field field : declaredF) {
             if (field.getType().getName().equals(classN)) {
                 return true;
