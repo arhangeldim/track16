@@ -9,8 +9,8 @@
           "ref": "gearBean"
         },
         "power": {
-          "name": "engine",
-          "ref": "engineBean"
+          "name": "power",
+          "ref": "powerBean"
         }
       }
     },
@@ -20,7 +20,7 @@
       "properties": {
         "count": {
           "name": "count",
-          "value": 6
+          "val": 6
         }
       }
     },
@@ -30,7 +30,7 @@
       "properties": {
         "power": {
           "name": "power",
-          "value": 200
+          "val": 200
         }
       }
     }
