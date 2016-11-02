@@ -26,14 +26,14 @@ public class Property {
         this.name = name;
     }
 
-    public String getValue() {
+    public String getVal() {
         return value;
     }
 
     /**
      * Установить значение в поле и указать тип поля как значение
      */
-    public void setValue(String value) {
+    public void setVal(String value) {
         this.value = value;
         setType(ValueType.VAL);
     }
