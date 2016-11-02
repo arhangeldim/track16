@@ -6,13 +6,10 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
-import com.sun.xml.internal.ws.model.AbstractWrapperBeanGenerator;
 import org.xml.sax.SAXException;
 import track.container.config.Bean;
 import track.container.config.InvalidConfigurationException;
-import track.container.config.Property;
 import track.container.config.ValueType;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -25,15 +22,17 @@ import javax.xml.parsers.ParserConfigurationException;
 public class Container {
     private List<Bean> beans;
     private Map<String, Bean> beanMap = new HashMap<>();
+    private Map<String, Bean> beanClassMap = new HashMap<>();
     private Map<String, Object> objByName = new HashMap<>();
     private Map<String, Object> objByClass = new HashMap<>();
 
     // Реализуйте этот конструктор, используется в тестах!
     public Container(String pathToConfig) throws InvalidConfigurationException {
-        BeanXmlReadel bxr = new BeanXmlReadel();
+        BeanXmlReader bxr = new BeanXmlReader();
         try {
             beans = bxr.parseBeans(pathToConfig);
             beans.forEach(x -> beanMap.put(x.getId(), x));
+            beans.forEach(x -> beanClassMap.put(x.getClassName(), x));
         } catch (ParserConfigurationException | IOException | SAXException e) {
             e.printStackTrace();
         }
@@ -48,8 +47,18 @@ public class Container {
      *  Вернуть объект по имени бина из конфига
      *  Например, Car car = (Car) container.getById("carBean")
      */
+
+     /*
+     Будем создавать объект из Bean следующим обдразом:
+     Сначала смотрим, не будет ли ссылаться наш будущий объект на другие, которые мы ещё не создали.
+     Если такие есть, то рекурсивно создаём их.
+
+     Затем создаём объект, и запускаем его сеттеры для инициализации всех параметров.
+      */
     private void generateObject(String beanId) throws ClassNotFoundException,
             IllegalAccessException, InstantiationException {
+
+        //рекурсивное создание потомков
         beanMap.get(beanId).getProperties().forEach((key, value) -> {
             if (value.getType().equals(ValueType.REF) && !objByName.containsKey(value.getValue())) {
                 try {
@@ -60,8 +69,10 @@ public class Container {
             }
         });
 
-        System.out.println(beanMap.get(beanId).getClassName());
+        //System.out.println(beanMap.get(beanId).getClassName());
 
+
+        //создание объекта
         Class currClass = Class.forName(beanMap.get(beanId).getClassName());
         Object obj = currClass.newInstance();
 
@@ -103,12 +114,14 @@ public class Container {
             }
         });
 
+        objByClass.put(beanMap.get(beanId).getClassName(), obj);
         objByName.put(beanId, obj);
     }
 
     public Object getById(String id) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
         if (!objByName.containsKey(id)) {
             generateObject(id);
+            //System.out.println(objByClass.toString());
         }
         return objByName.get(id);
     }
@@ -117,7 +130,12 @@ public class Container {
      * Вернуть объект по имени класса
      * Например, Car car = (Car) container.getByClass("track.container.beans.Car")
      */
-    public Object getByClass(String className) {
-        return null;
+    public Object getByClass(String className) throws IllegalAccessException, InstantiationException,
+            ClassNotFoundException {
+        if (!objByClass.containsKey(className)) {
+            generateObject(beanClassMap.get(className).getId());
+        }
+        //System.out.println(objByClass.toString());
+        return objByClass.get(className);
     }
 }

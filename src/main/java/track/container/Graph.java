@@ -26,6 +26,9 @@ class Graph {
 
     }
 
+    /*
+    Будем организовывать доступ к вершинам по строке id, а не по всему bean, т которого вершина создана.
+    */
 
     private Map<String, Bean> vertices = new HashMap<>();
     private Map<String, List<String>> graph = new HashMap<>();
@@ -36,6 +39,10 @@ class Graph {
         }
         graph.get(from).add(to);
     }
+
+    /*
+    Расширим функцию добавления вершины в функцию добавления вершины и всех рёбер из неё.
+     */
 
     private void addEdges(Bean from) {
         Collection<Property> properties = from.getProperties().values();
@@ -63,28 +70,42 @@ class Graph {
     Graph(List<Bean> beans) {
         beans.forEach(x -> vertices.put(x.getId(), x));
         beans.forEach(this::addEdges);
+        assert hasCircles;
     }
 
-    private Set<String> visited;
-    private Map<String, Integer> timeOut;
+    private boolean hasCircles = false; //индикатор зацикленности графа.
+    private Map<String, Integer> visited; //индикаторы пройденных вершин.
+    private Map<String, Integer> timeOut; //времена выхода из вершин внутри dfs.
     private int currTime;
 
-    private void dfs(String curr) {
-        if (!visited.contains(curr)) {
-            visited.add(curr);
-            graph.get(curr).forEach(this::dfs);
+    /*
+    Проверяем на зацикленность следующим образом:
+    Каждый раз запускаем dfs с новым числом, которым помечаем отмеченные.
+    Если вдруг мы нашли вершину, которую уже отметили текущим числом, значит мы зациклимся.
+     */
+
+    private void dfs(String curr, Integer visitedFlag) {
+        if (!visited.containsKey(curr)) {
+            visited.put(curr, visitedFlag);
+            graph.get(curr).forEach(x -> dfs(x, visitedFlag));
             currTime++;
             timeOut.put(curr, currTime);
+        } else if (visitedFlag.equals(visited.get(curr))) {
+            hasCircles = true;
         }
     }
 
+    /*
+    Топографически сортируем граф в порядке времени выхода из вершины в dfs (timeOut)
+     */
+
     List<Bean> sort() {
-        visited = new HashSet<>();
+        visited = new HashMap<>();
         timeOut = new HashMap<>();
         currTime = 0;
         List<Bean> result = new ArrayList<>(vertices.values());
 
-        vertices.keySet().forEach(this::dfs);
+        vertices.keySet().forEach(ver -> dfs(ver, ver.hashCode()));
 
         System.out.println(timeOut);
         result.sort(Comparator.comparing(e -> timeOut.get(e.getId())));

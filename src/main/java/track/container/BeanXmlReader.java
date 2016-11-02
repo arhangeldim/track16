@@ -23,7 +23,7 @@ import java.util.Map;
  * Created by zerts on 02.11.16.
  */
 
-public class BeanXmlReadel {
+public class BeanXmlReader {
     private static final String TAG_BEAN = "bean";
     private static final String TAG_PROPERTY = "property";
     private static final String ATTR_NAME = "name";
@@ -40,7 +40,10 @@ public class BeanXmlReadel {
 
         NodeList beanList = doc.getElementsByTagName(TAG_BEAN);
         List<Bean> result = new ArrayList<>();
+
+
         for (int i = 0; i < beanList.getLength(); i++) {
+
             Node curr = beanList.item(i);
             Element elem = (Element) curr;
             String beanId = elem.getAttribute(ATTR_BEAN_ID);
@@ -57,8 +60,7 @@ public class BeanXmlReadel {
                 if (((Element) properties.item(j)).hasAttribute(ATTR_REF)) {
                     type = ValueType.REF;
                     value = ((Element) properties.item(j)).getAttribute(ATTR_REF);
-                }
-                else {
+                } else {
                     type = ValueType.VAL;
                     value = ((Element) properties.item(j)).getAttribute(ATTR_VALUE);
                 }

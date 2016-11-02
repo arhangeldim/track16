@@ -1,16 +1,20 @@
 package track.container;
 
-import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import org.xml.sax.SAXException;
 import track.container.beans.Car;
 import track.container.beans.Engine;
 import track.container.beans.Gear;
-import track.container.config.ConfigReader;
+import track.container.config.Bean;
 import track.container.config.InvalidConfigurationException;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  *
@@ -25,12 +29,12 @@ public class ContainerTest {
     private static Engine expectedEngine;
 
     @BeforeClass
-    public static void init() {
+    public static void init() throws IOException, SAXException, ParserConfigurationException {
         try {
-            ClassLoader classLoader = Container.class.getClassLoader();
-            File file = new File(classLoader.getResource("config.json").getFile());
-            ConfigReader reader = new JsonConfigReader();
-            container = new Container(reader.parseBeans(file));
+            //ClassLoader classLoader = Container.class.getClassLoader();
+            //File file = new File(classLoader.getResource("config.json").getFile());
+            //ConfigReader reader = new JsonConfigReader();
+            container = new Container("src/main/resources/test.xml");
         } catch (InvalidConfigurationException e) {
             e.printStackTrace();
         }
