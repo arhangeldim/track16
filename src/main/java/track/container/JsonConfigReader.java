@@ -21,7 +21,8 @@ public class JsonConfigReader implements ConfigReader {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            JsonNode jsonNode = mapper.readTree(configFile);
+            Root root = mapper.readValue(configFile, Root.class);
+            /*JsonNode jsonNode = mapper.readTree(configFile);
             List<Bean> beanList = new ArrayList<>();
             for (JsonNode node : jsonNode.path("beans")) {
                 Map<String, Property> properties = new HashMap<>();
@@ -30,7 +31,8 @@ public class JsonConfigReader implements ConfigReader {
                 Bean bean = new Bean(id, className, propertiesToMap(node.path("properties")));
                 beanList.add(bean);
             }
-            return beanList;
+            return beanList;*/
+            return root.getBeans();
 
         } catch (IOException e) {
             throw new InvalidConfigurationException(e.getMessage());

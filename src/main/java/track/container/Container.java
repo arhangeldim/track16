@@ -31,6 +31,7 @@ public class Container {
      */
     public Object getById(String id) throws InvalidConfigurationException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         //Если нужный класс ещё не создан
+        System.out.println("In getById");
         if (!objByClassName.containsKey(id)) {
             Bean bean = findBean(id);
 

@@ -26,6 +26,10 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
+        for (Bean bean : beans) {
+            System.out.println(bean);
+        }
+
         System.out.println(beans);
         Container container = null;
         try {
@@ -34,15 +38,15 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
-/*
+
         Car car = (Car) container.getById("carBean");
         System.out.println(car);
         Gear gear = (Gear) container.getById("gearBean");
         System.out.println(gear.getCount());
         Engine engine = (Engine) container.getById("engineBean");
         System.out.println(engine.getPower());
-*/
-        Car car = (Car) container.getByClass("track.container.beans.Car");
+
+        car = (Car) container.getByClass("track.container.beans.Car");
         System.out.println(car);
 
         /*
