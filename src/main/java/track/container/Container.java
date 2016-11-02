@@ -107,7 +107,7 @@ public class Container {
                                     /*  Преобразуем строковое представление значения поля в примитив или обёртку
                                         над ним, передадим в сеттер */
                                     PropertyEditor editor = PropertyEditorManager.findEditor(parameterType);
-                                    editor.setAsText(property.getVal());
+                                    editor.setAsText(property.getValue());
                                     setter.invoke(object, editor.getValue());
                                 }
 
@@ -120,7 +120,7 @@ public class Container {
                 } else if (property.getType() == ValueType.REF) {
 
                     /* Если тип поля — ссылка, то найдём объект, на который ведёт ссылка */
-                    String refId = property.getVal();
+                    String refId = property.getValue();
                     Object ref = objById.get(refId);
 
                     /* Если объект не найден, то он ещё не создан. Попробуем его создать */
