@@ -1,30 +1,27 @@
 package track.lessons.lesson2;
 
-import javax.print.Doc;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.Arrays;
 
 /**
  *
  */
-
 public class Parser {
 
-    public static Document parse(String data) {
-        return new Document(data);
+    Document parse(String data) {
+        return null;
     }
 
     public static void main(String[] args) throws Exception {
-        String path = "/Users/iv/code/track16/target/classes/log4j.xml";
+
+        String path = "path/to/file";
         BufferedReader reader = new BufferedReader(new FileReader(path));
-        String line = null;
-        StringBuilder docStrings = new StringBuilder("");
-        while ((line = reader.readLine()) != null) {
-            docStrings.append(line + " ");
-        }
-        Document doc = parse(docStrings.toString());
-        System.out.println(doc.getTokenCount());
-        System.out.println(Arrays.toString(doc.getTokens()));
+        // reader умеет читать по строкам с помощью метода readLine()
+
+        // Создайте объект Parser
+
+        // Получите объект Document, реализовав метод parse()
+
+
     }
 }

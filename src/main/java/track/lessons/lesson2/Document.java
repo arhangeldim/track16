@@ -1,36 +1,20 @@
 package track.lessons.lesson2;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 /**
  *
  */
-
 public class Document {
-    private String[] tokens;
-
-    private void parse(String data) {
-        tokens = data.trim().split(" "); // the right way is "\\s+"
-    }
-
-    Document(String data) {
-        parse(data);
-    }
+    String[] tokens;
 
     String[] getTokens() {
-        return tokens.clone();
+        return null;
     }
 
     int getTokenCount() {
-        return tokens.length;
+        return 0;
     }
 
     boolean hasToken(String token) {
-        for (String s: tokens) {
-            if (s.equals(token)) {
-                return true;
-            }
-        }
         return false;
     }
 }
