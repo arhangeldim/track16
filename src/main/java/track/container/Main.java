@@ -1,6 +1,7 @@
 package track.container;
 
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
+import org.junit.Assert;
 import track.container.beans.Car;
 import track.container.beans.Engine;
 import track.container.beans.Gear;
@@ -34,8 +35,21 @@ public class Main {
         ConfigReader reader = new JsonConfigReader();
         try {
             List<Bean> beans = reader.parseBeans(file);
-            System.out.print(beans.toString());
+            //System.out.print(beans.toString());
             Container container = new Container(beans);
+            Engine engine = new Engine();
+            engine.setPower(200);
+
+            Gear gear = new Gear();
+            gear.setCount(6);
+
+            Car car = new Car();
+            car.setEngine(engine);
+            car.setGear(gear);
+
+            Car newcar = (Car) container.getById("carBean");
+            System.out.println(newcar.toString());
+
         } catch (InvalidConfigurationException exception) {
             System.out.println(exception.getMessage());
         }

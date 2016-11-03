@@ -25,7 +25,7 @@ public class Container {
 
     private Map<String, Bean> beanById;
     private Map<String, Bean> beanByClassName;
-    private Map<String, Object> objById;
+    private Map<Bean, Object> objById;
 
     // Реализуйте этот конструктор, используется в тестах!
     public Container(List<Bean> beans) {
@@ -78,7 +78,7 @@ public class Container {
     private Object createObject(Bean bean) throws ValueException, NoSuchFieldException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
         Class clazz = Class.forName(bean.getClassName());
         Object object = clazz.newInstance();
-        objById.put(bean.getId(), object);
+        objById.put(bean, object);
         for (Map.Entry<String, Property> entry : bean.getProperties().entrySet()) {
             Property property = entry.getValue();
             Field field = clazz.getDeclaredField(property.getName());
