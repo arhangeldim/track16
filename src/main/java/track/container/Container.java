@@ -4,6 +4,8 @@ import track.container.config.Bean;
 import track.container.config.InvalidConfigurationException;
 import track.container.config.Property;
 
+import java.beans.PropertyEditor;
+import java.beans.PropertyEditorManager;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -37,14 +39,6 @@ public class Container {
         return "set" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
     }
 
-    private Method getSetter(Property property, Class clazz) throws NoSuchFieldException,
-            NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Field field = clazz.getDeclaredField(property.getName());
-        Class type = field.getType();
-        Method set = clazz.getMethod(getSetMethodName(property.getName()), type);
-        return set;
-    }
-
     private void createObject(Bean bean) throws ClassNotFoundException,
             IllegalAccessException, InstantiationException, NoSuchFieldException,
             NoSuchMethodException, InvocationTargetException {
@@ -53,11 +47,15 @@ public class Container {
         objByBean.put(bean, object);
 
         for (Property property: bean.getProperties().values()) {
-            Method set = getSetter(property, clazz);
+            Field field = clazz.getDeclaredField(property.getName());
+            Class type = field.getType();
+            Method set = clazz.getMethod(getSetMethodName(property.getName()), type);
 
             switch (property.getType()) {
                 case VAL:
-                    set.invoke(object, Integer.parseInt(property.getValue()));
+                    PropertyEditor editor = PropertyEditorManager.findEditor(type);
+                    editor.setAsText(property.getValue());
+                    set.invoke(object, editor.getValue());
                     break;
                 case REF:
                     if (!objByBean.containsKey(beansById.get(property.getValue()))) {
