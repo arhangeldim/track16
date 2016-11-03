@@ -55,6 +55,8 @@ public class Container {
                     }
                     setMethod.invoke(object, objectsByBean.get(beansById.get(property.getValue())));
                     break;
+                default:
+                    break;
             }
         }
     }
