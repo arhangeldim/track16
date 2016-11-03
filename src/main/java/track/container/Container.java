@@ -26,14 +26,12 @@ public class Container {
     private Map<String, Bean> beanById;
     private Map<String, Bean> beanByClassName;
     private Map<String, Object> objById;
-    private Map<String, Object> objByClassName;
 
     // Реализуйте этот конструктор, используется в тестах!
     public Container(List<Bean> beans) {
         beanById = new HashMap<>();
         beanByClassName = new HashMap<>();
         objById = new HashMap<>();
-        objByClassName = new HashMap<>();
         for (Bean bean : beans) {
             beanById.put(bean.getId(), bean);
             beanByClassName.put(bean.getClassName(), bean);
@@ -63,7 +61,7 @@ public class Container {
      * Например, Car car = (Car) container.getByClass("track.container.beans.Car")
      */
     public Object getByClass(String className) throws InvalidConfigurationException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException {
-        Object object = objByClassName.get(className);
+        Object object = objById.get(className);
 
         if (object == null) {
             Bean bean = beanByClassName.get(className);

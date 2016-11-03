@@ -32,14 +32,11 @@ public class Main {
 //        // При чтении нужно обработать исключение
         File file = new File(getResource("config.json").getFile());
         ConfigReader reader = new JsonConfigReader();
-        List<Bean> beans;
         try {
-            beans = reader.parseBeans(file);
+            List<Bean> beans = reader.parseBeans(file);
             System.out.print(beans.toString());
             Container container = new Container(beans);
             Car car = (Car) container.getByClass("track.container.beans.Car");
-            Engine engine = (Engine) container.getByClass("track.container.beans.Car");
-            Gear gear = (Gear) container.getByClass("track.container.beans.Car");
         } catch (InvalidConfigurationException exception) {
             System.out.println(exception.getMessage());
         } catch (InstantiationException | InvocationTargetException | IllegalAccessException |
