@@ -50,8 +50,7 @@ public class Container {
             Bean bean = beanById.get(id);
             if (bean != null) {
                 object = createObject(bean);
-            }
-            else {
+            } else {
                 throw new InvalidConfigurationException("Bean without id");
             }
         }
@@ -68,8 +67,9 @@ public class Container {
 
         if (object == null) {
             Bean bean = beanByClassName.get(className);
-            if (bean != null)
+            if (bean != null) {
                 object = createObject(bean);
+            }
             else {
                 throw new InvalidConfigurationException("Bean without class");
             }
