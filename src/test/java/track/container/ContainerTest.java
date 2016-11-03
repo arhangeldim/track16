@@ -37,10 +37,10 @@ public class ContainerTest {
         Assert.assertTrue(container != null);
 
         expectedEngine = new Engine();
-        expectedEngine.setPower(200);
+        //expectedEngine.setPower(200);
 
         expectedGear = new Gear();
-        expectedGear.setCount(6);
+        //expectedGear.setCount(6);
 
         expectedCar = new Car();
         expectedCar.setEngine(expectedEngine);
