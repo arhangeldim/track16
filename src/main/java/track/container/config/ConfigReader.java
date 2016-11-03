@@ -1,6 +1,7 @@
 package track.container.config;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -15,6 +16,6 @@ public interface ConfigReader {
      * @param configFile - Файл конфигурации (Сигнатуру не менять, используется в тестах)
      * @return - список бинов
      */
-    List<Bean> parseBeans(File configFile) throws InvalidConfigurationException;
+    List<Bean> parseBeans(File configFile) throws InvalidConfigurationException, IOException;
 
 }
