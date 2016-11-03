@@ -21,21 +21,23 @@ public class JsonConfigReader implements ConfigReader {
             throw new InvalidConfigurationException("There is no field \"name\" in property" +
                     ", but it must be here");
         }
-        if (!(property.has("ref") ^ property.has("val"))) {
-            throw new InvalidConfigurationException("Wrong fields \"ref\" or \"val\": one and only one " +
-                    "of them must be in property");
+        if (!(property.has("type"))) {
+            throw new InvalidConfigurationException("There is no field \"type\" in property" +
+                    ", but it must be here");
+        }
+        if (!(property.has("value"))) {
+            throw new InvalidConfigurationException("There is no field \"type\" in property" +
+                    ", but it must be here");
         }
 
         String name = property.get("name").asText();
 
-        ValueType type = null;
-        String value = null;
-        if (property.has("ref")) {
+        ValueType type;
+        String value = property.get("value").asText();
+        if (property.get("type").asText().equals("REF")) {
             type = ValueType.REF;
-            value = property.get("ref").asText();
         } else {
             type = ValueType.VAL;
-            value = property.get("val").asText();
         }
 
         return new Property(name, value, type);
