@@ -50,8 +50,7 @@ public class JsonConfigReader implements ConfigReader {
             for (JsonNode bean : root.get("beans")) {
                 beans.add(parseBean(bean));
             }
-        }
-        catch (InvalidConfigurationException | IOException e) {
+        } catch (InvalidConfigurationException | IOException e) {
             e.printStackTrace();
         }
         return beans;
