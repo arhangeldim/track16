@@ -35,20 +35,7 @@ public class Main {
         ConfigReader reader = new JsonConfigReader();
         try {
             List<Bean> beans = reader.parseBeans(file);
-            //System.out.print(beans.toString());
-            Container contain = new Container(beans);
-            Engine engine = new Engine();
-            engine.setPower(200);
-
-            Gear gear = new Gear();
-            gear.setCount(6);
-
-            Car car = new Car();
-            car.setEngine(engine);
-            car.setGear(gear);
-
-            Car newcar = (Car) contain.getById("carBean");
-            System.out.println(newcar.toString());
+            System.out.print(beans.toString());
 
         } catch (InvalidConfigurationException exception) {
             System.out.println(exception.getMessage());
