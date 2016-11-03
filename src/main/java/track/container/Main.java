@@ -1,26 +1,34 @@
 package track.container;
 
+import track.container.beans.Car;
+import track.container.config.Bean;
+import track.container.config.ConfigReader;
+
+import java.io.File;
+import java.util.List;
+
 /**
  *
  */
 public class Main {
 
     public static void main(String[] args) {
+        // При чтении нужно обработать исключение
+        ConfigReader reader = new JsonConfigReader();
+        try {
+            File file = new File(JsonConfigReader.class.getClassLoader().getResource("config.json").getFile());
+            List<Bean> beans = reader.parseBeans(file);
+            System.out.println(beans);
+            Container container = new Container(beans);
 
-        /*
+            Car car = (Car) container.getByClass("track.container.beans.Car");
+            System.out.println(car);
 
-        ПРИМЕР ИСПОЛЬЗОВАНИЯ
+            car = (Car) container.getById("carBean");
+            System.out.println(car);
 
-         */
-
-//        // При чтении нужно обработать исключение
-//        ConfigReader reader = new JsonReader();
-//        List<Bean> beans = reader.parseBeans("config.json");
-//        Container container = new Container(beans);
-//
-//        Car car = (Car) container.getByClass("track.container.beans.Car");
-//        car = (Car) container.getById("carBean");
-
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
