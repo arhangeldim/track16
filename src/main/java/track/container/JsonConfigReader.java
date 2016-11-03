@@ -2,7 +2,6 @@ package track.container;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +14,7 @@ import track.container.config.ConfigReader;
 import track.container.config.InvalidConfigurationException;
 import track.container.config.Property;
 import track.container.config.ValueType;
+import track.container.config.Root;
 
 import static sun.misc.Version.print;
 
@@ -25,16 +25,17 @@ public class JsonConfigReader implements ConfigReader {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            JsonNode jsonNode = mapper.readTree(configFile);
-            List<Bean> beanList = new ArrayList<>();
-            for (JsonNode node : jsonNode.path("beans")) {
-                Map<String, Property> properties = new HashMap<>();
-                String id = node.path("id").asText();
-                String className = node.path("className").asText();
-                Bean bean = new Bean(id, className, propertiesToMap(node.path("properties")));
-                beanList.add(bean);
-            }
-            return beanList;
+            Root root = mapper.readValue(configFile, Root.class);
+//            JsonNode jsonNode = mapper.readValue(configFile, Root.class);
+//            List<Bean> beanList = new ArrayList<>();
+//            for (JsonNode node : jsonNode.path("beans")) {
+//                Map<String, Property> properties = new HashMap<>();
+//                String id = node.path("id").asText();
+//                String className = node.path("className").asText();
+//                Bean bean = new Bean(id, className, propertiesToMap(node.path("properties")));
+//                beanList.add(bean);
+//            }
+            return root.getBeans();
 
         } catch (IOException e) {
             throw new InvalidConfigurationException(e.getMessage());
