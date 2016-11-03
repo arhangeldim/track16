@@ -36,12 +36,8 @@ public class Main {
             List<Bean> beans = reader.parseBeans(file);
             System.out.print(beans.toString());
             Container container = new Container(beans);
-            Car car = (Car) container.getByClass("track.container.beans.Car");
         } catch (InvalidConfigurationException exception) {
             System.out.println(exception.getMessage());
-        } catch (InstantiationException | InvocationTargetException | IllegalAccessException |
-                NoSuchMethodException | ClassNotFoundException e) {
-            e.printStackTrace();
         }
 
 
