@@ -1,6 +1,7 @@
 package track.container;
 
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
+import org.junit.Assert;
 import track.container.beans.Car;
 import track.container.beans.Engine;
 import track.container.beans.Gear;
@@ -28,23 +29,32 @@ public class Main {
         ПРИМЕР ИСПОЛЬЗОВАНИЯ
 
          */
+        Container container = null;
 
+        Car expectedCar;
+        Gear expectedGear;
+        Engine expectedEngine;
 //        // При чтении нужно обработать исключение
-        File file = new File(getResource("config.json").getFile());
-        ConfigReader reader = new JsonConfigReader();
         try {
-            List<Bean> beans = reader.parseBeans(file);
-            System.out.print(beans.toString());
-            Container container = new Container(beans);
-            Car car = (Car) container.getByClass("track.container.beans.Car");
-        } catch (InvalidConfigurationException exception) {
-            System.out.println(exception.getMessage());
-        } catch (InstantiationException | InvocationTargetException | IllegalAccessException |
-                NoSuchMethodException | ClassNotFoundException e) {
+            ClassLoader classLoader = Container.class.getClassLoader();
+            File file = new File(classLoader.getResource("config.json").getFile());
+            ConfigReader reader = new JsonConfigReader();
+            container = new Container(reader.parseBeans(file));
+        } catch (InvalidConfigurationException e) {
             e.printStackTrace();
         }
 
+        Assert.assertTrue(container != null);
 
+        expectedEngine = new Engine();
+        expectedEngine.setPower(200);
+
+        expectedGear = new Gear();
+        expectedGear.setCount(6);
+
+        expectedCar = new Car();
+        expectedCar.setEngine(expectedEngine);
+        expectedCar.setGear(expectedGear);
 
     }
 }
