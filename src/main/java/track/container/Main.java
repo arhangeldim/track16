@@ -1,5 +1,13 @@
 package track.container;
 
+import track.container.beans.Car;
+import track.container.beans.Engine;
+import track.container.config.Bean;
+import track.container.config.InvalidConfigurationException;
+
+import java.io.File;
+import java.util.List;
+
 /**
  *
  */
@@ -7,20 +15,19 @@ public class Main {
 
     public static void main(String[] args) {
 
-        /*
+        JsonConfigReader reader = new JsonConfigReader();
+        File file = new File("/Users/iv/code/track16/src/main/resources/config.json");
+        List<Bean> beans = null;
+        try {
+            beans = reader.parseBeans(file);
+        } catch (InvalidConfigurationException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
 
-        ПРИМЕР ИСПОЛЬЗОВАНИЯ
-
-         */
-
-//        // При чтении нужно обработать исключение
-//        ConfigReader reader = new JsonReader();
-//        List<Bean> beans = reader.parseBeans("config.json");
-//        Container container = new Container(beans);
-//
-//        Car car = (Car) container.getByClass("track.container.beans.Car");
-//        car = (Car) container.getById("carBean");
-
-
+        Container container = new Container(beans);
+//        Engine engine = (Engine) container.getByClass("track.container.beans.Engine");
+//        Car car = (Car) container.getById("carBean");
+//        System.out.print(beans.toString());
     }
 }
