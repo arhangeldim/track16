@@ -36,7 +36,7 @@ public class Main {
         try {
             List<Bean> beans = reader.parseBeans(file);
             //System.out.print(beans.toString());
-            Container container = new Container(beans);
+            Container contain = new Container(beans);
             Engine engine = new Engine();
             engine.setPower(200);
 
@@ -47,7 +47,7 @@ public class Main {
             car.setEngine(engine);
             car.setGear(gear);
 
-            Car newcar = (Car) container.getById("carBean");
+            Car newcar = (Car) contain.getById("carBean");
             System.out.println(newcar.toString());
 
         } catch (InvalidConfigurationException exception) {
