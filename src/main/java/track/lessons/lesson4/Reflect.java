@@ -1,4 +1,4 @@
-package arhangel.dim.lections.reflection;
+package track.lessons.lesson4;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
