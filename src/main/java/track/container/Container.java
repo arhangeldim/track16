@@ -68,9 +68,8 @@ public class Container {
 
         if (object == null) {
             Bean bean = beanByClassName.get(className);
-            if (bean != null) {
+            if (bean != null)
                 object = createObject(bean);
-            }
             else {
                 throw new InvalidConfigurationException("Bean without class");
             }
@@ -90,7 +89,7 @@ public class Container {
             Method set = clazz.getMethod(getSetName(property.getName()), type);
             if (property.getType() == ValueType.VAL) {
                 set.invoke(object, Integer.parseInt(property.getValue()));
-            } else if(property.getType() == ValueType.REF) {
+            } else if (property.getType() == ValueType.REF) {
                 if (!objById.containsKey(beanById.get(property.getValue()))) {
                     createObject(beanById.get(property.getValue()));
                 }
