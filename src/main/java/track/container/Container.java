@@ -69,8 +69,7 @@ public class Container {
             Bean bean = beanByClassName.get(className);
             if (bean != null) {
                 object = createObject(bean);
-            }
-            else {
+            } else {
                 throw new InvalidConfigurationException("Bean without class");
             }
         }

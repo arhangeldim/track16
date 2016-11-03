@@ -2,6 +2,8 @@ package track.container;
 
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 import track.container.beans.Car;
+import track.container.beans.Engine;
+import track.container.beans.Gear;
 import track.container.config.Bean;
 import track.container.config.ConfigReader;
 import track.container.config.InvalidConfigurationException;
@@ -36,6 +38,8 @@ public class Main {
             System.out.print(beans.toString());
             Container container = new Container(beans);
             Car car = (Car) container.getByClass("track.container.beans.Car");
+            Engine engine = (Engine) container.getByClass("track.container.beans.Car");
+            Gear gear = (Gear) container.getByClass("track.container.beans.Car");
         } catch (InvalidConfigurationException exception) {
             System.out.println(exception.getMessage());
         } catch (InstantiationException | InvocationTargetException | IllegalAccessException |
