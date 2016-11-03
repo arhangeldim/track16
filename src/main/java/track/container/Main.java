@@ -1,11 +1,17 @@
 package track.container;
 
+import track.container.beans.Car;
+import track.container.config.InvalidConfigurationException;
+
+import java.lang.reflect.InvocationTargetException;
+
 /**
  *
  */
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalAccessException, InvocationTargetException,
+            InstantiationException, NoSuchFieldException, NoSuchMethodException, ClassNotFoundException {
 
         /*
 
@@ -13,13 +19,17 @@ public class Main {
 
          */
 
-//        // При чтении нужно обработать исключение
-//        ConfigReader reader = new JsonReader();
-//        List<Bean> beans = reader.parseBeans("config.json");
-//        Container container = new Container(beans);
+        // При чтении нужно обработать исключение
+
+        Container container = null;
+        try {
+            container = new Container("config.json");
+        } catch (InvalidConfigurationException e) {
+            e.printStackTrace();
+        }
 //
-//        Car car = (Car) container.getByClass("track.container.beans.Car");
-//        car = (Car) container.getById("carBean");
+        Car car = (Car) container.getByClass("track.container.beans.Car");
+        car = (Car) container.getById("carBean");
 
 
     }

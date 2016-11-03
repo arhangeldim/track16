@@ -8,9 +8,9 @@
           "name": "gear",
           "ref": "gearBean"
         },
-        "power": {
-          "name": "power",
-          "ref": "powerBean"
+        "engine": {
+          "name": "engine",
+          "ref": "engineBean"
         }
       }
     },
