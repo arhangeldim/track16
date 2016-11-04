@@ -32,8 +32,9 @@ public class Container {
 
     private Bean getBeanById(String id) {
         for (Bean bean : beansById) {
-            if (bean.getId().equals(id))
+            if (bean.getId().equals(id)) {
                 return bean;
+            }
         }
         return null;
     }
@@ -49,8 +50,8 @@ public class Container {
 
     /**
      * Сохраняет объект по bean'у
-     * @param bean
-     * @param object
+     * @param bean      Bean для которого создается соответсвие
+     * @param object    Объект, собранный по этому bean'у
      */
     public void saveObject(Bean bean, Object object) {
         objByClassName.put(bean.getClassName(), object);
@@ -59,12 +60,12 @@ public class Container {
 
     /**
      * Обертка над makeInstanceUnwrapped. Перехватывает часть исключений и оборочанивает другими.
-     * @param bean
+     * @param bean      Бин, по которому создается объект
      * @return Object созданный по bean'у
-     * @throws InvocationTargetException
-     * @throws IllegalClassFormatException
+     * @throws InvocationTargetException       Возникает , если в set[PropertyName] возникает какая-то ошибка
+     * @throws IllegalClassFormatException     Возникает , если в сигнатуре класса допущены ошибки
      */
-    public Object makeInstance(Bean bean)
+    private Object makeInstance(Bean bean)
             throws InvocationTargetException,
             IllegalClassFormatException {
         try {
@@ -72,24 +73,27 @@ public class Container {
         } catch (ClassNotFoundException ex) {
             System.out.println("Class " + bean.getClassName() + " not found");
         } catch (InstantiationException ex) {
-            IllegalClassFormatException e = new IllegalClassFormatException("Class " + bean.getClassName() + " must have default constructor");
-            e.addSuppressed(ex);
-            throw e;
+            IllegalClassFormatException exception = new IllegalClassFormatException("Class " +
+                    bean.getClassName() + " must have default constructor");
+            exception.addSuppressed(ex);
+            throw exception;
         } catch (IllegalAccessException ex) {
-            IllegalClassFormatException e = new IllegalClassFormatException("Class has IllegalAccessException " + bean.getClassName());
-            e.addSuppressed(ex);
-            throw e;
+            IllegalClassFormatException exception =
+                    new IllegalClassFormatException("Class has IllegalAccessException " +
+                            bean.getClassName());
+            exception.addSuppressed(ex);
+            throw exception;
         }
         return null;
     }
 
     /**
-     * @param bean
+     * @param bean      Bean по которому собирается объект
      * @return объект , собранный по bean'у
-     * @throws ClassNotFoundException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
-     * @throws InvocationTargetException
+     * @throws ClassNotFoundException       Ошибка, если класс не найден
+     * @throws IllegalAccessException       Если невозможен доступ к контруктору
+     * @throws InstantiationException       Невозможно создать объект
+     * @throws InvocationTargetException    Ошибка вызова метода set[PropertyName]
      */
     private Object makeInstanceUnwrapped(Bean bean)
             throws ClassNotFoundException,
@@ -106,13 +110,13 @@ public class Container {
                 Property property = propEntry.getValue();
                 if (propEntry.getValue().getType() == ValueType.VAL) {
                     Class type = getValSetterMethodParamType(clazz, property);
-                    Method m = clazz.getMethod(getSetterMethodName(propEntry.getKey()), type);
-                    m.invoke(obj, getValSetterMethodParam(type, property.getValue()));
+                    Method method = clazz.getMethod(getSetterMethodName(propEntry.getKey()), type);
+                    method.invoke(obj, getValSetterMethodParam(type, property.getValue()));
                 } else {
                     Object paramObj = getById(property.getValue());
                     Class type = paramObj.getClass();
-                    Method m = clazz.getMethod(getSetterMethodName(propEntry.getKey()), type);
-                    m.invoke(obj, paramObj);
+                    Method method = clazz.getMethod(getSetterMethodName(propEntry.getKey()), type);
+                    method.invoke(obj, paramObj);
                 }
             } catch (NoSuchFieldException | NoSuchMethodException ex) {
                 System.out.println("Property " + propEntry.getKey() + " isn't used");
@@ -126,32 +130,31 @@ public class Container {
     }
 
     /**
-     * Нужен для определения типа параметра для set<PropertyName> метода.
+     * Нужен для определения типа параметра для set[PropertyName] метода.
      *
      * @param clazz    класс, для которого ищется тип свойства
      * @param property свойство
      * @return Class    тип свойства
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
+     * @throws NoSuchFieldException     Если поле не было найдено
+     * @throws IllegalAccessException   Нет доступа к полю класса
      */
     private Class getValSetterMethodParamType(Class clazz, Property property)
-            throws NoSuchFieldException, IllegalAccessException, InstantiationException {
+            throws NoSuchFieldException, IllegalAccessException {
         Field field = clazz.getDeclaredField(property.getName());
-        Class c = field.getType();
-        if (c.equals(long.class)) {
+        Class type = field.getType();
+        if (type.equals(long.class)) {
             return long.class;
-        } else if (c.equals(int.class)) {
+        } else if (type.equals(int.class)) {
             return int.class;
-        } else if (c.equals(short.class)) {
+        } else if (type.equals(short.class)) {
             return short.class;
-        } else if (c.equals(byte.class)) {
+        } else if (type.equals(byte.class)) {
             return byte.class;
-        } else if (c.equals(double.class)) {
+        } else if (type.equals(double.class)) {
             return double.class;
-        } else if (c.equals(float.class)) {
+        } else if (type.equals(float.class)) {
             return float.class;
-        } else if (c.equals(boolean.class)) {
+        } else if (type.equals(boolean.class)) {
             return boolean.class;
         }
         throw new IllegalArgumentException("Property type is not primitive type");
