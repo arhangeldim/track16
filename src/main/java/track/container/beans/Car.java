@@ -2,9 +2,6 @@ package track.container.beans;
 
 import java.util.Objects;
 
-/**
- *
- */
 public class Car {
 
     private Gear gear;

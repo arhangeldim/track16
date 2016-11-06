@@ -28,7 +28,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.4.0</version>
                 <configuration>
-                    <mainClass>track.lections.jdbc.JdbcExample</mainClass>
+                    <mainClass>track.container.Main</mainClass>
                 </configuration>
             </plugin>
             <plugin>

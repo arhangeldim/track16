@@ -2,11 +2,9 @@ package track.container.beans;
 
 import java.util.Objects;
 
-/**
- * Коробка передач, поле - количество скоростей
- */
 public class Gear {
     private int count;
+    private Car car;
 
     public Gear() {
     }
