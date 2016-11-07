@@ -11,17 +11,17 @@ public abstract class List {
 
     public abstract void add(int item);
 
-    public abstract int remove(int idx);
+    public abstract int remove(int idx) throws WrongIndexException;
 
-    public abstract int get(int idx);
+    public abstract int get(int idx) throws WrongIndexException;
 
     public int size() {
         return size;
     }
 
-    protected void checkIndex(int index) {
+    protected void checkIndex(int index) throws WrongIndexException {
         if (index >= size || index < 0) {
-            throw new IllegalArgumentException("No such index in array");
+            throw new WrongIndexException("No such index in array " + index);
         }
     }
 }

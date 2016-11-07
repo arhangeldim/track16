@@ -15,7 +15,7 @@ public class LinkedList extends List implements Stack, Queue {
 
     }
 
-    public Node getNode(int idx) {
+    public Node getNode(int idx) throws WrongIndexException {
         checkIndex(idx);
 
         Node element;
@@ -52,7 +52,7 @@ public class LinkedList extends List implements Stack, Queue {
     }
 
     @Override
-    public int remove(int idx) {
+    public int remove(int idx) throws WrongIndexException {
 
         Node removeElement = getNode(idx);
 
@@ -82,7 +82,7 @@ public class LinkedList extends List implements Stack, Queue {
     }
 
     @Override
-    public int get(int idx) {
+    public int get(int idx) throws WrongIndexException {
         return getNode(idx).getValue();
     }
 
@@ -92,7 +92,7 @@ public class LinkedList extends List implements Stack, Queue {
     }
 
     @Override
-    public int pop() {
+    public int pop() throws WrongIndexException {
         return remove(size - 1);
     }
 
@@ -102,7 +102,8 @@ public class LinkedList extends List implements Stack, Queue {
     }
 
     @Override
-    public int dequeu() {
+    public int dequeu() throws WrongIndexException {
         return remove(0);
     }
 }
+

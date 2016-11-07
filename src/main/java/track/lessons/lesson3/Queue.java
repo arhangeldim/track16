@@ -8,5 +8,5 @@ package track.lessons.lesson3;
 interface Queue {
     void enqueue(int value); // поместить элемент в очередь
 
-    int dequeu(); // вытащить первый элемент из очереди
+    int dequeu() throws WrongIndexException; // вытащить первый элемент из очереди
 }

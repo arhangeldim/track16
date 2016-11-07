@@ -38,7 +38,11 @@ public class ListTest {
         privateField.setAccessible(true);
         for (int i = 0; i < 21; i++) {
             list.add(i);
-            Assert.assertEquals(list.get(i), i);
+            try {
+                Assert.assertEquals(list.get(i), i);
+            } catch (WrongIndexException e) {
+                System.out.println(e.getMessage());
+            }
             if (i == 9) {
                 int[] testArray = (int[]) privateField.get(list);
                 Assert.assertEquals(testArray.length, 10);
@@ -60,30 +64,47 @@ public class ListTest {
         for (int i = 0; i < 21; i++) {
             list.add(i);
         }
-        int delete = list.remove(19);
+        int delete = 0;
+        try {
+            delete = list.remove(19);
+        } catch (WrongIndexException e) {
+            e.printStackTrace();
+        }
         Assert.assertEquals(list.size(), 20);
-        Assert.assertEquals(list.get(19), 20);
+        try {
+            Assert.assertEquals(list.get(19), 20);
+        } catch (WrongIndexException e) {
+            e.printStackTrace();
+        }
         Assert.assertEquals(delete, 19);
-        delete = list.remove(0);
+        try {
+            delete = list.remove(0);
+        } catch (WrongIndexException e) {
+            e.printStackTrace();
+        }
         Assert.assertEquals(list.size(), 19);
-        Assert.assertEquals(list.get(0), 1);
+        try {
+            Assert.assertEquals(list.get(0), 1);
+        } catch (WrongIndexException e) {
+            e.printStackTrace();
+        }
         Assert.assertEquals(delete, 0);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void exceptionGetDynamicListTest1() {
+    @Test(expected = WrongIndexException.class)
+    public void exceptionGetDynamicListTest1() throws WrongIndexException {
         List list = new DynamicList();
         list.get(100);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void exceptionGetDynamicListTest2() {
+    @Test(expected = WrongIndexException.class)
+    public void exceptionGetDynamicListTest2() throws WrongIndexException {
         List list = new DynamicList();
         list.get(-1);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void exceptionRemoveDynamicListTest1() {
+    @Test(expected = WrongIndexException.class)
+    public void exceptionRemoveDynamicListTest1() throws WrongIndexException {
         List list = new DynamicList();
         for (int i = 0; i < 10; i++) {
             list.add(i);
@@ -103,7 +124,11 @@ public class ListTest {
         List list = new LinkedList();
         for (int i = 0; i < 21; i++) {
             list.add(i);
-            Assert.assertEquals(list.get(i), i);
+            try {
+                Assert.assertEquals(list.get(i), i);
+            } catch (WrongIndexException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -113,34 +138,59 @@ public class ListTest {
         for (int i = 0; i < 21; i++) {
             list.add(i);
         }
-        int delete = list.remove(19);
+        int delete = 0;
+        try {
+            delete = list.remove(19);
+        } catch (WrongIndexException e) {
+            e.printStackTrace();
+        }
         Assert.assertEquals(list.size(), 20);
-        Assert.assertEquals(list.get(19), 20);
+        try {
+            Assert.assertEquals(list.get(19), 20);
+        } catch (WrongIndexException e) {
+            e.printStackTrace();
+        }
         Assert.assertEquals(delete, 19);
-        delete = list.remove(0);
+        try {
+            delete = list.remove(0);
+        } catch (WrongIndexException e) {
+            e.printStackTrace();
+        }
         Assert.assertEquals(list.size(), 19);
-        Assert.assertEquals(list.get(0), 1);
+        try {
+            Assert.assertEquals(list.get(0), 1);
+        } catch (WrongIndexException e) {
+            e.printStackTrace();
+        }
         Assert.assertEquals(delete, 0);
-        delete = list.remove(18);
+        try {
+            delete = list.remove(18);
+        } catch (WrongIndexException e) {
+            e.printStackTrace();
+        }
         Assert.assertEquals(list.size(), 18);
-        Assert.assertEquals(list.get(17), 18);
+        try {
+            Assert.assertEquals(list.get(17), 18);
+        } catch (WrongIndexException e) {
+            e.printStackTrace();
+        }
         Assert.assertEquals(delete, 20);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void exceptionGetLinkedListTest1() {
+    @Test(expected = WrongIndexException.class)
+    public void exceptionGetLinkedListTest1() throws WrongIndexException {
         List list = new LinkedList();
         list.get(100);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void exceptionGetLinkedListTest2() {
+    @Test(expected = WrongIndexException.class)
+    public void exceptionGetLinkedListTest2() throws WrongIndexException {
         List list = new LinkedList();
         list.get(-1);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void exceptionGetLinkedListTest3() {
+    @Test(expected = WrongIndexException.class)
+    public void exceptionGetLinkedListTest3() throws WrongIndexException {
         List list = new LinkedList();
         for (int i = 0; i < 10; i++) {
             list.add(i);
@@ -149,8 +199,8 @@ public class ListTest {
         list.get(9);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void exceptionRemoveLinkedListTest1() {
+    @Test(expected = WrongIndexException.class)
+    public void exceptionRemoveLinkedListTest1() throws WrongIndexException {
         List list = new LinkedList();
         for (int i = 0; i < 10; i++) {
             list.add(i);
@@ -166,12 +216,16 @@ public class ListTest {
             queue.enqueue(i);
         }
         for (int i = 0; i < 21; i++) {
-            Assert.assertEquals(queue.dequeu(), i);
+            try {
+                Assert.assertEquals(queue.dequeu(), i);
+            } catch (WrongIndexException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void queueTest2() {
+    @Test(expected = WrongIndexException.class)
+    public void queueTest2() throws WrongIndexException {
         Queue queue = new LinkedList();
         for (int i = 0; i < 9; i++) {
             queue.enqueue(i);
@@ -188,12 +242,16 @@ public class ListTest {
             stack.push(i);
         }
         for (int i = 0; i < 21; i++) {
-            Assert.assertEquals(stack.pop(), 20 - i);
+            try {
+                Assert.assertEquals(stack.pop(), 20 - i);
+            } catch (WrongIndexException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void stackTest2() {
+    @Test(expected = WrongIndexException.class)
+    public void stackTest2() throws WrongIndexException {
         Stack stack = new LinkedList();
         for (int i = 0; i < 10; i++) {
             stack.push(i);

@@ -28,7 +28,7 @@ public class DynamicList extends List {
     }
 
     @Override
-    public int remove(int idx) {
+    public int remove(int idx) throws WrongIndexException {
         checkIndex(idx);
         int removeElement = array[idx];
         System.arraycopy(array, idx + 1, array, idx, array.length - idx - 1);
@@ -37,7 +37,7 @@ public class DynamicList extends List {
     }
 
     @Override
-    public int get(int idx) {
+    public int get(int idx) throws WrongIndexException {
         checkIndex(idx);
         return array[idx];
     }
