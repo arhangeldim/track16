@@ -1,0 +1,42 @@
+{
+  "beans": [
+    {
+      "id": "carBean",
+      "className": "track.container.beans.Car",
+      "properties": {
+        "gear": {
+          "name": "gear",
+          "value": "gearBean",
+          "type": "REF"
+        },
+        "engine": {
+          "name": "engine",
+          "value": "engineBean",
+          "type": "REF"
+        }
+      }
+    },
+    {
+      "id": "gearBean",
+      "className": "track.container.beans.Gear",
+      "properties": {
+        "count": {
+          "name": "count",
+          "value": 6,
+          "type": "VAL"
+        }
+      }
+    },
+    {
+      "id": "engineBean",
+      "className": "track.container.beans.Engine",
+      "properties": {
+        "power": {
+          "name": "power",
+          "value": 200,
+          "type": "VAL"
+        }
+      }
+    }
+  ]
+}
