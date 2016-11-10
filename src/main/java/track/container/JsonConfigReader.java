@@ -3,7 +3,6 @@ package track.container;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import track.container.config.*;
 
 import java.io.File;
@@ -57,9 +56,7 @@ public class JsonConfigReader implements ConfigReader {
                 property.setName(convert(properties.get("name").toString()));
                 if (convert(properties.get("type").toString()).equals("VAL")) {
                     property.setType(ValueType.VAL);
-                }
-                else
-                {
+                } else {
                     property.setType(ValueType.REF);
                 }
                 property.setValue(convert(properties.get("value").toString()));
@@ -73,9 +70,10 @@ public class JsonConfigReader implements ConfigReader {
     }
 
     private String convert(String str) {
-        if(str.startsWith("\""))
+        if (str.startsWith("\"")) {
             return str.substring(1, str.length() - 1);
-        else
+        } else {
             return str;
+        }
     }
 }
