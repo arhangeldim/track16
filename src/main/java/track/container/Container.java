@@ -2,7 +2,11 @@ package track.container;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import track.container.config.Bean;
 import track.container.config.Property;
@@ -14,11 +18,20 @@ import track.container.config.ValueType;
  */
 public class Container {
 
-    private List<Bean> beans;
+    private static final String INT = "int";
+
+    private Map<String,Bean> beansById;
+    private Map<String,Bean> beansByClassName;
 
     // Реализуйте этот конструктор, используется в тестах!
     public Container(List<Bean> beans) {
-        this.beans = beans;
+        beansById = new HashMap<>();
+        beansByClassName = new HashMap<>();
+
+        for (Bean bean: beans) {
+            this.beansById.put(bean.getId(),bean);
+            this.beansByClassName.put(bean.getClassName(),bean);
+        }
     }
 
     /**
@@ -26,13 +39,7 @@ public class Container {
      *  Например, Car car = (Car) container.getById("carBean")
      */
     public Object getById(String id) {
-
-        for (Bean bean: beans) {
-            if (bean.getId().equals(id)) {
-                return makeRequeredObject(bean);
-            }
-        }
-        return null;
+        return makeRequiredObject(beansById.get(id));
     }
 
     /**
@@ -40,15 +47,10 @@ public class Container {
      * Например, Car car = (Car) container.getByClass("track.container.beans.Car")
      */
     public Object getByClass(String className) {
-        for (Bean bean: beans) {
-            if (bean.getClassName().equals(className)) {
-                return makeRequeredObject(bean);
-            }
-        }
-        return null;
+        return makeRequiredObject(beansByClassName.get(className));
     }
 
-    public Object makeRequeredObject(Bean bean) {
+    public Object makeRequiredObject(Bean bean) {
         try {
             Class beanClass = Class.forName(bean.getClassName());
             Object object = beanClass.getConstructor().newInstance();
@@ -60,28 +62,21 @@ public class Container {
                 if (property.getType().equals(ValueType.REF)) {
                     propertyValue = getById(property.getVal());
                 }
-                for (Field field: object.getClass().getDeclaredFields()) {
-                    if (field.getName().equals(property.getName())) {
-                        if (field.getType().getName().equals("int")) {
+                char[] properyNameCharSet = property.getName().toCharArray();
+                properyNameCharSet[0] = Character.toUpperCase(properyNameCharSet[0]);
+                String properyName = new String(properyNameCharSet);
+                for (Method method: object.getClass().getDeclaredMethods()) {
+                    if (method.getName().equals("set" + properyName)) {
+                        if (method.getParameterTypes()[0].getName().equals(INT)) {
                             propertyValue = Integer.parseInt((String) propertyValue);
                         }
-                        field.setAccessible(true);
-                        field.set(object,propertyValue);
+                        method.invoke(object,propertyValue);
                     }
                 }
             }
-
             return object;
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
