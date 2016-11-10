@@ -16,11 +16,11 @@ import track.container.config.ValueType;
  */
 public class Container {
 
-    Map<String, Object> objByName;
-    Map<String, Object> objByClassName;
-    Map<String, Bean> beanByName;
-    Map<String, Bean> beanByClassName;
-    Stack<String> beanStack;
+    private Map<String, Object> objByName;
+    private Map<String, Object> objByClassName;
+    private Map<String, Bean> beanByName;
+    private Map<String, Bean> beanByClassName;
+    private Stack<String> beanStack;
 
     // Реализуйте этот конструктор, используется в тестах!
     public Container(List<Bean> beans) {

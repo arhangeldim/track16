@@ -7,7 +7,6 @@ public class ListMain {
 
     public static void main(String[] args) {
 
-
         List list = new LinkedList();
         list.add(1);
         list.add(2);
