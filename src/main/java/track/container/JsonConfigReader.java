@@ -44,10 +44,10 @@ public class JsonConfigReader implements ConfigReader {
     }
 
     private Property propertyFromNode(JsonNode node) throws InvalidConfigurationException {
-        if (node.has("ref")) {
-            return new Property(node.path("name").asText(), node.path("ref").asText(), ValueType.REF);
-        } else if (node.has("val")) {
-            return new Property(node.path("name").asText(), node.path("val").asText(), ValueType.VAL);
+        if (node.path("type").asText().equals("REF")) {
+            return new Property(node.path("name").asText(), node.path("value").asText(), ValueType.REF);
+        } else if (node.path("type").asText().equals("VAL")) {
+            return new Property(node.path("name").asText(), node.path("value").asText(), ValueType.VAL);
         } else {
             throw new InvalidConfigurationException("neither val or ref fields are presented");
         }
