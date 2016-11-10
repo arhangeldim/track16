@@ -3,6 +3,7 @@ package track.container;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import track.container.config.*;
 
 import java.io.File;
@@ -49,18 +50,19 @@ public class JsonConfigReader implements ConfigReader {
             for (JsonNode properties : node.get("properties")) {
                 Property property = new Property();
 
-                if (!properties.has("name") || !(properties.has("val") || properties.has("ref"))) {
-                    throw new InvalidConfigurationException("property has't got name or (val or ref)");
+                if (!properties.has("name") || !properties.has("value") || !properties.has("type")) {
+                    throw new InvalidConfigurationException("property has't got name or (value or type)");
                 }
 
                 property.setName(convert(properties.get("name").toString()));
-                if (properties.has("val")) {
+                if (convert(properties.get("type").toString()).equals("VAL")) {
                     property.setType(ValueType.VAL);
-                    property.setValue(convert(properties.get("val").toString()));
-                } else {
-                    property.setType(ValueType.REF);
-                    property.setValue(convert(properties.get("ref").toString()));
                 }
+                else
+                {
+                    property.setType(ValueType.REF);
+                }
+                property.setValue(convert(properties.get("value").toString()));
                 newProperties.put(convert(property.getName()), property);
             }
             Bean bean = new Bean(id, className, newProperties);
@@ -71,6 +73,9 @@ public class JsonConfigReader implements ConfigReader {
     }
 
     private String convert(String str) {
-        return str.substring(1, str.length() - 1);
+        if(str.startsWith("\""))
+            return str.substring(1, str.length() - 1);
+        else
+            return str;
     }
 }

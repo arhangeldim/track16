@@ -80,16 +80,16 @@ public class Container {
             }
             for (Method method : methods) {
                 if (method.getName().toString().equals(methodName)) {
-                    int value = Integer.parseInt(property.getValue().toString());
                     try {
                         if (property.getType() == ValueType.REF) {
                             Object newPropClass1 = getById(property.getValue().toString());
                             method.invoke(object, newPropClass1);
                         } else {
+                            int value = Integer.parseInt(property.getValue().toString());
                             method.invoke(object, value);
                         }
                     } catch (Exception e) {
-                        throw new ConfigurationException("There is no such method");
+                        throw new ConfigurationException("Can't invoke method:(((");
                     }
                 }
             }
