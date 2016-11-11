@@ -35,7 +35,7 @@ public class Container {
             Bean bean = findBean(id);
 
             if (bean == null) {
-                throw new InvalidConfigurationException("invalid id");
+                return null;
             }
 
             //Загрузка класса по имени
