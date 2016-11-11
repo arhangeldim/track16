@@ -50,7 +50,6 @@ public class Container {
                         if (bean.getProperties().get(property).getType() == ValueType.VAL) {
                             field.setAccessible(true);
                             field.set(object, Integer.parseInt(bean.getProperties().get(field.getName()).getValue()));
-                            field.setAccessible(false);
                             break;
                         } else {
                             String subName = findBean(bean.getProperties().get(property).getValue()).getClassName();
@@ -63,7 +62,6 @@ public class Container {
                             }
                             field.setAccessible(true);
                             field.set(object, getById(bean.getProperties().get(property).getValue()));
-                            field.setAccessible(false);
                         }
                     }
                 }
