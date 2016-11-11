@@ -49,8 +49,35 @@ public class Container {
                     if (property.equals(field.getName())) {
                         if (bean.getProperties().get(property).getType() == ValueType.VAL) {
                             field.setAccessible(true);
-                            field.set(object, Integer.parseInt(bean.getProperties().get(field.getName()).getValue()));
-                            break;
+                            String value = bean.getProperties().get(field.getName()).getValue();
+                            switch (field.getType().getTypeName().toLowerCase()) {
+                                case "boolean":
+                                    field.set(object, Boolean.parseBoolean(value));
+                                    break;
+                                case "byte":
+                                    field.set(object, Byte.parseByte(value));
+                                    break;
+                                case "short":
+                                    field.set(object, Short.parseShort(value));
+                                    break;
+                                case "int":
+                                    field.set(object, Integer.parseInt(value));
+                                    break;
+                                case "char":
+                                    field.set(object, value.charAt(0));
+                                    break;
+                                case "long":
+                                    field.set(object, Long.parseLong(value));
+                                    break;
+                                case "float":
+                                    field.set(object, Float.parseFloat(value));
+                                    break;
+                                case "double":
+                                    field.set(object, Double.parseDouble(value));
+                                    break;
+                                default:
+                                    throw new ClassNotFoundException("No such primitive type " + field.getType().getTypeName().toLowerCase());
+                            }
                         } else {
                             String subName = findBean(bean.getProperties().get(property).getValue()).getClassName();
                             Class subClazz = Class.forName(subName);
