@@ -1,10 +1,11 @@
 package track.messenger.net;
 
-import track.messenger.messages.Message;
+import track.messenger.messages.old.Message;
 
 /**
  *
  */
+
 public interface Protocol {
 
     Message decode(byte[] bytes) throws ProtocolException;

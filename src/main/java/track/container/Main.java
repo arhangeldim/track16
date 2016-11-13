@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        Container container = new Container("cycle.xml");
+        Container container = new Container("config.xml");
         System.out.println(container.getBeans());
         Gear gear = (Gear) container.getByClass("track.container.beans.Gear");
         System.out.println(gear.getCount());

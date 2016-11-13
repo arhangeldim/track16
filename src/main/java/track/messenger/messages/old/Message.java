@@ -1,6 +1,7 @@
-package track.messenger.messages;
+package track.messenger.messages.old;
 
 import track.messenger.User;
+import track.messenger.messages.Type;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
