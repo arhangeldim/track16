@@ -2,12 +2,13 @@ package track.messenger.messages;
 
 import track.messenger.User;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Простое текстовое сообщение
  */
-public class TextMessage extends Message {
+public class TextMessage extends Message implements Serializable {
     private String text;
 
     public String getText() {

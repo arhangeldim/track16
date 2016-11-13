@@ -3,6 +3,7 @@ package track.messenger.net;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import track.messenger.messages.Message;
+import org.apache.commons.lang.SerializationUtils;
 
 import java.io.*;
 
@@ -14,29 +15,14 @@ public class ObjectProtocol implements Protocol {
 
     @Override
     public Message decode(byte[] bytes) throws ProtocolException {
-        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-        Message msg = null;
-        try {
-            ObjectInputStream ois = new ObjectInputStream(bis);
-             msg = (Message) ois.readObject();
-        } catch (IOException ioe) {
-            System.out.println("Нет потока вывода или сообщеий в потоке вывода.");
-        } catch (ClassNotFoundException cnfe) {
-            System.out.println("Не найден класс сериализованного объекта.");
-        }
+        Message msg = (Message) SerializationUtils.deserialize(bytes);
+        log.info("decoded: {}", msg);
         return msg;
-
     }
 
     @Override
     public byte[] encode(Message msg) throws ProtocolException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(bos);
-            oos.writeObject(msg);
-        } catch (IOException ioe) {
-            System.out.println("Нет потока ввода или сообщеий в потоке ввода.");
-        }
-        return bos.toByteArray();
+        log.info("encoded: {}", msg);
+        return SerializationUtils.serialize(msg);
     }
 }

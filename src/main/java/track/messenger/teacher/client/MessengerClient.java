@@ -108,6 +108,10 @@ public class MessengerClient {
      */
     public void onMessage(Message msg) {
         log.info("Message received: {}", msg);
+        if (msg == null) {
+            return;
+        }
+
         Type msgType = msg.getType();
         switch (msgType) {
             case MSG_AUTHORIZED:
@@ -185,7 +189,6 @@ public class MessengerClient {
 
             // Цикл чтения с консоли
             Scanner scanner = new Scanner(System.in);
-            System.out.print("\n$");
             while (true) {
                 String input = scanner.nextLine();
                 if ("q".equals(input)) {

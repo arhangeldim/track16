@@ -6,8 +6,11 @@ import java.net.Socket;
 
 //import sun.nio.ch.IOUtil;
 import org.mockito.internal.util.io.IOUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import track.messenger.User;
-import track.messenger.messages.Message;
+import track.messenger.messages.*;
+import track.messenger.store.UserStore;
 
 /**
  * Сессия связывает бизнес-логику и сетевую часть.
@@ -17,6 +20,7 @@ import track.messenger.messages.Message;
 
 public class Session {
 
+    static Logger log = LoggerFactory.getLogger(Session.class);
     /**
      * Пользователь сессии, пока не прошел логин, user == null
      * После логина устанавливается реальный пользователь
@@ -33,9 +37,6 @@ public class Session {
      */
     private InputStream in;
     private OutputStream out;
-
-    private ObjectInputStream ois;
-    private ObjectOutputStream oos;
 
     public User getUser() {
         return user;
@@ -65,17 +66,48 @@ public class Session {
     }
 
     public void send(Message msg) throws ProtocolException, IOException {
+        log.info(msg.getSenderId().toString());
+        out.write(protocol.encode(msg));
+        out.flush();
         // TODO: Отправить клиенту сообщение
     }
 
-    public void onMessage(Message msg) {
-        // TODO: Пришло некое сообщение от клиента, его нужно обработать
+    public void onMessage(Message msg) throws ProtocolException, IOException {
+        Type msgType = msg.getType();
+        switch (msgType) {
+            case MSG_LOGIN:
+                LoginMessage lmsg = (LoginMessage) msg;
+                user = auth(lmsg.getUsername(), lmsg.getPassword());
+                send(new InfoResultMessage(user));
+                break;
+            case MSG_TEXT:
+                TextMessage tmsg = (TextMessage) msg;
+                System.out.println(tmsg.getText());
+                break;
+            case MSG_INFO:
+                InfoMessage imsg = (InfoMessage) msg;
+                send(new InfoResultMessage(user, User.database.getUser(imsg.getRequestedUser())));
+                break;
+            default:
+                System.out.println("Неправильная команда!");
+                break;
+        }
     }
 
     public void close() throws IOException {
         IOUtil.closeQuietly(in);
         IOUtil.closeQuietly(out);
         IOUtil.closeQuietly(socket);
-        // TODO: закрыть in/out каналы и сокет. Освободить другие ресурсы, если необходимо
+    }
+
+    public User geoolekom = new User("geoolekom", "qwerty");
+    public User auth(String username, String password) {
+        if ("geoolekom".equals(username) && "qwerty".equals(password)) {
+            System.out.println("Подключился geoolekom");
+            return geoolekom;
+        } else {
+            System.out.println("Нет такого юзера");
+            return null;
+        }
     }
 }
