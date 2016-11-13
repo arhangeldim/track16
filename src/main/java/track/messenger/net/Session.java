@@ -101,6 +101,7 @@ public class Session {
     }
 
     public User geoolekom = new User("geoolekom", "qwerty");
+    
     public User auth(String username, String password) {
         if ("geoolekom".equals(username) && "qwerty".equals(password)) {
             System.out.println("Подключился geoolekom");
