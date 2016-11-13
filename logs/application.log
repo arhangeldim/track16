@@ -1,0 +1,3 @@
+2016-11-13 22:55:11 INFO  MessengerClient:82 - Starting listener thread...
+2016-11-13 22:55:16 INFO  MessengerClient:117 - Tokens: [/text, somnething]
+2016-11-13 22:55:16 INFO  MessengerClient:144 - TextMessage{text='somnething'}

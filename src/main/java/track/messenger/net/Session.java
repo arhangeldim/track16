@@ -7,7 +7,7 @@ import java.net.Socket;
 //import sun.nio.ch.IOUtil;
 import org.mockito.internal.util.io.IOUtil;
 import track.messenger.User;
-import track.messenger.messages.old.Message;
+import track.messenger.messages.Message;
 
 /**
  * Сессия связывает бизнес-логику и сетевую часть.
@@ -21,10 +21,12 @@ public class Session {
      * Пользователь сессии, пока не прошел логин, user == null
      * После логина устанавливается реальный пользователь
      */
+    private static final int MAX_MSG_SIZE = 32 * 1024;
     private User user;
 
     // сокет на клиента
     private Socket socket;
+    private Protocol protocol;
 
     /**
      * С каждым сокетом связано 2 канала in/out
@@ -48,7 +50,10 @@ public class Session {
     }
 
     public Message getMessage() throws Exception {
-        return (Message) ois.readObject();
+        //return (Message) ois.readObject();
+        byte[] buf = new byte[MAX_MSG_SIZE];
+        in.read(buf, 0, MAX_MSG_SIZE);
+        return protocol.decode(buf);
     }
 
     public Session(ServerSocket serverSocket) throws Exception {
@@ -56,9 +61,7 @@ public class Session {
         System.out.println("Подключился клиент " + socket.getInetAddress());
         in = socket.getInputStream();
         out = socket.getOutputStream();
-
-        ois = new ObjectInputStream(in);
-        oos = new ObjectOutputStream(out);
+        protocol = new ObjectProtocol();
     }
 
     public void send(Message msg) throws ProtocolException, IOException {

@@ -3,8 +3,6 @@ package track.messenger.net;
 import org.mockito.internal.util.io.IOUtil;
 import track.messenger.User;
 import track.messenger.messages.*;
-import track.messenger.messages.old.Message;
-import track.messenger.messages.old.TextMessage;
 
 import java.net.ServerSocket;
 import java.net.SocketException;
@@ -30,6 +28,9 @@ public class MessengerServer {
                 try {
                     while (true) {
                         Message msg = session.getMessage();
+                        if (msg == null) {
+                            break;
+                        }
                         Type msgType = msg.getType();
                         switch (msgType) {
                             case MSG_LOGIN:

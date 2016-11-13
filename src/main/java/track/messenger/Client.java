@@ -3,7 +3,7 @@ package track.messenger;
 import org.mockito.internal.util.io.IOUtil;
 import track.messenger.messages.InfoMessage;
 import track.messenger.messages.LoginMessage;
-import track.messenger.messages.old.TextMessage;
+import track.messenger.messages.TextMessage;
 
 import java.io.*;
 import java.net.InetAddress;

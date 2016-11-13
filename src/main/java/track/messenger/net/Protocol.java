@@ -1,6 +1,6 @@
 package track.messenger.net;
 
-import track.messenger.messages.old.Message;
+import track.messenger.messages.Message;
 
 /**
  *

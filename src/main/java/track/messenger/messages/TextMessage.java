@@ -1,5 +1,7 @@
 package track.messenger.messages;
 
+import track.messenger.User;
+
 import java.util.Objects;
 
 /**
@@ -13,6 +15,16 @@ public class TextMessage extends Message {
     }
 
     public void setText(String text) {
+        this.text = text;
+    }
+
+    public TextMessage() {
+        super(null, Type.MSG_TEXT);
+        this.text = "";
+    }
+
+    public TextMessage(User sender, String text) {
+        super(sender, Type.MSG_TEXT);
         this.text = text;
     }
 

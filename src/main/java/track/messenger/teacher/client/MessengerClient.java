@@ -8,12 +8,13 @@ import java.net.Socket;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import org.mockito.internal.util.io.IOUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import track.messenger.messages.Message;
-import track.messenger.messages.TextMessage;
-import track.messenger.messages.Type;
+import track.messenger.User;
+import track.messenger.messages.*;
+import track.messenger.net.ObjectProtocol;
 import track.messenger.net.Protocol;
 import track.messenger.net.ProtocolException;
 import track.messenger.net.StringProtocol;
@@ -24,7 +25,7 @@ import track.messenger.net.StringProtocol;
  */
 public class MessengerClient {
 
-
+    public static final int MAX_MSG_SIZE = 32 * 1024;
     /**
      * Механизм логирования позволяет более гибко управлять записью данных в лог (консоль, файл и тд)
      * */
@@ -43,6 +44,8 @@ public class MessengerClient {
      */
     private InputStream in;
     private OutputStream out;
+
+    private User user;
 
     public Protocol getProtocol() {
         return protocol;
@@ -77,8 +80,8 @@ public class MessengerClient {
       Тред "слушает" сокет на наличие входящих сообщений от сервера
      */
         Thread socketListenerThread = new Thread(() -> {
-            final byte[] buf = new byte[1024 * 64];
-            log.info("Starting listener thread...");
+            final byte[] buf = new byte[MAX_MSG_SIZE];
+            log.info("Слушаем сервер...");
             while (!Thread.currentThread().isInterrupted()) {
                 try {
                     // Здесь поток блокируется на ожидании данных
@@ -105,6 +108,19 @@ public class MessengerClient {
      */
     public void onMessage(Message msg) {
         log.info("Message received: {}", msg);
+        Type msgType = msg.getType();
+        switch (msgType) {
+            case MSG_AUTHORIZED:
+                InfoResultMessage amsg = (InfoResultMessage) msg;
+                user = amsg.getRequestedUser();
+                break;
+            case MSG_INFO_RESULT:
+                InfoResultMessage irmsg = (InfoResultMessage) msg;
+                System.out.println(irmsg.getRequestedUser());
+                break;
+            default:
+                System.out.println("Ошибка сервера");
+        }
     }
 
     /**
@@ -115,24 +131,33 @@ public class MessengerClient {
         String[] tokens = line.split(" ");
         log.info("Tokens: {}", Arrays.toString(tokens));
         String cmdType = tokens[0];
+        String data = "";
+        if (tokens.length > 1) {
+            data = line.substring(cmdType.length() + 1);
+        }
         switch (cmdType) {
             case "/login":
                 // TODO: реализация
+                LoginMessage lmsg = new LoginMessage(user, data);
+                send(lmsg);
                 break;
             case "/help":
                 // TODO: реализация
                 break;
+            case "/info":
+                InfoMessage imsg = new InfoMessage(user, data);
+                send(imsg);
+                break;
             case "/text":
                 // FIXME: пример реализации для простого текстового сообщения
-                TextMessage sendMessage = new TextMessage();
-                sendMessage.setType(Type.MSG_TEXT);
-                sendMessage.setText(tokens[1]);
-                send(sendMessage);
+                TextMessage tmsg = new TextMessage(user, data);
+                send(tmsg);
                 break;
             // TODO: implement another types from wiki
 
             default:
                 log.error("Invalid input: " + line);
+                break;
         }
     }
 
@@ -145,19 +170,22 @@ public class MessengerClient {
         out.flush(); // принудительно проталкиваем буфер с данными
     }
 
+    public void close() {
+    }
+
     public static void main(String[] args) throws Exception {
 
         MessengerClient client = new MessengerClient();
         client.setHost("localhost");
         client.setPort(19000);
-        client.setProtocol(new StringProtocol());
+        client.setProtocol(new ObjectProtocol());
 
         try {
             client.initSocket();
 
             // Цикл чтения с консоли
             Scanner scanner = new Scanner(System.in);
-            System.out.println("$");
+            System.out.print("\n$");
             while (true) {
                 String input = scanner.nextLine();
                 if ("q".equals(input)) {
@@ -174,7 +202,7 @@ public class MessengerClient {
         } finally {
             if (client != null) {
                 // TODO
-//                client.close();
+                client.close();
             }
         }
     }
