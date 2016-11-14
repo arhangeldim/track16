@@ -83,7 +83,7 @@ public class Container {
         throw new InvalidConfigurationException("Invalid class name");
     }
 
-    private void setField(Field field, Bean bean, Object object) throws ClassNotFoundException, IllegalAccessException{
+    private void setField(Field field, Bean bean, Object object) throws ClassNotFoundException, IllegalAccessException {
         field.setAccessible(true);
         String value = bean.getProperties().get(field.getName()).getValue();
         switch (field.getType().getTypeName().toLowerCase()) {
