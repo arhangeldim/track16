@@ -3,6 +3,8 @@ package track.messenger.net;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 
 //import sun.nio.ch.IOUtil;
 import org.mockito.internal.util.io.IOUtil;
@@ -26,15 +28,13 @@ public class Session {
      * После логина устанавливается реальный пользователь
      */
     private static final int MAX_MSG_SIZE = 32 * 1024;
+    private static final int TIMEOUT = 100;
     private User user;
 
-    // сокет на клиента
     private Socket socket;
     private Protocol protocol;
+    private boolean alive;
 
-    /**
-     * С каждым сокетом связано 2 канала in/out
-     */
     private InputStream in;
     private OutputStream out;
 
@@ -51,19 +51,31 @@ public class Session {
     }
 
     public Message getMessage() throws IOException, ProtocolException {
-        //return (Message) ois.readObject();
+
         byte[] buf = new byte[MAX_MSG_SIZE];
-        in.read(buf, 0, MAX_MSG_SIZE);
-        return protocol.decode(buf);
+        int read = 0;
+        Message ret = null;
+        try {
+            read = in.read(buf, 0, MAX_MSG_SIZE);
+            if (read > 0) {
+                ret = protocol.decode(buf);
+            }
+        } catch (SocketTimeoutException ste) {
+            ret = null;
+        }
+        return ret;
     }
 
-    public Session(ServerSocket serverSocket) {
+    public Session(Socket clientSocket) {
         try {
-            socket = serverSocket.accept();
+            //socket = serverSocket.accept();
+            socket = clientSocket;
+            socket.setSoTimeout(TIMEOUT);
             System.out.println("Подключился клиент " + socket.getInetAddress());
             in = socket.getInputStream();
             out = socket.getOutputStream();
             protocol = new ObjectProtocol();
+            alive = true;
         } catch (Exception e) {
             System.out.println(this.getClass() + "Не удалось создать сессию. " + e.toString());
             close();
@@ -78,7 +90,6 @@ public class Session {
         }
         out.write(protocol.encode(msg));
         out.flush();
-        // TODO: Отправить клиенту сообщение
     }
 
     public void onMessage(Message msg) throws ProtocolException, IOException {
@@ -91,11 +102,14 @@ public class Session {
                 break;
             case MSG_TEXT:
                 TextMessage tmsg = (TextMessage) msg;
-                System.out.println(tmsg.getText());
                 break;
             case MSG_INFO:
                 InfoMessage imsg = (InfoMessage) msg;
                 send(new InfoResultMessage(user, MessengerServer.users.getUser(imsg.getRequestedUser())));
+                break;
+            case MSG_QUIT:
+                QuitMessage qmsg = (QuitMessage) msg;
+                close();
                 break;
             default:
                 System.out.println("Неправильная команда!");
@@ -107,9 +121,17 @@ public class Session {
         IOUtil.closeQuietly(in);
         IOUtil.closeQuietly(out);
         IOUtil.closeQuietly(socket);
+        alive = false;
     }
 
     public void auth(String username, String password) {
         user = MessengerServer.users.loginUser(username, password);
+        if (user != null) {
+            System.out.println("Подключился " + user.toString());
+        }
+    }
+
+    public boolean isAlive() {
+        return alive;
     }
 }

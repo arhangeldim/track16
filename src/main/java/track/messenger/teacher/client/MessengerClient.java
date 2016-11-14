@@ -137,7 +137,6 @@ public class MessengerClient {
         }
         switch (cmdType) {
             case "/login":
-                // TODO: реализация
                 LoginMessage lmsg = new LoginMessage(user, data);
                 send(lmsg);
                 break;
@@ -145,16 +144,21 @@ public class MessengerClient {
                 // TODO: реализация
                 break;
             case "/info":
-                InfoMessage imsg = new InfoMessage(user, data);
-                send(imsg);
+                if (user != null) {
+                    InfoMessage imsg = new InfoMessage(user, data);
+                    send(imsg);
+                } else {
+                    System.out.println("Вы не авторизованы.");
+                }
                 break;
             case "/text":
-                // FIXME: пример реализации для простого текстового сообщения
                 TextMessage tmsg = new TextMessage(user, data);
                 send(tmsg);
                 break;
-            // TODO: implement another types from wiki
-
+            case "/quit":
+                QuitMessage qmsg = new QuitMessage(user);
+                send(qmsg);
+                break;
             default:
                 log.error("Invalid input: " + line);
                 break;
@@ -187,14 +191,14 @@ public class MessengerClient {
             Scanner scanner = new Scanner(System.in);
             while (true) {
                 String input = scanner.nextLine();
-                if ("q".equals(input)) {
-                    System.out.println("Завершение сеанса...");
-                    break;
-                }
                 try {
                     client.processInput(input);
                 } catch (ProtocolException | IOException e) {
                     log.error("Ошибки при обработке потока ввода.", e);
+                }
+                if ("/quit".equals(input)) {
+                    System.out.println("Завершение сеанса...");
+                    break;
                 }
             }
         } catch (Exception e) {

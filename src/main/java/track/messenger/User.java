@@ -30,6 +30,6 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "Username:\t" + username.toString() + "\nPassword:\t" + password.toString() + "\n";
+        return "Username:\t" + username.toString() + "\nPassword:\t" + password.toString();
     }
 }

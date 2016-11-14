@@ -1,12 +1,7 @@
-2016-11-14 16:47:19 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.LoginMessage@59b094fb
-2016-11-14 16:47:19 INFO  Session:75 - sent to: 1
-2016-11-14 16:47:19 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.InfoResultMessage@355b500
-2016-11-14 16:47:30 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoMessage@2427310f
-2016-11-14 16:47:30 INFO  Session:75 - sent to: 1
-2016-11-14 16:47:30 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.InfoResultMessage@3dd77113
-ssage received: track.messenger.messages.InfoResultMessage@32b2ddb2
-2016-11-14 16:47:25 INFO  MessengerClient:132 - Tokens: [/info]
-2016-11-14 16:47:25 INFO  MessengerClient:168 - track.messenger.messages.InfoMessage@15615099
-2016-11-14 16:47:25 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.InfoMessage@15615099
-2016-11-14 16:47:30 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoResultMessage@463a4f9f
-2016-11-14 16:47:30 INFO  MessengerClient:106 - Message received: track.messenger.messages.InfoResultMessage@463a4f9f
+2016-11-14 20:05:21 INFO  ObjectProtocol:19 - decoded: TextMessage{text='aaaa'2016-11-14 20:05:38 INFO  MessengerClient:132 - Tokens: [/login, geoolekom, qwerty]
+2016-11-14 20:05:38 INFO  MessengerClient:172 - track.messenger.messages.Log2016-11-14 20:05:38 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.LoginMessage@4c75cab9
+2016-11-14 20:05:382016-11-14 20:05:38 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoResultMessage@5683a2a0
+2016-11-14 20:05:38 INFO  MessengerClient:106 - Message received: track.messenger.messages.InfoResultMessage@5683a2a0
+ ccc]
+2016-11-14 20:05:29 INFO  MessengerClient:172 - TextMessage{text='ccc'}
+2016-11-14 20:05:29 INFO  ObjectProtocol:25 - encoded: TextMessage{text='ccc'}

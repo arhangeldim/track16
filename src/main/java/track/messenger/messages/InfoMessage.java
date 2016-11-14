@@ -22,17 +22,13 @@ public class InfoMessage extends Message implements Serializable {
 
     public InfoMessage(User sender, String data) {
         super(sender, Type.MSG_INFO);
-        if (sender == null) {
-            System.out.println("Вы не авторизованы");
+        if ("".equals(data)) {
+            requestedUser = sender.getId();
         } else {
-            if ("".equals(data)) {
-                requestedUser = sender.getId();
-            } else {
-                try {
-                    requestedUser = Long.parseLong(data);
-                } catch (NumberFormatException nfe) {
-                    System.out.println("Введено не число");
-                }
+            try {
+                requestedUser = Long.parseLong(data);
+            } catch (NumberFormatException nfe) {
+                System.out.println("Введено не число");
             }
         }
     }
