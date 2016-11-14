@@ -1,17 +1,14 @@
-2016-11-14 00:36:06 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.LoginMessage@4cdf35a9
-2016-11-14 00:36:06 INFO  Session:69 - 1
-2016-11-14 00:36:06 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.InfoResultMessage@1963006a
-2016-11-14 00:36:09 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoMessage@41a4555e
-2016-11-14 00:36:09 INFO  Session:69 - 1
-2016-11-14 00:36:09 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.InfoResultMessage@3830f1c0
-2016-11-14 00:36:27 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoMessage@6f75e721
-2016-11-14 00:36:27 INFO  Session:69 - 1
-2016-11-14 00:36:27 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.InfoResultMessage@69222c14
-1-14 00:36:09 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.InfoMessage@6504e3b2
-2016-11-14 00:36:09 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoResultMessage@6fbfbd44
-2016-11-14 00:36:09 INFO  MessengerClient:110 - Message received: track.messenger.messages.InfoResultMessage@6fbfbd44
-2016-11-14 00:36:27 INFO  MessengerClient:136 - Tokens: [/info, 1]
-2016-11-14 00:36:27 INFO  MessengerClient:172 - track.messenger.messages.InfoMessage@1175e2db
-2016-11-14 00:36:27 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.InfoMessage@1175e2db
-2016-11-14 00:36:27 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoResultMessage@a01e145
-2016-11-14 00:36:27 INFO  MessengerClient:110 - Message received: track.messenger.messages.InfoResultMessage@a01e145
+2016-11-14 00:42:06 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.LoginMessage@4c98385c
+2016-11-14 00:42:06 INFO  Session:69 - 1
+2016-11-14 00:42:06 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.InfoResultMessage@7fbe847c
+2016-11-14 00:42:09 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoMessage@3830f1c0
+2016-11-14 00:42:09 INFO  Session:69 - 1
+2016-11-14 00:42:09 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.InfoResultMessage@39ed3c8d
+cde
+2016-11-14 00:42:06 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoResultMessage@1fdb090b
+2016-11-14 00:42:06 INFO  MessengerClient:110 - Message received: track.messenger.messages.InfoResultMessage@1fdb090b
+2016-11-14 00:42:09 INFO  MessengerClient:136 - Tokens: [/info]
+2016-11-14 00:42:09 INFO  MessengerClient:172 - track.messenger.messages.InfoMessage@6504e3b2
+2016-11-14 00:42:09 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.InfoMessage@6504e3b2
+2016-11-14 00:42:09 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoResultMessage@6fbfbd44
+2016-11-14 00:42:09 INFO  MessengerClient:110 - Message received: track.messenger.messages.InfoResultMessage@6fbfbd44

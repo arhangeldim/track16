@@ -12,6 +12,10 @@ public class LoginMessage extends Message implements Serializable {
     private String username;
     private String password;
 
+    protected LoginMessage() {
+        super(null, Type.MSG_LOGIN);
+    }
+
     public LoginMessage(User sender, String data) {
         super(sender, Type.MSG_LOGIN);
 

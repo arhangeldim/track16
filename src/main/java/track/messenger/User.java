@@ -12,10 +12,9 @@ public class User implements Serializable {
     private long id;
     private String username;
     private String password;
-    public static UserStore database = new UserStore();
+    public static UserStore database = new UserStore("store.sqlite3");
 
     public User(String username, String password) {
-        this.id = 1;
         this.username = username;
         this.password = password;
     }

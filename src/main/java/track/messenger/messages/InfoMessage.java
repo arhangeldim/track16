@@ -16,6 +16,10 @@ public class InfoMessage extends Message implements Serializable {
         return requestedUser;
     }
 
+    protected InfoMessage() {
+        super(null, Type.MSG_INFO);
+    }
+
     public InfoMessage(User sender, String data) {
         super(sender, Type.MSG_INFO);
         if (sender == null) {

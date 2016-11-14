@@ -16,6 +16,8 @@ public abstract class Message implements Serializable {
     private Type type;
     private LocalDateTime timestamp;
 
+    protected Message() {}
+
     public Message(User sender, Type type) {
         if (sender != null) {
             this.senderId = sender.getId();
