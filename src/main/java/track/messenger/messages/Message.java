@@ -3,7 +3,7 @@ package track.messenger.messages;
 import track.messenger.User;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  *
@@ -14,7 +14,7 @@ public abstract class Message implements Serializable {
     private Long id;
     private Long senderId;
     private Type type;
-    private LocalDateTime timestamp;
+    private Date timestamp;
 
     protected Message() {}
 
@@ -23,7 +23,7 @@ public abstract class Message implements Serializable {
             this.senderId = sender.getId();
         }
         this.type = type;
-        this.timestamp = LocalDateTime.now();
+        this.timestamp = new Date();
     }
 
     public Type getType() {
@@ -38,7 +38,7 @@ public abstract class Message implements Serializable {
         return senderId;
     }
 
-    public LocalDateTime getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
@@ -54,7 +54,7 @@ public abstract class Message implements Serializable {
         this.senderId = senderId;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 }

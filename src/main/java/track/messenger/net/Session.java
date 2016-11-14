@@ -50,23 +50,32 @@ public class Session {
         return socket;
     }
 
-    public Message getMessage() throws Exception {
+    public Message getMessage() throws IOException, ProtocolException {
         //return (Message) ois.readObject();
         byte[] buf = new byte[MAX_MSG_SIZE];
         in.read(buf, 0, MAX_MSG_SIZE);
         return protocol.decode(buf);
     }
 
-    public Session(ServerSocket serverSocket) throws Exception {
-        socket = serverSocket.accept();
-        System.out.println("Подключился клиент " + socket.getInetAddress());
-        in = socket.getInputStream();
-        out = socket.getOutputStream();
-        protocol = new ObjectProtocol();
+    public Session(ServerSocket serverSocket) {
+        try {
+            socket = serverSocket.accept();
+            System.out.println("Подключился клиент " + socket.getInetAddress());
+            in = socket.getInputStream();
+            out = socket.getOutputStream();
+            protocol = new ObjectProtocol();
+        } catch (Exception e) {
+            System.out.println(this.getClass() + "Не удалось создать сессию. " + e.toString());
+            close();
+        }
     }
 
     public void send(Message msg) throws ProtocolException, IOException {
-        log.info(msg.getSenderId().toString());
+        if (msg.getSenderId() != null) {
+            log.info("sent to: " + msg.getSenderId().toString());
+        } else {
+            log.info("sent to: " + null);
+        }
         out.write(protocol.encode(msg));
         out.flush();
         // TODO: Отправить клиенту сообщение
@@ -77,7 +86,7 @@ public class Session {
         switch (msgType) {
             case MSG_LOGIN:
                 LoginMessage lmsg = (LoginMessage) msg;
-                user = auth(lmsg.getUsername(), lmsg.getPassword());
+                auth(lmsg.getUsername(), lmsg.getPassword());
                 send(new InfoResultMessage(user));
                 break;
             case MSG_TEXT:
@@ -86,7 +95,7 @@ public class Session {
                 break;
             case MSG_INFO:
                 InfoMessage imsg = (InfoMessage) msg;
-                send(new InfoResultMessage(user, User.database.getUser(imsg.getRequestedUser())));
+                send(new InfoResultMessage(user, MessengerServer.users.getUser(imsg.getRequestedUser())));
                 break;
             default:
                 System.out.println("Неправильная команда!");
@@ -94,21 +103,13 @@ public class Session {
         }
     }
 
-    public void close() throws IOException {
+    public void close() {
         IOUtil.closeQuietly(in);
         IOUtil.closeQuietly(out);
         IOUtil.closeQuietly(socket);
     }
 
-    public User geoolekom = new User("geoolekom", "qwerty");
-
-    public User auth(String username, String password) {
-        if ("geoolekom".equals(username) && "qwerty".equals(password)) {
-            System.out.println("Подключился geoolekom");
-            return geoolekom;
-        } else {
-            System.out.println("Нет такого юзера");
-            return null;
-        }
+    public void auth(String username, String password) {
+        user = MessengerServer.users.loginUser(username, password);
     }
 }

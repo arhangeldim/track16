@@ -76,9 +76,6 @@ public class MessengerClient {
         in = socket.getInputStream();
         out = socket.getOutputStream();
 
-        /*
-      Тред "слушает" сокет на наличие входящих сообщений от сервера
-     */
         Thread socketListenerThread = new Thread(() -> {
             final byte[] buf = new byte[MAX_MSG_SIZE];
             log.info("Слушаем сервер...");
@@ -87,7 +84,6 @@ public class MessengerClient {
                     // Здесь поток блокируется на ожидании данных
                     int read = in.read(buf);
                     if (read > 0) {
-
                         // По сети передается поток байт, его нужно раскодировать с помощью протокола
                         Message msg = protocol.decode(Arrays.copyOf(buf, read));
                         onMessage(msg);
@@ -99,7 +95,7 @@ public class MessengerClient {
                 }
             }
         });
-
+        socketListenerThread.setDaemon(true);
         socketListenerThread.start();
     }
 
@@ -192,16 +188,17 @@ public class MessengerClient {
             while (true) {
                 String input = scanner.nextLine();
                 if ("q".equals(input)) {
-                    return;
+                    System.out.println("Завершение сеанса...");
+                    break;
                 }
                 try {
                     client.processInput(input);
                 } catch (ProtocolException | IOException e) {
-                    log.error("Failed to process user input", e);
+                    log.error("Ошибки при обработке потока ввода.", e);
                 }
             }
         } catch (Exception e) {
-            log.error("Application failed.", e);
+            log.error("Приложение рухнуло с оглушительным грохотом.", e);
         } finally {
             if (client != null) {
                 // TODO

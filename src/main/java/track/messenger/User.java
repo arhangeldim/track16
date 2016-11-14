@@ -9,10 +9,11 @@ import java.io.Serializable;
  */
 
 public class User implements Serializable {
-    private long id;
+    private Integer id;
     private String username;
     private String password;
-    public static UserStore database = new UserStore("store.sqlite3");
+
+    public User() {}
 
     public User(String username, String password) {
         this.username = username;
