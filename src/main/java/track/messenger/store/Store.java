@@ -23,6 +23,10 @@ public class Store {
 
     public Store() {}
 
+    public Class getDataClass() {
+        return dataClass;
+    }
+
     private Map<String, Class> getTypeMap() {
         typeMap = new HashMap<>();
         typeMap.put("CHAR", String.class);

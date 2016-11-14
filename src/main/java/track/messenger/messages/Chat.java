@@ -10,6 +10,7 @@ import java.util.List;
  * Created by geoolekom on 14.11.16.
  */
 public class Chat implements Serializable {
+    private Integer id;
     private List<User> users = new ArrayList<>();
     private User admin;
 
@@ -24,6 +25,5 @@ public class Chat implements Serializable {
         this.admin = admin;
         this.users = users;
     }
-
 
 }

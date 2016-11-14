@@ -10,6 +10,7 @@ import java.util.Objects;
  */
 public class TextMessage extends Message implements Serializable {
     private String text;
+    private Integer chatId;
 
     public String getText() {
         return text;
@@ -24,9 +25,16 @@ public class TextMessage extends Message implements Serializable {
         this.text = "";
     }
 
-    public TextMessage(User sender, String text) {
+    public TextMessage(User sender, String data) {
         super(sender, Type.MSG_TEXT);
-        this.text = text;
+        String[] tokens = data.split(" ");
+        try {
+            chatId = Integer.class.cast(tokens[0]);
+            this.text = data.substring(tokens[0].length()).trim();
+        } catch (Exception e) {
+            this.text = "";
+            System.out.println("Неправильно оформленное сообщение.");
+        }
     }
 
     @Override
@@ -54,5 +62,9 @@ public class TextMessage extends Message implements Serializable {
         return "TextMessage{" +
                 "text='" + text + '\'' +
                 '}';
+    }
+
+    public void setChatId(Integer chatId) {
+        this.chatId = chatId;
     }
 }

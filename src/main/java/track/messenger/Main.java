@@ -3,6 +3,7 @@ package track.messenger;
 import track.messenger.commands.*;
 import track.messenger.messages.Type;
 import track.messenger.net.MessengerServer;
+import track.messenger.store.MessageStore;
 import track.messenger.store.UserStore;
 
 import java.util.HashMap;
@@ -15,6 +16,8 @@ import java.util.Map;
 public class Main {
 
     public static Map<Type, Class> typeCommandMap = new HashMap<>();
+    public static UserStore users = new UserStore("store.sqlite3");
+    public static MessageStore messages = new MessageStore("store.sqlite3");
 
     public static void setTypeCommandMap() {
         typeCommandMap.put(Type.MSG_LOGIN, LoginCommand.class);

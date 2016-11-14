@@ -1,5 +1,7 @@
 package track.messenger.commands;
 
+import track.messenger.Main;
+import track.messenger.User;
 import track.messenger.messages.InfoResultMessage;
 import track.messenger.messages.LoginMessage;
 import track.messenger.messages.Message;
@@ -12,9 +14,14 @@ public class LoginCommand implements Command {
     @Override
     public void execute(Session session, Message message) throws CommandException {
         LoginMessage msg = (LoginMessage) message;
-        session.auth(msg.getUsername(), msg.getPassword());
+        session.setUser(Main.users.loginUser(msg.getUsername(), msg.getPassword()));
         try {
-            session.send(new InfoResultMessage(session.getUser()));
+            User user = session.getUser();
+            if (user != null) {
+                session.send(new InfoResultMessage(user));
+            } else {
+                throw new CommandException(this.getClass() + ": неправильный логин или пароль.");
+            }
         } catch (Exception e) {
             throw new CommandException(this.getClass() + ": ошибка авторизации.");
         }

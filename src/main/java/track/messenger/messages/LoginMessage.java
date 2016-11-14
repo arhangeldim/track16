@@ -21,8 +21,8 @@ public class LoginMessage extends Message implements Serializable {
 
         String[] authData = data.split(" ");
         if (authData.length == 2) {
-            username = authData[0];
-            password = authData[1];
+            username = authData[0].trim();
+            password = authData[1].trim();
         } else {
             System.out.println("Введено что-то кроме логина и пароля.");
         }

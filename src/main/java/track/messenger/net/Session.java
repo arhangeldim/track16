@@ -114,13 +114,6 @@ public class Session {
         alive = false;
     }
 
-    public void auth(String username, String password) {
-        user = MessengerServer.users.loginUser(username, password);
-        if (user != null) {
-            System.out.println("Подключился " + user.toString());
-        }
-    }
-
     public boolean isAlive() {
         return alive;
     }

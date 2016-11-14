@@ -135,7 +135,7 @@ public class MessengerClient {
         String cmdType = tokens[0];
         String data = "";
         if (tokens.length > 1) {
-            data = line.substring(cmdType.length() + 1);
+            data = line.substring(cmdType.length()).trim();
         }
         switch (cmdType) {
             case "/login":

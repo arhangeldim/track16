@@ -4,6 +4,7 @@ import org.apache.commons.lang.SerializationException;
 import org.mockito.internal.util.io.IOUtil;
 import track.messenger.Main;
 import track.messenger.messages.*;
+import track.messenger.store.MessageStore;
 import track.messenger.store.UserStore;
 
 import java.net.ServerSocket;
@@ -22,7 +23,6 @@ public class MessengerServer {
     private ServerSocket serverSocket;
     private LinkedBlockingQueue<Session> sessions = new LinkedBlockingQueue<>();
     private ExecutorService service = Executors.newFixedThreadPool(NTHREADS);
-    public static UserStore users = new UserStore("store.sqlite3");
 
     public MessengerServer() {}
 
