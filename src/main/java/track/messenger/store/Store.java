@@ -7,10 +7,10 @@ import java.util.*;
 
 import oracle.jdbc.*;
 
-
 /**
  * Created by geoolekom on 14.11.16.
  */
+
 public class Store {
 
     private Connection connection;
@@ -21,9 +21,7 @@ public class Store {
     private Map<Class, String> classMap;
     private Map<String, Class> typeMap;
 
-    public Store() {
-
-    }
+    public Store() {}
 
     private Map<String, Class> getTypeMap() {
         typeMap = new HashMap<>();

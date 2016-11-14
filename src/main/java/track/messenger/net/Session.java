@@ -1,18 +1,19 @@
 package track.messenger.net;
 
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 import java.net.SocketTimeoutException;
 
-//import sun.nio.ch.IOUtil;
+
 import org.mockito.internal.util.io.IOUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import track.messenger.Main;
 import track.messenger.User;
+import track.messenger.commands.Command;
+import track.messenger.commands.CommandException;
+import track.messenger.commands.LoginCommand;
 import track.messenger.messages.*;
-import track.messenger.store.UserStore;
 
 /**
  * Сессия связывает бизнес-логику и сетевую часть.
@@ -94,26 +95,15 @@ public class Session {
 
     public void onMessage(Message msg) throws ProtocolException, IOException {
         Type msgType = msg.getType();
-        switch (msgType) {
-            case MSG_LOGIN:
-                LoginMessage lmsg = (LoginMessage) msg;
-                auth(lmsg.getUsername(), lmsg.getPassword());
-                send(new InfoResultMessage(user));
-                break;
-            case MSG_TEXT:
-                TextMessage tmsg = (TextMessage) msg;
-                break;
-            case MSG_INFO:
-                InfoMessage imsg = (InfoMessage) msg;
-                send(new InfoResultMessage(user, MessengerServer.users.getUser(imsg.getRequestedUser())));
-                break;
-            case MSG_QUIT:
-                QuitMessage qmsg = (QuitMessage) msg;
-                close();
-                break;
-            default:
-                System.out.println("Неправильная команда!");
-                break;
+        Command command = null;
+        try {
+            Class commandType = Main.typeCommandMap.get(msgType);
+            command = Command.class.cast(commandType.newInstance());
+            command.execute(this, msg);
+        } catch (NullPointerException npe) {
+            System.out.println("Неправильная команда!");
+        } catch (CommandException | InstantiationException | IllegalAccessException  e) {
+            System.out.println("Ошибка выполнения команды." + e.toString());
         }
     }
 

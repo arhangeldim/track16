@@ -1,7 +1,19 @@
-2016-11-14 20:05:21 INFO  ObjectProtocol:19 - decoded: TextMessage{text='aaaa'2016-11-14 20:05:38 INFO  MessengerClient:132 - Tokens: [/login, geoolekom, qwerty]
-2016-11-14 20:05:38 INFO  MessengerClient:172 - track.messenger.messages.Log2016-11-14 20:05:38 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.LoginMessage@4c75cab9
-2016-11-14 20:05:382016-11-14 20:05:38 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoResultMessage@5683a2a0
-2016-11-14 20:05:38 INFO  MessengerClient:106 - Message received: track.messenger.messages.InfoResultMessage@5683a2a0
- ccc]
-2016-11-14 20:05:29 INFO  MessengerClient:172 - TextMessage{text='ccc'}
-2016-11-14 20:05:29 INFO  ObjectProtocol:25 - encoded: TextMessage{text='ccc'}
+2016-11-14 21:31:18 INFO  MessengerClient:79 - Слушаем сервер...
+2016-11-14 21:31:22 INFO  MessengerClient:134 - Tokens: [/text, gggg]
+2016-11-14 21:31:22 INFO  MessengerClient:170 - TextMessage{text2016-11-14 21:31:22 INFO  ObjectProtocol:19 - decoded: TextMessage{text='gggg'}
+2016-11-12016-11-14 21:31:22 INFO  ObjectProtocol:19 - decoded: OK
+2016-11-14 21:31:22 INFO  MessengerClient:102016-11-14 21:31:41 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.LoginMessage@2471cca7
+2016-11-14 21:31:41 INFO  Session:88 - sent to: 1
+2016-11-14 21:31:41 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.InfoResultMessage@69a8b842
+2016-11-14 21:31:49 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoMessage@5c0369c4
+2016-11-14 21:31:49 INFO  Session:88 - sent to: 1
+2016-11-14 21:31:49 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.InfoResultMessage@41a10f70
+2016-11-14 21:31:55 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.QuitMessage@d70c109
+2016-11-14 21:31:55 INFO  Session:88 - sent to: 1
+2016-11-14 21:31:55 INFO  ObjectProtocol:25 - encoded: OK
+ - encoded: track.messenger.messages.InfoMessage@dcf3e99
+2016-11-14 21:31:49 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoResultMessage@28b00f8e
+2016-11-14 21:31:49 INFO  MessengerClient:104 - Message received: track.messenger.messages.InfoResultMessage@28b00f8e
+2016-11-14 21:31:55 INFO  MessengerClient:134 - Tokens: [/quit]
+2016-11-14 21:31:55 INFO  MessengerClient:170 - track.messenger.messages.QuitMessage@626b2d4a
+2016-11-14 21:31:55 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.QuitMessage@626b2d4a

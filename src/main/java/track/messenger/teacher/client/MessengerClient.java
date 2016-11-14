@@ -8,7 +8,6 @@ import java.net.Socket;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import org.mockito.internal.util.io.IOUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +16,6 @@ import track.messenger.messages.*;
 import track.messenger.net.ObjectProtocol;
 import track.messenger.net.Protocol;
 import track.messenger.net.ProtocolException;
-import track.messenger.net.StringProtocol;
 
 
 /**
@@ -118,8 +116,12 @@ public class MessengerClient {
                 InfoResultMessage irmsg = (InfoResultMessage) msg;
                 System.out.println(irmsg.getRequestedUser());
                 break;
+            case MSG_STATUS:
+                StatusMessage smsg = (StatusMessage) msg;
+                System.out.println(smsg);
+                break;
             default:
-                System.out.println("Ошибка сервера");
+                System.out.println(this.getClass() + ": ошибка сервера");
         }
     }
 
@@ -137,27 +139,23 @@ public class MessengerClient {
         }
         switch (cmdType) {
             case "/login":
-                LoginMessage lmsg = new LoginMessage(user, data);
-                send(lmsg);
+                send(new LoginMessage(user, data));
                 break;
             case "/help":
                 // TODO: реализация
                 break;
             case "/info":
                 if (user != null) {
-                    InfoMessage imsg = new InfoMessage(user, data);
-                    send(imsg);
+                    send(new InfoMessage(user, data));
                 } else {
                     System.out.println("Вы не авторизованы.");
                 }
                 break;
             case "/text":
-                TextMessage tmsg = new TextMessage(user, data);
-                send(tmsg);
+                send(new TextMessage(user, data));
                 break;
             case "/quit":
-                QuitMessage qmsg = new QuitMessage(user);
-                send(qmsg);
+                send(new QuitMessage(user));
                 break;
             default:
                 log.error("Invalid input: " + line);
@@ -205,7 +203,6 @@ public class MessengerClient {
             log.error("Приложение рухнуло с оглушительным грохотом.", e);
         } finally {
             if (client != null) {
-                // TODO
                 client.close();
             }
         }

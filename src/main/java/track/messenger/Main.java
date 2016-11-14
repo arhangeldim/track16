@@ -1,7 +1,12 @@
 package track.messenger;
 
+import track.messenger.commands.*;
+import track.messenger.messages.Type;
 import track.messenger.net.MessengerServer;
 import track.messenger.store.UserStore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -9,9 +14,22 @@ import track.messenger.store.UserStore;
 
 public class Main {
 
+    public static Map<Type, Class> typeCommandMap = new HashMap<>();
+
+    public static void setTypeCommandMap() {
+        typeCommandMap.put(Type.MSG_LOGIN, LoginCommand.class);
+        typeCommandMap.put(Type.MSG_INFO, InfoCommand.class);
+        typeCommandMap.put(Type.MSG_QUIT, QuitCommand.class);
+        typeCommandMap.put(Type.MSG_TEXT, TextCommand.class);
+    }
+
     public static void main(String[] args) throws Exception {
-        MessengerServer messengerServer = new MessengerServer();
-        messengerServer.start();
+        setTypeCommandMap();
+
+        MessengerServer server = new MessengerServer();
+        server.setPort(19000);
+        server.start();
+
     }
 
 }

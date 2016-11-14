@@ -2,19 +2,12 @@ package track.messenger.net;
 
 import org.apache.commons.lang.SerializationException;
 import org.mockito.internal.util.io.IOUtil;
+import track.messenger.Main;
 import track.messenger.messages.*;
 import track.messenger.store.UserStore;
 
-import java.io.IOException;
-import java.io.InterruptedIOException;
-import java.io.StreamCorruptedException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.concurrent.*;
 
 /**
@@ -88,6 +81,7 @@ public class MessengerServer {
     }
 
     public static void main(String[] args) throws Exception {
+        Main.setTypeCommandMap();
         MessengerServer server = new MessengerServer();
         server.setPort(19000);
         server.start();
