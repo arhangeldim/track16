@@ -12,6 +12,7 @@ import track.messenger.net.Session;
 public class QuitCommand implements Command {
 
     public QuitCommand() {}
+
     @Override
     public void execute(Session session, Message message) throws CommandException {
         try {
