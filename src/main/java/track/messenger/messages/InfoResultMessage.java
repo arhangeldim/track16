@@ -16,7 +16,7 @@ public class InfoResultMessage extends Message implements Serializable {
     }
 
     public InfoResultMessage(User sender) {
-        super(sender, Type.MSG_AUTHORIZED);
+        super(sender, Type.MSG_INFO_RESULT);
         this.requestedUser = sender;
     }
 

@@ -4,8 +4,12 @@ package track.messenger.messages;
  * Created by geoolekom on 14.11.16.
  */
 public enum Status {
-    OK,
-    ERROR,
-    TIMEOUT
+    AUTHORIZED,
+    NOT_AUTHORIZED,
+    MESSAGE_DELIEVERED,
+    WRONG_DESTINATION,
+    GOODBYE,
+    AUTHORIZATION_ERROR,
+    ERROR
 }
 

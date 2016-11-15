@@ -1,12 +1,8 @@
 package track.messenger.net;
 
-import org.apache.commons.lang.SerializationException;
 import org.mockito.internal.util.io.IOUtil;
-import track.messenger.Main;
+import track.messenger.commands.Commander;
 import track.messenger.messages.*;
-import track.messenger.store.MessageStore;
-import track.messenger.store.UserStore;
-
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.*;
@@ -18,16 +14,25 @@ import java.util.concurrent.*;
 public class MessengerServer {
 
     private Integer port;
-    private static final int NTHREADS = 4;
+    private Integer nthreads;
+    private Commander commander;
 
     private ServerSocket serverSocket;
-    private LinkedBlockingQueue<Session> sessions = new LinkedBlockingQueue<>();
-    private ExecutorService service = Executors.newFixedThreadPool(NTHREADS);
+    private LinkedBlockingQueue<Session> sessions;
 
     public MessengerServer() {}
 
     public void setPort(Integer port) {
         this.port = port;
+    }
+
+    public void setNthreads(Integer nthreads) {
+        this.nthreads = nthreads;
+    }
+
+    public void setCommander(Commander commander) {
+        this.commander = commander;
+        this.commander.setTypeCommandMap();
     }
 
     public void listen() {
@@ -36,7 +41,7 @@ public class MessengerServer {
                 Socket clientSocket = null;
                 try {
                     clientSocket = serverSocket.accept();
-                    sessions.add(new Session(clientSocket));
+                    sessions.add(new Session(clientSocket, commander));
                 } catch (Exception e) {
                     System.out.println("listen: " + e.toString());
                     Thread.currentThread().interrupt();
@@ -49,6 +54,8 @@ public class MessengerServer {
 
     public void start() throws Exception {
         serverSocket = null;
+        sessions = new LinkedBlockingQueue<>();
+        ExecutorService service = Executors.newFixedThreadPool(nthreads);
         try {
             serverSocket = new ServerSocket(port);
             System.out.println("Ждем соединения...");
@@ -67,7 +74,7 @@ public class MessengerServer {
                                 System.out.println("Клиент отключился.");
                             }
                         } catch (Exception e) {
-                            System.out.println("Ошибка обработки сообщения: " + e.toString());
+                            System.out.println(this.getClass() + ": ошибка обработки сообщения: " + e.toString());
                         }
                     });
                 } else if (session.isAlive()) {
@@ -80,10 +87,4 @@ public class MessengerServer {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        Main.setTypeCommandMap();
-        MessengerServer server = new MessengerServer();
-        server.setPort(19000);
-        server.start();
-    }
 }

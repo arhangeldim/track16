@@ -7,11 +7,16 @@ import java.util.*;
 
 import oracle.jdbc.*;
 
+import javax.annotation.PreDestroy;
+
 /**
  * Created by geoolekom on 14.11.16.
  */
 
-public class Store {
+public abstract class Store {
+
+    private String dbName;
+    private String className;
 
     private Connection connection;
     private PreparedStatement statement;
@@ -23,8 +28,12 @@ public class Store {
 
     public Store() {}
 
-    public Class getDataClass() {
-        return dataClass;
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     private Map<String, Class> getTypeMap() {
@@ -76,7 +85,7 @@ public class Store {
         return classMap;
     }
 
-    public Store(String className, String dbName) {
+    public void connect() {
         try {
             dataClass = Class.forName(className);
             tableName = dataClass.getSimpleName();
@@ -165,7 +174,6 @@ public class Store {
     public void save(LinkedList<? extends Object> list) throws Exception {
         Field[] fields = dataClass.getDeclaredFields();
         statement = connection.prepareStatement(insertSql(fields));
-        System.out.println(insertSql(fields));
         for (Object obj : list) {
             int counter = 1;
             for (Field field : fields) {
@@ -179,6 +187,7 @@ public class Store {
         statement.executeUpdate();
     }
 
+    @PreDestroy
     public void close() throws SQLException {
         connection.close();
         statement.close();

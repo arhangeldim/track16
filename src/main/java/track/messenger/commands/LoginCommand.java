@@ -2,28 +2,49 @@ package track.messenger.commands;
 
 import track.messenger.Main;
 import track.messenger.User;
-import track.messenger.messages.InfoResultMessage;
-import track.messenger.messages.LoginMessage;
-import track.messenger.messages.Message;
+import track.messenger.messages.*;
 import track.messenger.net.Session;
+import track.messenger.store.UserStore;
+
+import java.security.MessageDigest;
 
 /**
  * Created by geoolekom on 14.11.16.
  */
 public class LoginCommand implements Command {
+
+    private UserStore users;
+
+    public LoginCommand(UserStore users) {
+        this.users = users;
+    }
+
     @Override
     public void execute(Session session, Message message) throws CommandException {
+
         LoginMessage msg = (LoginMessage) message;
-        session.setUser(Main.users.loginUser(msg.getUsername(), msg.getPassword()));
+        User user = users.getUser(msg.getUsername());
         try {
-            User user = session.getUser();
-            if (user != null) {
+            if (checkPassword(user, msg.getPassword())) {
+                session.setUser(user);
+                session.send(new StatusMessage(user, Status.AUTHORIZED));
                 session.send(new InfoResultMessage(user));
             } else {
-                throw new CommandException(this.getClass() + ": неправильный логин или пароль.");
+                session.send(new StatusMessage(user, Status.AUTHORIZATION_ERROR));
             }
         } catch (Exception e) {
             throw new CommandException(this.getClass() + ": ошибка авторизации.");
+        }
+    }
+
+    private boolean checkPassword(User user, String password) throws Exception {
+        MessageDigest hasher = MessageDigest.getInstance(users.getHashAlgorithm());
+        hasher.update(password.getBytes());
+        String encryptedPassword = new String(hasher.digest());
+        if (encryptedPassword.equals(user.getPassword())) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

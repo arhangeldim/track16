@@ -28,6 +28,7 @@ public class TextMessage extends Message implements Serializable {
     public TextMessage(User sender, String data) {
         super(sender, Type.MSG_TEXT);
         String[] tokens = data.split(" ");
+        System.out.println(tokens[0] + " " + tokens[1]);
         try {
             chatId = Integer.class.cast(tokens[0]);
             this.text = data.substring(tokens[0].length()).trim();

@@ -108,10 +108,6 @@ public class MessengerClient {
 
         Type msgType = msg.getType();
         switch (msgType) {
-            case MSG_AUTHORIZED:
-                InfoResultMessage amsg = (InfoResultMessage) msg;
-                user = amsg.getRequestedUser();
-                break;
             case MSG_INFO_RESULT:
                 InfoResultMessage irmsg = (InfoResultMessage) msg;
                 System.out.println(irmsg.getRequestedUser());

@@ -1,0 +1,23 @@
+<root>
+
+    <bean id="messengerServer" class="track.messenger.net.MessengerServer">
+        <property name="port" val="19000"/>
+        <property name="nthreads" val="4"/>
+        <property name="commander" ref="commander"/>
+    </bean>
+
+    <bean id="commander" class="track.messenger.commands.Commander">
+        <property name="users" ref="userStore"/>
+        <property name="messages" ref="messageStore"/>
+    </bean>
+
+    <bean id="userStore" class="track.messenger.store.UserStore">
+        <property name="dbName" val="store.sqlite3"/>
+        <property name="hashAlgorithm" val="SHA-256"/>
+    </bean>
+
+    <bean id="messageStore" class="track.messenger.store.MessageStore">
+        <property name="dbName" val="store.sqlite3"/>
+    </bean>
+
+</root>

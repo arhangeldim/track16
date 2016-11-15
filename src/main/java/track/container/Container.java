@@ -68,7 +68,23 @@ public class Container {
             Object[] args;
 
             if (prop.getValue() != null) {
-                Field field = beanClass.getDeclaredField(prop.getName());
+                Class superclass = beanClass;
+                Field field = null;
+                try {
+                    field = superclass.getDeclaredField(prop.getName());
+                } catch (NoSuchFieldException nsfe) {
+                    while (superclass != null) {
+                        try {
+                            field = superclass.getDeclaredField(prop.getName());
+                            break;
+                        } catch (NoSuchFieldException e) {
+                            superclass = superclass.getSuperclass();
+                        }
+                    }
+                    if (superclass == null) {
+                        throw new NoSuchFieldException("Нет такого поля у класса и предков.");
+                    }
+                }
                 try {
                     Constructor constructor = field.getType().getConstructor(String.class);
                     paramTypes = new Class[] { field.getType() };

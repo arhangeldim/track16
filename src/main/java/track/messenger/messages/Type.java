@@ -15,7 +15,6 @@ public enum Type {
 
     // Сообщения от сервера клиенту
     MSG_STATUS,
-    MSG_AUTHORIZED,
     MSG_CHAT_LIST_RESULT,
     MSG_CHAT_HIST_RESULT,
     MSG_INFO_RESULT

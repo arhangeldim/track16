@@ -16,7 +16,7 @@ public class QuitCommand implements Command {
     @Override
     public void execute(Session session, Message message) throws CommandException {
         try {
-            session.send(new StatusMessage(session.getUser(), Status.OK));
+            session.send(new StatusMessage(session.getUser(), Status.GOODBYE));
             session.close();
         } catch (Exception e) {
             throw new CommandException(this.getClass() + ": ошибка выхода (бред какой-то).");

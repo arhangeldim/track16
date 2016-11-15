@@ -12,7 +12,7 @@ public class StatusMessage extends Message {
 
     public StatusMessage() {
         super(null, Type.MSG_STATUS);
-        status = Status.OK;
+        status = Status.ERROR;
     }
 
     public StatusMessage(User user, Status status) {

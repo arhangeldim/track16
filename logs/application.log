@@ -1,19 +1,9 @@
-2016-11-14 21:31:18 INFO  MessengerClient:79 - Слушаем сервер...
-2016-11-14 21:31:22 INFO  MessengerClient:134 - Tokens: [/text, gggg]
-2016-11-14 21:31:22 INFO  MessengerClient:170 - TextMessage{text2016-11-14 21:31:22 INFO  ObjectProtocol:19 - decoded: TextMessage{text='gggg'}
-2016-11-12016-11-14 21:31:22 INFO  ObjectProtocol:19 - decoded: OK
-2016-11-14 21:31:22 INFO  MessengerClient:102016-11-14 21:31:41 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.LoginMessage@2471cca7
-2016-11-14 21:31:41 INFO  Session:88 - sent to: 1
-2016-11-14 21:31:41 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.InfoResultMessage@69a8b842
-2016-11-14 21:31:49 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoMessage@5c0369c4
-2016-11-14 21:31:49 INFO  Session:88 - sent to: 1
-2016-11-14 21:31:49 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.InfoResultMessage@41a10f70
-2016-11-14 21:31:55 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.QuitMessage@d70c109
-2016-11-14 21:31:55 INFO  Session:88 - sent to: 1
-2016-11-14 21:31:55 INFO  ObjectProtocol:25 - encoded: OK
- - encoded: track.messenger.messages.InfoMessage@dcf3e99
-2016-11-14 21:31:49 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoResultMessage@28b00f8e
-2016-11-14 21:31:49 INFO  MessengerClient:104 - Message received: track.messenger.messages.InfoResultMessage@28b00f8e
-2016-11-14 21:31:55 INFO  MessengerClient:134 - Tokens: [/quit]
-2016-11-14 21:31:55 INFO  MessengerClient:170 - track.messenger.messages.QuitMessage@626b2d4a
-2016-11-14 21:31:55 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.QuitMessage@626b2d4a
+2016-11-16 00:07:42 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.LoginMessage@4c75cab9
+2016-11-16 00:07:42 INFO  Session:91 - sent to: 1
+2016-11-16 00:07:42 INFO  ObjectProtocol:25 - encoded: AUTHORIZED
+2016-11-16 00:07:42 INFO  Session:91 - sent to: 1
+2016-11-16 00:07:42 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.InfoResultM2016-11-16 00:07:42 INFO  ObjectProtocol:19 - decoded: AUTHORIZED
+2016-11-16 00:07:42 INFO  MessengerClient:104 - Message received: AUTHORIZED
+2016-11-16 00:07:42 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoResultMessage@442a0bb8
+2016-11-16 00:07:42 INFO  MessengerClient:104 - Message received: track.messenger.messages.InfoResultMessage@442a0bb8
+2016-11-16 00:08:58 INFO  MessengerClient:130 - Tokens: [/info]

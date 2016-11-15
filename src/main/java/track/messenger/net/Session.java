@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 
 
+import oracle.jdbc.proxy.annotation.Pre;
 import org.mockito.internal.util.io.IOUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +13,11 @@ import track.messenger.Main;
 import track.messenger.User;
 import track.messenger.commands.Command;
 import track.messenger.commands.CommandException;
+import track.messenger.commands.Commander;
 import track.messenger.commands.LoginCommand;
 import track.messenger.messages.*;
+
+import javax.annotation.PreDestroy;
 
 /**
  * Сессия связывает бизнес-логику и сетевую часть.
@@ -31,6 +35,7 @@ public class Session {
     private static final int MAX_MSG_SIZE = 32 * 1024;
     private static final int TIMEOUT = 100;
     private User user;
+    private Commander commander;
 
     private Socket socket;
     private Protocol protocol;
@@ -67,7 +72,7 @@ public class Session {
         return ret;
     }
 
-    public Session(Socket clientSocket) {
+    public Session(Socket clientSocket, Commander commander) {
         try {
             //socket = serverSocket.accept();
             socket = clientSocket;
@@ -76,6 +81,7 @@ public class Session {
             in = socket.getInputStream();
             out = socket.getOutputStream();
             protocol = new ObjectProtocol();
+            this.commander = commander;
             alive = true;
         } catch (Exception e) {
             System.out.println(this.getClass() + "Не удалось создать сессию. " + e.toString());
@@ -97,16 +103,14 @@ public class Session {
         Type msgType = msg.getType();
         Command command = null;
         try {
-            Class commandType = Main.typeCommandMap.get(msgType);
-            command = Command.class.cast(commandType.newInstance());
+            command = commander.getTypeCommandMap().get(msgType);
             command.execute(this, msg);
-        } catch (NullPointerException npe) {
-            System.out.println("Неправильная команда!");
-        } catch (CommandException | InstantiationException | IllegalAccessException  e) {
-            System.out.println("Ошибка выполнения команды." + e.toString());
+        } catch (CommandException e) {
+            System.out.println(this.getClass() + ": ошибка выполнения команды." + e.toString());
         }
     }
 
+    @PreDestroy
     public void close() {
         IOUtil.closeQuietly(in);
         IOUtil.closeQuietly(out);

@@ -13,8 +13,8 @@ import java.util.List;
 
 public class MessageStore extends Store {
 
-    public MessageStore(String dbName) {
-        super(TextMessage.class.getName(), dbName);
+    public MessageStore() {
+        setClassName(TextMessage.class.getName());
     }
 
     public void saveMessage(TextMessage msg) {
