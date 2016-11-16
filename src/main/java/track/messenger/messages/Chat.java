@@ -48,6 +48,10 @@ public class Chat {
         return participants.contains(userId);
     }
 
+    public List<Integer> getParticipants() {
+        return participants;
+    }
+
     public List<ChatRelation> getRelations() {
         return relations;
     }

@@ -1,17 +1,28 @@
-2016-11-16 11:02:41 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.LoginMessage@2be94b0f
-2016-11-16 11:02:41 INFO  Session:91 - sent to: 2
-2016-11-16 11:02:41 INFO  ObjectProtocol:25 - encoded: AUTHORIZED one
-2016-11-16 11:02:41 INFO  Session:91 - sent to: 2
-2016-11-16 11:02:41 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.I2016-11-16 11:02:41 INFO  2016-11-16 11:02:44 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistMessage@387c703b
-2016-11-16 11:02:44 INFO  Session:91 - sent to: 2
-2016-11-16 11:02:44 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistResultMessage@4d2715e9
-2016-11-16 11:02:47 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.QuitMessage@2ac1fdc4
-2016-11-16 11:02:47 INFO  Session:91 - sent to: 2
-2016-11-16 11:02:47 INFO  ObjectProtocol:25 - encoded: GOODBYE 
-er.messages.ChatHistMessage@c2e1f26
-2016-11-16 11:02:44 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistMessage@c2e1f26
-2016-11-16 11:02:44 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistResultMessage@6fb3f21a
-2016-11-16 11:02:44 INFO  MessengerClient:92 - Message received: track.messenger.messages.ChatHistResultMessage@6fb3f21a
-2016-11-16 11:02:47 INFO  MessengerClient:123 - Tokens: [/quit]
-2016-11-16 11:02:47 INFO  MessengerClient:185 - track.messenger.messages.QuitMessage@626b2d4a
-2016-11-16 11:02:47 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.QuitMessage@626b2d4a
+2016-11-16 23:21:48 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.LoginMessage@22a71081
+2016-11-16 23:21:48 INFO  Session:91 - sent to: 1
+2016-11-16 23:21:48 INFO  ObjectProtocol:25 - encoded: AUTHORIZED geoolekom
+2016-11-16 23:21:48 INFO  Session:91 - sent to: 1
+2016-11-16 23:21:48 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.I2016-11-16 23:21:48 INFO  2016-11-16 23:21:52 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistMessage@75412c2f
+2016-11-16 23:21:52 INFO  Session:91 - sent to: 1
+2016-11-16 23:21:52 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistResultMessage@3f712ac
+2016-11-16 23:22:03 INFO  ObjectProtocol:19 - decoded: TextMessage{text='WHOAAAA'}
+2016-11-16 23:22:03 INFO  Session:91 - sent to: 1
+2016-11-16 23:22:03 INFO  ObjectProtocol:25 - encoded: MESSAGE_DELIVERED 2
+2016-11-16 23:22:08 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistMessage@73035e27
+2016-11-16 23:22:08 INFO  Session:91 - sent to: 1
+2016-11-16 23:22:08 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistResultMessage@6597f409
+2016-11-16 23:22:15 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.QuitMessage@21a06946
+2016-11-16 23:22:15 INFO  Session:91 - sent to: 1
+2016-11-16 23:22:15 INFO  ObjectProtocol:25 - encoded: GOODBYE 
+:22:03 INFO  MessengerClient:185 - TextMessage{text='WHOAAAA'}
+2016-11-16 23:22:03 INFO  ObjectProtocol:25 - encoded: TextMessage{text='WHOAAAA'}
+2016-11-16 23:22:03 INFO  ObjectProtocol:19 - decoded: MESSAGE_DELIVERED 2
+2016-11-16 23:22:03 INFO  MessengerClient:92 - Message received: MESSAGE_DELIVERED 2
+2016-11-16 23:22:08 INFO  MessengerClient:123 - Tokens: [/chat_hist, 2]
+2016-11-16 23:22:08 INFO  MessengerClient:185 - track.messenger.messages.ChatHistMessage@4361bd48
+2016-11-16 23:22:08 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistMessage@4361bd48
+2016-11-16 23:22:08 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistResultMessage@7ce56a6
+2016-11-16 23:22:08 INFO  MessengerClient:92 - Message received: track.messenger.messages.ChatHistResultMessage@7ce56a6
+2016-11-16 23:22:15 INFO  MessengerClient:123 - Tokens: [/quit]
+2016-11-16 23:22:15 INFO  MessengerClient:185 - track.messenger.messages.QuitMessage@2401f4c3
+2016-11-16 23:22:15 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.QuitMessage@2401f4c3

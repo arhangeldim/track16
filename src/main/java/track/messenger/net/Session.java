@@ -74,7 +74,7 @@ public class Session {
             //socket = serverSocket.accept();
             socket = clientSocket;
             socket.setSoTimeout(TIMEOUT);
-            System.out.println("Подключился клиент " + socket.getInetAddress());
+            System.out.println("Подключение: " + socket.getInetAddress() + ", " + this.toString());
             in = socket.getInputStream();
             out = socket.getOutputStream();
             protocol = new ObjectProtocol();

@@ -29,6 +29,13 @@ public class TextCommand implements Command {
                 if (chat != null && chat.contains(user)) {
                     messages.saveMessage(msg);
                     session.send(new StatusMessage(user, Status.MESSAGE_DELIVERED, chat.getId().toString()));
+                    /*
+                    ChatHistMessage chatHistMessage;
+                    for (Integer userId : chat.getParticipants()) {
+                        chatHistMessage = new ChatHistMessage();
+                        chatHistMessage.setSenderId(userId);
+                    }
+                    */
                 } else {
                     session.send(new StatusMessage(user, Status.WRONG_DESTINATION));
                 }
