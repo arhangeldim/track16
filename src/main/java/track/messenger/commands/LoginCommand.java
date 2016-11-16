@@ -1,6 +1,5 @@
 package track.messenger.commands;
 
-import track.messenger.Main;
 import track.messenger.User;
 import track.messenger.messages.*;
 import track.messenger.net.Session;
@@ -25,15 +24,15 @@ public class LoginCommand implements Command {
         LoginMessage msg = (LoginMessage) message;
         User user = users.getUser(msg.getUsername());
         try {
-            if (checkPassword(user, msg.getPassword())) {
+            if (user != null && checkPassword(user, msg.getPassword())) {
                 session.setUser(user);
-                session.send(new StatusMessage(user, Status.AUTHORIZED));
+                session.send(new StatusMessage(user, Status.AUTHORIZED, user.getUsername()));
                 session.send(new InfoResultMessage(user));
             } else {
                 session.send(new StatusMessage(user, Status.AUTHORIZATION_ERROR));
             }
         } catch (Exception e) {
-            throw new CommandException(this.getClass() + ": ошибка авторизации.");
+            throw new CommandException(this.getClass() + ": ошибка авторизации. " + e.toString());
         }
     }
 

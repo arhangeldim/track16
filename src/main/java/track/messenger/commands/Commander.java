@@ -1,6 +1,7 @@
 package track.messenger.commands;
 
 import track.messenger.messages.Type;
+import track.messenger.store.ChatRelationStore;
 import track.messenger.store.MessageStore;
 import track.messenger.store.UserStore;
 
@@ -14,6 +15,7 @@ public class Commander {
     private Map<Type, Command> typeCommandMap;
     private UserStore users;
     private MessageStore messages;
+    private ChatRelationStore chatRelations;
 
     public void setUsers(UserStore users) {
         this.users = users;
@@ -25,18 +27,26 @@ public class Commander {
         messages.connect();
     }
 
+    public void setChatRelations(ChatRelationStore chatRelations) {
+        this.chatRelations = chatRelations;
+        chatRelations.connect();
+    }
+
     public Commander() {
         typeCommandMap = new HashMap<>();
     }
 
     public void setTypeCommandMap() {
         typeCommandMap.put(Type.MSG_LOGIN, new LoginCommand(users));
-        typeCommandMap.put(Type.MSG_INFO, new InfoCommand(users));
+        typeCommandMap.put(Type.MSG_REGISTER, new RegisterCommand(users));
         typeCommandMap.put(Type.MSG_QUIT, new QuitCommand());
-        typeCommandMap.put(Type.MSG_TEXT, new TextCommand());
+        typeCommandMap.put(Type.MSG_INFO, new InfoCommand(users));
+        typeCommandMap.put(Type.MSG_TEXT, new TextCommand(chatRelations, messages));
+        typeCommandMap.put(Type.MSG_CHAT_CREATE, new ChatCreateCommand(chatRelations));
+        typeCommandMap.put(Type.MSG_CHAT_HIST, new ChatHistCommand(chatRelations, messages, users));
     }
 
-    public Map<Type, Command> getTypeCommandMap() {
-        return typeCommandMap;
+    public Command get(Type type) {
+        return typeCommandMap.get(type);
     }
 }

@@ -1,7 +1,6 @@
 package track.messenger.commands;
 
 import track.messenger.messages.Message;
-import track.messenger.messages.QuitMessage;
 import track.messenger.messages.Status;
 import track.messenger.messages.StatusMessage;
 import track.messenger.net.Session;
@@ -19,7 +18,7 @@ public class QuitCommand implements Command {
             session.send(new StatusMessage(session.getUser(), Status.GOODBYE));
             session.close();
         } catch (Exception e) {
-            throw new CommandException(this.getClass() + ": ошибка выхода (бред какой-то).");
+            throw new CommandException(this.getClass() + ": ошибка выхода (бред какой-то). ");
         }
     }
 }

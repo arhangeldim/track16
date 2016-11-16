@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.sql.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import oracle.jdbc.*;
 
@@ -18,11 +19,15 @@ public abstract class Store {
     private String dbName;
     private String className;
 
+    private String tableName;
     private Connection connection;
     private PreparedStatement statement;
     private ResultSet resultRows;
+
     private Class dataClass;
-    private String tableName;
+    private List<String> fieldNames = new LinkedList<>();
+    private String field;
+
     private Map<Class, String> classMap;
     private Map<String, Class> typeMap;
 
@@ -47,7 +52,7 @@ public abstract class Store {
         typeMap.put("BOOLEAN", boolean.class);
         typeMap.put("TINYINT", byte.class);
         typeMap.put("SMALLINT", short.class);
-        typeMap.put("INTEGER", int.class);
+        typeMap.put("INTEGER", Integer.class);
         typeMap.put("BIGINT", long.class);
         typeMap.put("REAL", float.class);
         typeMap.put("FLOAT", double.class);
@@ -85,6 +90,10 @@ public abstract class Store {
         return classMap;
     }
 
+    public void setField(String fieldName) {
+        fieldNames.add(fieldName);
+    }
+
     public void connect() {
         try {
             dataClass = Class.forName(className);
@@ -93,17 +102,9 @@ public abstract class Store {
             connection = DriverManager.getConnection("jdbc:sqlite:" + dbName);
             typeMap = getTypeMap();
             classMap = getClassMap();
+
             String sql = createSql();
             statement = connection.prepareStatement(sql);
-            /*
-            int counter = 0;
-            for (Field field : dataClass.getDeclaredFields()) {
-                if (Modifier.isStatic(field.getModifiers()) || field.getName().equals("id")) {
-                    continue;
-                }
-                statement.setObject(counter++, field.getName());
-                statement.setObject(counter++, classMap.get(field.getType()));
-            }*/
             statement.executeUpdate();
         } catch (SQLException sqle) {
             System.out.println("Ошибка инициализации базы данных: " + sqle.toString());
@@ -116,15 +117,12 @@ public abstract class Store {
         String sql =
                 "create table if not exists '" + tableName +
                 "' ('id' integer primary key autoincrement";
-        for (Field field : dataClass.getDeclaredFields()) {
-            if (Modifier.isStatic(field.getModifiers()) || field.getName().equals("id")) {
-                continue;
-            }
-            //sql += ", '?' ?";
-            sql += ", '" + field.getName() + "' " + classMap.get(field.getType());
-        }
-        sql += ");";
-        return sql;
+
+        sql += fieldNames.stream()
+                .map(fieldName -> ", '" + fieldName + "' varchar")
+                .reduce((current, next) -> current + next).orElse("");
+
+        return sql + ");";
     }
 
     private String selectSql(String filter) {
@@ -134,22 +132,20 @@ public abstract class Store {
         return sql;
     }
 
-    private String insertSql(Field[] fields) {
+    private String insertSql() {
         String sql =
                 "insert into '" + tableName + "' (";
-        for (Field field : fields) {
-            if (Modifier.isStatic(field.getModifiers()) || field.getName().equals("id")) {
-                continue;
-            }
-            sql += "'" + field.getName() + "', ";
-        }
+
+        sql += fieldNames.stream()
+                .map(fieldName -> "'" + fieldName + "', ")
+                .reduce((current, next) -> current + next).orElse("");
+
         sql = sql.substring(0, sql.length() - 2) + ") values (";
-        for (Field field : fields) {
-            if (Modifier.isStatic(field.getModifiers()) || field.getName().equals("id")) {
-                continue;
-            }
-            sql += "?, ";
-        }
+
+        sql += fieldNames.stream()
+                .map(fieldName -> "?, ")
+                .reduce((current, next) -> current + next).orElse("");
+
         return sql.substring(0, sql.length() - 2) + ");";
     }
 
@@ -159,32 +155,51 @@ public abstract class Store {
         LinkedList<Object> resultObjects = new LinkedList<>();
         while (resultRows.next()) {
             Object obj = dataClass.newInstance();
-            for (Field field : dataClass.getDeclaredFields()) {
-                if (Modifier.isStatic(field.getModifiers())) {
-                    continue;
-                }
-                field.setAccessible(true);
-                field.set(obj, field.getType().cast(resultRows.getObject(field.getName())));
-            }
+            fieldNames.stream()
+                    .forEach(fieldName -> {
+                        String methodName = "set" + fieldName.substring(0,1).toUpperCase() + fieldName.substring(1);
+                        try {
+                            dataClass
+                                    .getMethod(methodName, String.class)
+                                    .invoke(obj, resultRows.getString(fieldName));
+                        } catch (Exception e) {
+                            return;
+                        }
+                    });
+            dataClass.getMethod("setId", Integer.class).invoke(obj, resultRows.getInt("id"));
             resultObjects.add(obj);
         }
         return resultObjects;
     }
 
-    public void save(LinkedList<? extends Object> list) throws Exception {
-        Field[] fields = dataClass.getDeclaredFields();
-        statement = connection.prepareStatement(insertSql(fields));
+    public void save(List<? extends Object> list) throws Exception {
+        statement = connection.prepareStatement(insertSql());
         for (Object obj : list) {
+            //Integer id = (Integer) dataClass.getMethod("getId", new Class[] {}).invoke(obj);
+            //statement.setInt(1, id);
+            List<Object> values = fieldNames.stream()
+                    .map(fieldName -> {
+                        String methodName = "get" + fieldName.substring(0,1).toUpperCase() + fieldName.substring(1);
+                        try {
+                            return dataClass
+                                    .getMethod(methodName, new Class[] {})
+                                    .invoke(obj);
+                        } catch (Exception e) {
+                            return null;
+                        }
+                    }).collect(Collectors.toList());
             int counter = 1;
-            for (Field field : fields) {
-                field.setAccessible(true);
-                if (Modifier.isStatic(field.getModifiers()) || field.getName().equals("id")) {
-                    continue;
-                }
-                statement.setObject(counter++, field.get(obj));
+            for (Object value : values) {
+                statement.setObject(counter++, value);
             }
+            statement.executeUpdate();
         }
-        statement.executeUpdate();
+    }
+
+    public Integer getMax(String field) throws SQLException {
+        statement = connection.prepareStatement("select max(" + field + ") as m from " + tableName + ";");
+        resultRows = statement.executeQuery();
+        return resultRows.getInt("m");
     }
 
     @PreDestroy

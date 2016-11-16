@@ -9,15 +9,29 @@
     <bean id="commander" class="track.messenger.commands.Commander">
         <property name="users" ref="userStore"/>
         <property name="messages" ref="messageStore"/>
+        <property name="chatRelations" ref="chatRelationStore"/>
     </bean>
 
     <bean id="userStore" class="track.messenger.store.UserStore">
         <property name="dbName" val="store.sqlite3"/>
         <property name="hashAlgorithm" val="SHA-256"/>
+        <property name="field" val="username"/>
+        <property name="field" val="password"/>
     </bean>
 
     <bean id="messageStore" class="track.messenger.store.MessageStore">
         <property name="dbName" val="store.sqlite3"/>
+        <property name="field" val="timestamp"/>
+        <property name="field" val="chatId"/>
+        <property name="field" val="senderId"/>
+        <property name="field" val="text"/>
+    </bean>
+
+    <bean id="chatRelationStore" class="track.messenger.store.ChatRelationStore">
+        <property name="dbName" val="store.sqlite3"/>
+        <property name="field" val="adminId"/>
+        <property name="field" val="chatId"/>
+        <property name="field" val="participantId"/>
     </bean>
 
 </root>

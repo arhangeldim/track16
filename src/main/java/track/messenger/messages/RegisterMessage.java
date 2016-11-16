@@ -1,24 +1,19 @@
 package track.messenger.messages;
 
-import track.messenger.User;
-
-import java.io.Serializable;
-
 /**
- * Created by geoolekom on 13.11.16.
+ * Created by geoolekom on 16.11.16.
  */
+public class RegisterMessage extends Message {
 
-public class LoginMessage extends Message implements Serializable {
     private String username;
     private String password;
 
-    protected LoginMessage() {
-        super(null, Type.MSG_LOGIN);
+    protected RegisterMessage() {
+        super(null, Type.MSG_REGISTER);
     }
 
-    public LoginMessage(User sender, String data) throws InstantiationException {
-        super(sender, Type.MSG_LOGIN);
-
+    public RegisterMessage(String data) throws InstantiationException {
+        super(null, Type.MSG_REGISTER);
         String[] authData = data.split(" ");
         if (authData.length == 2) {
             username = authData[0].trim();

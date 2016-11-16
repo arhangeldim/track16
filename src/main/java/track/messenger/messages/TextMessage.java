@@ -12,30 +12,16 @@ public class TextMessage extends Message implements Serializable {
     private String text;
     private Integer chatId;
 
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
     public TextMessage() {
         super(null, Type.MSG_TEXT);
         this.text = "";
     }
 
-    public TextMessage(User sender, String data) {
+    public TextMessage(User sender, String data) throws InstantiationException {
         super(sender, Type.MSG_TEXT);
         String[] tokens = data.split(" ");
-        System.out.println(tokens[0] + " " + tokens[1]);
-        try {
-            chatId = Integer.class.cast(tokens[0]);
-            this.text = data.substring(tokens[0].length()).trim();
-        } catch (Exception e) {
-            this.text = "";
-            System.out.println("Неправильно оформленное сообщение.");
-        }
+        chatId = Integer.parseInt(tokens[0]);
+        this.text = data.substring(tokens[0].length()).trim();
     }
 
     @Override
@@ -65,7 +51,23 @@ public class TextMessage extends Message implements Serializable {
                 '}';
     }
 
+    public Integer getChatId() {
+        return chatId;
+    }
+
+    public String getText() {
+        return text;
+    }
+
     public void setChatId(Integer chatId) {
         this.chatId = chatId;
+    }
+
+    public void setChatId(String chatId) {
+        this.chatId = Integer.parseInt(chatId);
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

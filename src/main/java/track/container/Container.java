@@ -101,7 +101,34 @@ public class Container {
                 paramTypes = new Class[] { Class.forName(childBean.getBeanClass()) };
                 args = new Object[] { process(childBean) };
             }
-            Method setter = beanClass.getMethod(methodName, paramTypes);
+            Class propclass = paramTypes[0];
+            Class superclass = propclass;
+            Method setter = null;
+            try {
+                setter = beanClass.getMethod(methodName, paramTypes);
+            } catch (NoSuchMethodException nsme) {
+                while (superclass != null) {
+                    try {
+                        paramTypes = new Class[] { superclass.getSuperclass() };
+                        setter = beanClass.getMethod(methodName, paramTypes);
+                        break;
+                    } catch (NoSuchMethodException e) {
+                        superclass = superclass.getSuperclass();
+                    }
+                }
+                for (Class iface : propclass.getInterfaces()) {
+                    try {
+                        paramTypes = new Class[] { iface };
+                        setter = beanClass.getMethod(methodName, paramTypes);
+                        break;
+                    } catch (NoSuchMethodException e) {
+                        setter = null;
+                    }
+                }
+                if (setter == null) {
+                    throw new NoSuchMethodException("Нет такого метода у класса, предков и и нтерфейсов.");
+                }
+            }
             setter.invoke(obj, args);
         }
 

@@ -10,9 +10,9 @@ import java.io.Serializable;
 
 public class InfoMessage extends Message implements Serializable {
 
-    private Long requestedUser;
+    private Integer requestedUser;
 
-    public Long getRequestedUser() {
+    public Integer getRequestedUser() {
         return requestedUser;
     }
 
@@ -20,15 +20,18 @@ public class InfoMessage extends Message implements Serializable {
         super(null, Type.MSG_INFO);
     }
 
-    public InfoMessage(User sender, String data) {
+    public InfoMessage(User sender, String data) throws InstantiationException {
         super(sender, Type.MSG_INFO);
+        if (sender == null) {
+            throw new InstantiationException("Вы не авторизованы.");
+        }
         if ("".equals(data)) {
             requestedUser = sender.getId();
         } else {
             try {
-                requestedUser = Long.parseLong(data);
+                requestedUser = Integer.parseInt(data);
             } catch (NumberFormatException nfe) {
-                System.out.println("Введено не число");
+                throw new InstantiationException("Введено не число.");
             }
         }
     }

@@ -22,7 +22,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -32,6 +32,14 @@ public class User implements Serializable {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setId(String id) {
+        this.id = Integer.parseInt(id);
     }
 
     public void setUsername(String username) {
@@ -44,6 +52,6 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "Username:\t" + username.toString() + "\nPassword:\t" + password.toString();
+        return "username:\t" + username.toString();
     }
 }

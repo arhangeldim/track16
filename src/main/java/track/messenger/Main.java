@@ -1,7 +1,9 @@
 package track.messenger;
 
 import track.container.Container;
+import track.messenger.messages.Chat;
 import track.messenger.net.MessengerServer;
+import track.messenger.store.ChatRelationStore;
 import track.messenger.store.UserStore;
 
 /**

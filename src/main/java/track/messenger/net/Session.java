@@ -5,16 +5,13 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 
 
-import oracle.jdbc.proxy.annotation.Pre;
 import org.mockito.internal.util.io.IOUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import track.messenger.Main;
 import track.messenger.User;
 import track.messenger.commands.Command;
 import track.messenger.commands.CommandException;
 import track.messenger.commands.Commander;
-import track.messenger.commands.LoginCommand;
 import track.messenger.messages.*;
 
 import javax.annotation.PreDestroy;
@@ -103,7 +100,7 @@ public class Session {
         Type msgType = msg.getType();
         Command command = null;
         try {
-            command = commander.getTypeCommandMap().get(msgType);
+            command = commander.get(msgType);
             command.execute(this, msg);
         } catch (CommandException e) {
             System.out.println(this.getClass() + ": ошибка выполнения команды." + e.toString());

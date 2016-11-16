@@ -7,6 +7,8 @@ import track.messenger.messages.Message;
 import track.messenger.messages.TextMessage;
 import track.messenger.messages.Type;
 
+import static java.lang.Integer.parseInt;
+
 /**
  * Простейший протокол передачи данных
  */
@@ -25,7 +27,7 @@ public class StringProtocol implements Protocol {
         switch (type) {
             case MSG_TEXT:
                 TextMessage textMsg = new TextMessage();
-                textMsg.setSenderId(parseLong(tokens[1]));
+                textMsg.setSenderId(parseInt(tokens[1]));
                 textMsg.setText(tokens[2]);
                 textMsg.setType(type);
                 return textMsg;

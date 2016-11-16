@@ -6,10 +6,12 @@ package track.messenger.messages;
 public enum Status {
     AUTHORIZED,
     NOT_AUTHORIZED,
-    MESSAGE_DELIEVERED,
-    WRONG_DESTINATION,
-    GOODBYE,
     AUTHORIZATION_ERROR,
+    MESSAGE_DELIVERED,
+    WRONG_DESTINATION,
+    CHAT_CREATED,
+    CHAT_FOUND,
+    GOODBYE,
     ERROR
 }
 

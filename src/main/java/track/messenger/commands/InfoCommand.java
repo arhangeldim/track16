@@ -1,6 +1,5 @@
 package track.messenger.commands;
 
-import track.messenger.Main;
 import track.messenger.messages.InfoMessage;
 import track.messenger.messages.InfoResultMessage;
 import track.messenger.messages.Message;
@@ -24,7 +23,7 @@ public class InfoCommand implements Command {
         try {
             session.send(new InfoResultMessage(session.getUser(), users.getUser(msg.getRequestedUser())));
         } catch (Exception e) {
-            throw new CommandException(this.getClass() + ": ошибка запроса.");
+            throw new CommandException(this.getClass() + ": ошибка запроса. ");
         }
     }
 }

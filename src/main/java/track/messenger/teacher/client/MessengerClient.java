@@ -11,9 +11,9 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import track.container.Container;
 import track.messenger.User;
 import track.messenger.messages.*;
-import track.messenger.net.ObjectProtocol;
 import track.messenger.net.Protocol;
 import track.messenger.net.ProtocolException;
 
@@ -24,22 +24,13 @@ import track.messenger.net.ProtocolException;
 public class MessengerClient {
 
     public static final int MAX_MSG_SIZE = 32 * 1024;
-    /**
-     * Механизм логирования позволяет более гибко управлять записью данных в лог (консоль, файл и тд)
-     * */
+
     static Logger log = LoggerFactory.getLogger(MessengerClient.class);
 
-    /**
-     * Протокол, хост и порт инициализируются из конфига
-     *
-     * */
     private Protocol protocol;
-    private int port;
+    private Integer port;
     private String host;
 
-    /**
-     * С каждым сокетом связано 2 канала in/out
-     */
     private InputStream in;
     private OutputStream out;
 
@@ -53,11 +44,11 @@ public class MessengerClient {
         this.protocol = protocol;
     }
 
-    public int getPort() {
+    public Integer getPort() {
         return port;
     }
 
-    public void setPort(int port) {
+    public void setPort(Integer port) {
         this.port = port;
     }
 
@@ -97,9 +88,6 @@ public class MessengerClient {
         socketListenerThread.start();
     }
 
-    /**
-     * Реагируем на входящее сообщение
-     */
     public void onMessage(Message msg) {
         log.info("Message received: {}", msg);
         if (msg == null) {
@@ -108,23 +96,28 @@ public class MessengerClient {
 
         Type msgType = msg.getType();
         switch (msgType) {
-            case MSG_INFO_RESULT:
-                InfoResultMessage irmsg = (InfoResultMessage) msg;
-                System.out.println(irmsg.getRequestedUser());
+            case MSG_SELF_INFO:
+                InfoResultMessage selfInfoMessage = (InfoResultMessage) msg;
+                user = selfInfoMessage.getRequestedUser();
+                System.out.println(selfInfoMessage.getRequestedUser());
+                break;
+            case MSG_USER_INFO:
+                InfoResultMessage infoResultMessage = (InfoResultMessage) msg;
+                System.out.println(infoResultMessage.getRequestedUser());
                 break;
             case MSG_STATUS:
-                StatusMessage smsg = (StatusMessage) msg;
-                System.out.println(smsg);
+                StatusMessage statusMessage = (StatusMessage) msg;
+                System.out.println(statusMessage);
+                break;
+            case MSG_CHAT_HIST_RESULT:
+                ChatHistResultMessage histMessage = (ChatHistResultMessage) msg;
+                histMessage.getHistory().forEach(System.out::println);
                 break;
             default:
                 System.out.println(this.getClass() + ": ошибка сервера");
         }
     }
 
-    /**
-     * Обрабатывает входящую строку, полученную с консоли
-     * Формат строки можно посмотреть в вики проекта
-     */
     public void processInput(String line) throws IOException, ProtocolException {
         String[] tokens = line.split(" ");
         log.info("Tokens: {}", Arrays.toString(tokens));
@@ -135,23 +128,52 @@ public class MessengerClient {
         }
         switch (cmdType) {
             case "/login":
-                send(new LoginMessage(user, data));
+                try {
+                    send(new LoginMessage(user, data));
+                } catch (InstantiationException e) {
+                    System.out.println("Ошибка авторизации. " + e.toString());
+                }
+                break;
+            case "/register":
+                try {
+                    send(new RegisterMessage(data));
+                } catch (InstantiationException e) {
+                    System.out.println("Ошибка регистрации. " + e.toString());
+                }
                 break;
             case "/help":
                 // TODO: реализация
                 break;
             case "/info":
-                if (user != null) {
+                try {
                     send(new InfoMessage(user, data));
-                } else {
-                    System.out.println("Вы не авторизованы.");
+                } catch (InstantiationException e) {
+                    System.out.println(e.toString());
                 }
                 break;
             case "/text":
-                send(new TextMessage(user, data));
+                try {
+                    send(new TextMessage(user, data));
+                } catch (InstantiationException e) {
+                    System.out.println("Неправильно оформленное сообщение." + e.toString());
+                }
                 break;
             case "/quit":
                 send(new QuitMessage(user));
+                break;
+            case "/chat_create":
+                try {
+                    send(new ChatCreateMessage(user, data));
+                } catch (InstantiationException e) {
+                    System.out.println("Неправильно создан чат: " + e.toString());
+                }
+                break;
+            case "/chat_hist":
+                try {
+                    send(new ChatHistMessage(user, data));
+                } catch (InstantiationException e) {
+                    System.out.println("ошибка запроса истории: " + e.toString());
+                }
                 break;
             default:
                 log.error("Invalid input: " + line);
@@ -159,9 +181,6 @@ public class MessengerClient {
         }
     }
 
-    /**
-     * Отправка сообщения в сокет клиент -> сервер
-     */
     public void send(Message msg) throws IOException, ProtocolException {
         log.info(msg.toString());
         out.write(protocol.encode(msg));
@@ -171,22 +190,16 @@ public class MessengerClient {
     public void close() {
     }
 
-    public static void main(String[] args) throws Exception {
-
-        MessengerClient client = new MessengerClient();
-        client.setHost("localhost");
-        client.setPort(19000);
-        client.setProtocol(new ObjectProtocol());
-
+    public void start() {
         try {
-            client.initSocket();
+            initSocket();
 
             // Цикл чтения с консоли
             Scanner scanner = new Scanner(System.in);
             while (true) {
                 String input = scanner.nextLine();
                 try {
-                    client.processInput(input);
+                    processInput(input);
                 } catch (ProtocolException | IOException e) {
                     log.error("Ошибки при обработке потока ввода.", e);
                 }
@@ -198,9 +211,14 @@ public class MessengerClient {
         } catch (Exception e) {
             log.error("Приложение рухнуло с оглушительным грохотом.", e);
         } finally {
-            if (client != null) {
-                client.close();
-            }
+            close();
         }
+    }
+
+    public static void main(String[] args) throws Exception {
+
+        Container container = new Container("client.xml");
+        MessengerClient client = (MessengerClient) container.getByName("messengerClient");
+        client.start();
     }
 }

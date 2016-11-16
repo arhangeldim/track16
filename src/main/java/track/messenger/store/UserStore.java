@@ -31,17 +31,17 @@ public class UserStore extends Store {
     public User getUser(String username) {
         try {
             List<Object> users = get("username = '" + username + "'");
-            return User.class.cast(users.get(0));
+            return (User) users.get(0);
         } catch (Exception e) {
             System.out.println(this.getClass() + ": не удалось получить пользователя по username. " + e.toString());
             return null;
         }
     }
 
-    public User getUser(Long id) {
+    public User getUser(Integer id) {
         try {
             List<Object> users = get("id = '" + id.toString() + "'");
-            return User.class.cast(users.get(0));
+            return (User) users.get(0);
         } catch (Exception e) {
             System.out.println(this.getClass() + ": не удалось получить пользователя по id." + e.toString());
             return null;
@@ -54,7 +54,7 @@ public class UserStore extends Store {
             hasher.update(user.getPassword().getBytes());
             String encryptedPassword = new String(hasher.digest());
             user.setPassword(encryptedPassword);
-            save(new LinkedList<User>(Collections.nCopies(1, user)));
+            save(Collections.nCopies(1, user));
         } catch (Exception e) {
             System.out.println(this.getClass() + ": не удалось сохранить пользователя. " + e.toString());
         }

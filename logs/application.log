@@ -1,9 +1,17 @@
-2016-11-16 00:07:42 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.LoginMessage@4c75cab9
-2016-11-16 00:07:42 INFO  Session:91 - sent to: 1
-2016-11-16 00:07:42 INFO  ObjectProtocol:25 - encoded: AUTHORIZED
-2016-11-16 00:07:42 INFO  Session:91 - sent to: 1
-2016-11-16 00:07:42 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.InfoResultM2016-11-16 00:07:42 INFO  ObjectProtocol:19 - decoded: AUTHORIZED
-2016-11-16 00:07:42 INFO  MessengerClient:104 - Message received: AUTHORIZED
-2016-11-16 00:07:42 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoResultMessage@442a0bb8
-2016-11-16 00:07:42 INFO  MessengerClient:104 - Message received: track.messenger.messages.InfoResultMessage@442a0bb8
-2016-11-16 00:08:58 INFO  MessengerClient:130 - Tokens: [/info]
+2016-11-16 11:02:41 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.LoginMessage@2be94b0f
+2016-11-16 11:02:41 INFO  Session:91 - sent to: 2
+2016-11-16 11:02:41 INFO  ObjectProtocol:25 - encoded: AUTHORIZED one
+2016-11-16 11:02:41 INFO  Session:91 - sent to: 2
+2016-11-16 11:02:41 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.I2016-11-16 11:02:41 INFO  2016-11-16 11:02:44 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistMessage@387c703b
+2016-11-16 11:02:44 INFO  Session:91 - sent to: 2
+2016-11-16 11:02:44 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistResultMessage@4d2715e9
+2016-11-16 11:02:47 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.QuitMessage@2ac1fdc4
+2016-11-16 11:02:47 INFO  Session:91 - sent to: 2
+2016-11-16 11:02:47 INFO  ObjectProtocol:25 - encoded: GOODBYE 
+er.messages.ChatHistMessage@c2e1f26
+2016-11-16 11:02:44 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistMessage@c2e1f26
+2016-11-16 11:02:44 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistResultMessage@6fb3f21a
+2016-11-16 11:02:44 INFO  MessengerClient:92 - Message received: track.messenger.messages.ChatHistResultMessage@6fb3f21a
+2016-11-16 11:02:47 INFO  MessengerClient:123 - Tokens: [/quit]
+2016-11-16 11:02:47 INFO  MessengerClient:185 - track.messenger.messages.QuitMessage@626b2d4a
+2016-11-16 11:02:47 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.QuitMessage@626b2d4a
