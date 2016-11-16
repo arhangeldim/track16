@@ -44,13 +44,11 @@ public abstract class Store {
             dataClass = Class.forName(className);
             tableName = dataClass.getSimpleName();
 
-            Connection connection =
-            dataSource.getPooledConnection()
-                    .getConnection();
+            Connection connection = dataSource.getPooledConnection().getConnection();
+            PreparedStatement statement = connection.prepareStatement(createSql());
+            statement.executeUpdate();
 
-            connection.prepareStatement(createSql())
-                    .executeUpdate();
-
+            statement.close();
             connection.close();
 
         } catch (SQLException sqle) {
@@ -67,7 +65,8 @@ public abstract class Store {
         LinkedList<Object> resultObjects = new LinkedList<>();
         while (resultRows.next()) {
             Object obj = dataClass.newInstance();
-            fieldNames.stream().forEach(fieldName -> {
+            fieldNames
+                    .stream().forEach(fieldName -> {
                         String methodName = "set" + fieldName.substring(0,1).toUpperCase() + fieldName.substring(1);
                         try {
                             dataClass.getMethod(methodName, String.class)
@@ -94,8 +93,7 @@ public abstract class Store {
                     .map(fieldName -> {
                         String methodName = "get" + fieldName.substring(0,1).toUpperCase() + fieldName.substring(1);
                         try {
-                            return dataClass
-                                    .getMethod(methodName, new Class[] {})
+                            return dataClass.getMethod(methodName, new Class[] {})
                                     .invoke(obj);
                         } catch (Exception e) {
                             return null;
@@ -114,7 +112,8 @@ public abstract class Store {
 
     public Integer getMax(String field) throws SQLException {
         Connection connection = dataSource.getPooledConnection().getConnection();
-        PreparedStatement statement = connection.prepareStatement("select max(" + field + ") as m from " + tableName + ";");
+        PreparedStatement statement = connection
+                .prepareStatement("select max(" + field + ") as m from " + tableName + ";");
         ResultSet resultRows = statement.executeQuery();
 
         resultRows.close();
