@@ -64,4 +64,5 @@ public class UserStore extends AbstractStore<User> {
     public void saveUser(User user) {
         save(Collections.nCopies(1, user));
     }
+
 }

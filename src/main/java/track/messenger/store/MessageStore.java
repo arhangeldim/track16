@@ -1,6 +1,5 @@
 package track.messenger.store;
 
-import track.messenger.messages.Message;
 import track.messenger.messages.TextMessage;
 
 import java.sql.ResultSet;
@@ -8,7 +7,6 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by geoolekom on 14.11.16.
