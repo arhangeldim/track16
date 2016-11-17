@@ -2,9 +2,6 @@ package track.container.beans;
 
 import java.util.Objects;
 
-/**
- *
- */
 public class Car {
 
     private Gear gear;
@@ -47,7 +44,7 @@ public class Car {
         }
         Car car = (Car) obj;
         return Objects.equals(gear, car.gear) &&
-                Objects.equals(engine, car.engine);
+               Objects.equals(engine, car.engine);
     }
 
     @Override

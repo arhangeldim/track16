@@ -2,9 +2,6 @@ package track.container.beans;
 
 import java.util.Objects;
 
-/**
- * Двигатель
- */
 public class Engine {
     private int power;
 
