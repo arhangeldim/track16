@@ -1,28 +1,34 @@
-2016-11-17 12:08:04 INFO  MessengerClient:70 - Слушаем сервер...
-2016-11-17 12:08:12 INFO  MessengerClient:123 - Tokens: [/login, geoolekom, qwerty]
-2016-11-17 12:08:12 INFO  MessengerClient:185 - track.messenger.messages.LoginMessage@61e717c2
-2016-11-17 12:08:12 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.LoginMessage@61e717c2
-2016-11-17 12:08:12 INFO  ObjectProtocol:19 - decoded: AUTHORIZED geoolekom
-2016-11-17 12:08:12 INFO  MessengerClient:92 - Message received: AUTHORIZED geoolekom
-2016-11-17 12:08:12 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoResultMessage@785e8f61
-2016-11-17 12:08:12 INFO  MessengerClient:92 - Message received: track.messenger.messages.InfoResultMessage@785e8f61
-2016-11-17 12:08:28 INFO  MessengerClient:123 - Tokens: [/text, 2, И, тебе, привет., Наконец-то, все, работает, нормально!]
-2016-11-17 12:08:28 INFO  MessengerClient:185 - TextMessage{text='И тебе привет. Наконец-то все работает нормально!'}
-2016-11-17 12:08:28 INFO  ObjectProtocol:25 - encoded: TextMessage{text='И тебе привет. Наконец-то все работ�2016-11-17 12:08:28 INFO  Ob2016-11-17 12:08:28 INFO  ObjectProtocol:19 - decoded: MESSAGE_DELIVERED 2
-2016-11-17 12:08:28 INFO  MessengerClient:92 - Message received: MESSAGE_DELIVERED 2
-2016-11-17 12:08:35 INFO  MessengerClient:123 - Tokens: [/chat_hist, 2]
-2016-11-17 12:08:35 INFO  Mess2016-11-17 12:08:35 INFO  ObjectProtocol:19 - decoded: track.messenger.mess2016-11-17 12:09:07 INFO  MessengerClient:123 - Tokens: [/text, 2, Ага,, можно, коммитить.]
-2016-11-17 12:09:07 INFO  MessengerClient:185 - TextMessage{text='Ага, мож�2016-11-17 12:09:07 INFO  ObjectProtocol:19 - decoded: TextMessage{text='Ага, можно коммитить.'}
-2016-11-17 12:09:07 INFO  2016-11-17 12:09:07 INFO  ObjectProtocol:19 - decoded: MESSAGE_DELIVERED 2
-2016-11-17 12:09:07 INFO2016-11-17 12:09:13 INFO  ObjectProtocol:19 - decoded: TextMessage{text='И делать теорфиз.'}
-2016-11-17 12:09:13 INFO  Session:91 - sent to: 2
-2016-11-17 12:09:13 INFO  ObjectProtocol:25 - encoded: MESSAGE_DELIVERED 2
-2016-11-17 12:09:18 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistMessage@2cfb4a64
-2016-11-17 12:09:18 INFO  Session:91 - sent to: 2
-2016-11-17 12:09:18 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistResultMessage@1ceaa1a5
-e received: MESSAGE_DELIVERED 2
-2016-11-17 12:09:18 INFO  MessengerClient:123 - Tokens: [/chat_hist, 2]
-2016-11-17 12:09:18 INFO  MessengerClient:185 - track.messenger.messages.ChatHistMessage@3b22cdd0
-2016-11-17 12:09:18 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistMessage@3b22cdd0
-2016-11-17 12:09:18 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistResultMessage@300c3f68
-2016-11-17 12:09:18 INFO  MessengerClient:92 - Message received: track.messenger.messages.ChatHistResultMessage@300c3f68
+2016-11-17 23:48:40 INFO  MessengerClient:70 - Слушаем сервер...
+2016-11-17 23:48:45 INFO  MessengerClient:131 - Tokens: [/login, one, qwerty]
+2016-11-17 23:48:45 INFO  MessengerClient:200 - track.messenger.messages.LoginMessage@61e717c2
+2016-11-17 23:48:45 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.LoginMessage@61e717c2
+2016-11-17 23:48:45 INFO  ObjectProtocol:19 - decoded: AUTHORIZED one
+2016-11-17 23:48:45 INFO  MessengerClient:92 - Message received: AUTHORIZED one
+2016-11-17 23:48:45 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoResultMessage@6a051bb4
+2016-11-17 23:48:45 INFO  MessengerClient:92 - Message received: track.messenger.messages.InfoResultMessage@6a051bb4
+2016-11-17 23:48:48 INFO  MessengerClient:131 - Tokens: [/chat_hist, 2]
+2016-11-17 23:48:48 INFO  MessengerClient:200 - track.messenger.messages.ChatHistMessage@6d9c638
+2016-11-17 23:48:48 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistMessage@6d9c638
+2016-11-17 23:48:49 INFO  ObjectProtocol:19 - decoded: WRONG_DESTINATION 
+2016-11-17 23:48:49 INFO  MessengerClient:92 - Message received: WRONG_DESTINATION 
+2016-11-17 23:48:53 INFO  MessengerClient:131 - Tokens: [/cht_hist]
+2016-11-17 23:48:53 ERROR MessengerClient:194 - Invalid input: /cht_hist 
+2016-11-17 23:48:57 INFO  MessengerClient:131 - Tokens: [1/chat_hist, 1]
+2016-11-17 23:48:57 ERROR MessengerClient:194 - Invalid input: 1/chat_hist 1
+2016-11-17 23:49:06 INFO  MessengerClient:131 - Tokens: [/chat_hist, 1]
+2016-11-17 23:49:06 INFO  MessengerClient:200 - track.messenger.messages.ChatHistMessage@156643d4
+2016-11-17 23:49:06 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistMessage@156643d4
+2016-11-17 23:49:06 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistResultMessage@589b1c58
+2016-11-17 23:49:06 INFO  MessengerClient:92 - Message received: track.messenger.messages.ChatHistResultMessage@589b1c58
+2016-11-17 23:49:16 INFO  MessengerClient:131 - Tokens: [/text, 1, Ура!, Я, тоже, очнь, рад.]
+2016-11-17 23:49:16 INFO  MessengerClient:200 - TextMessage{text='Ура! Я тоже очнь рад.'}
+2016-11-17 23:49:16 INFO  ObjectProtocol:25 - 2016-11-17 23:49:16 INFO  ObjectProtocol:19 - decoded: TextMessage2016-11-17 23:49:16 INFO  ObjectProtocol:19 - decoded: MESSAGE_DELIVERED 1
+2016-11-17 23:49:16 INFO  MessengerClient:92 - Message received: MESSAGE_DELIVERED 1
+2016-11-17 2016-11-17 23:49:21 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistMessage@531d72ca
+2016-11-17 23:49:21 INFO  Session:91 - sent to: 2
+2016-11-17 23:49:21 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.Chat2016-11-17 23:49:41 INFO  MessengerClient:131 - Tokens: [/quit]
+2016-11-17 23:49:41 INFO  MessengerClient:200 - track.messenger.messages.QuitMessage@3b22cdd0
+2016-11-17 23:49:41 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.Quit2016-11-17 23:49:41 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.QuitMessage@255316f2
+2016-11-17 23:49:41 INFO  Session:91 - sent to: 1
+2016-11-17 23:49:41 INFO  ObjectProtocol:25 - encoded: GOODBYE 
+- encoded: track.messenger.messages.QuitMessage@762efe5d

@@ -1,9 +1,9 @@
 package track.messenger.store;
 
-import track.messenger.User;
+import track.messenger.store.dao.User;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,51 +12,56 @@ import java.util.List;
  * Created by geoolekom on 14.11.16.
  */
 
-public class UserStore extends Store {
+public class UserStore extends AbstractStore<User> {
 
-    private String hashAlgorithm;
-
-    public UserStore() {
-        setClassName(User.class.getName());
+    @Override
+    public String values(List<User> objects) {
+        StringBuilder insert = new StringBuilder();
+        for (User user : objects) {
+            insert.append("('" + user.getUsername() + "', '" + user.getPassword() + "'), ");
+        }
+        String value = insert.toString();
+        return value.substring(0, value.length() - 2);
     }
 
-    public void setHashAlgorithm(String hashAlgorithm) {
-        this.hashAlgorithm = hashAlgorithm;
+    @Override
+    public List<User> fill(ResultSet resultSet) throws SQLException {
+        List<User> users = new LinkedList<>();
+        while (resultSet.next()) {
+            User user = new User();
+            user.setId(resultSet.getInt("id"));
+            user.setUsername(resultSet.getString("username"));
+            user.setPassword(resultSet.getString("password"));
+            users.add(user);
+        }
+        return users;
     }
 
-    public String getHashAlgorithm() {
-        return hashAlgorithm;
+    @Override
+    public String columns() {
+        return "(username, password)";
     }
 
     public User getUser(String username) {
-        try {
-            List<Object> users = get("username = '" + username + "'");
-            return (User) users.get(0);
-        } catch (Exception e) {
-            System.out.println(this.getClass() + ": не удалось получить пользователя по username. " + e.toString());
+        List<User> users = get("username = '" + username + "'");
+        System.out.println(users.size());
+        if (users != null) {
+            return users.get(0);
+        } else {
             return null;
         }
     }
 
     public User getUser(Integer id) {
-        try {
-            List<Object> users = get("id = '" + id.toString() + "'");
-            return (User) users.get(0);
-        } catch (Exception e) {
-            System.out.println(this.getClass() + ": не удалось получить пользователя по id." + e.toString());
+        List<User> users = get("id = '" + id.toString() + "'");
+        if (users != null) {
+            return users.get(0);
+        } else {
             return null;
         }
     }
 
     public void saveUser(User user) {
-        try {
-            MessageDigest hasher = MessageDigest.getInstance(hashAlgorithm);
-            hasher.update(user.getPassword().getBytes());
-            String encryptedPassword = new String(hasher.digest());
-            user.setPassword(encryptedPassword);
-            save(Collections.nCopies(1, user));
-        } catch (Exception e) {
-            System.out.println(this.getClass() + ": не удалось сохранить пользователя. " + e.toString());
-        }
+        save(Collections.nCopies(1, user));
     }
 }

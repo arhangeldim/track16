@@ -1,6 +1,6 @@
 package track.messenger.messages;
 
-import track.messenger.User;
+import track.messenger.store.dao.User;
 
 import java.util.List;
 

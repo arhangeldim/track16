@@ -1,4 +1,4 @@
-package track.messenger;
+package track.messenger.store.dao;
 
 import track.messenger.store.UserStore;
 

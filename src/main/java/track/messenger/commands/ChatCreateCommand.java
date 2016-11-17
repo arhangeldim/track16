@@ -3,7 +3,7 @@ package track.messenger.commands;
 import track.messenger.messages.*;
 import track.messenger.net.Session;
 import track.messenger.store.ChatRelationStore;
-import track.messenger.store.UserStore;
+import track.messenger.store.dao.ChatRelation;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +33,7 @@ public class ChatCreateCommand implements Command {
                 }
             }
             participants.add(msg.getSenderId());
-            Integer chatId = chatRelations.getMax("chatId") + 1;
+            Integer chatId = chatRelations.getNewChatId();
             List<ChatRelation> relations = participants.stream()
                     .map(partId -> new ChatRelation(msg.getSenderId(), chatId, partId))
                     .collect(Collectors.toList());

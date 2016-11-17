@@ -42,7 +42,7 @@ public class Main {
         public static ImageInfo store(Image image) {
             log.info("Storing...");
             Util.sleepQuietly(TimeUnit.SECONDS, 2);
-            log.info("Store finished.");
+            log.info("Storeeee finished.");
             return image.getImageInfo();
         }
     }

@@ -1,6 +1,6 @@
 package track.messenger.messages;
 
-import track.messenger.User;
+import track.messenger.store.dao.User;
 
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -59,16 +59,8 @@ public abstract class Message implements Serializable {
         this.id = id;
     }
 
-    public void setId(String id) {
-        this.id = Integer.parseInt(id);
-    }
-
     public void setSenderId(Integer senderId) {
         this.senderId = senderId;
-    }
-
-    public void setSenderId(String senderId) {
-        this.senderId = Integer.parseInt(senderId);
     }
 
     public void setTimestamp(Date timestamp) {

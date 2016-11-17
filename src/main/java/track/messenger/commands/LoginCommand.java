@@ -1,6 +1,6 @@
 package track.messenger.commands;
 
-import track.messenger.User;
+import track.messenger.store.dao.User;
 import track.messenger.messages.*;
 import track.messenger.net.Session;
 import track.messenger.store.UserStore;
@@ -13,9 +13,11 @@ import java.security.MessageDigest;
 public class LoginCommand implements Command {
 
     private UserStore users;
+    private String hashAlgorithm;
 
-    public LoginCommand(UserStore users) {
+    public LoginCommand(UserStore users, String hashAlgorithm) {
         this.users = users;
+        this.hashAlgorithm = hashAlgorithm;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class LoginCommand implements Command {
     }
 
     private boolean checkPassword(User user, String password) throws Exception {
-        MessageDigest hasher = MessageDigest.getInstance(users.getHashAlgorithm());
+        MessageDigest hasher = MessageDigest.getInstance(hashAlgorithm);
         hasher.update(password.getBytes());
         String encryptedPassword = new String(hasher.digest());
         if (encryptedPassword.equals(user.getPassword())) {

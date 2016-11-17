@@ -1,8 +1,8 @@
 package track.messenger.messages;
 
-import track.messenger.User;
+import track.messenger.store.dao.ChatRelation;
+import track.messenger.store.dao.User;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +25,9 @@ public class Chat {
     }
 
     public Chat(List<ChatRelation> relations) {
+        if (relations == null || relations.size() == 0) {
+            return;
+        }
         this.id = relations.get(0).getChatId();
         this.adminId = relations.get(0).getAdminId();
         this.participants = relations.stream()

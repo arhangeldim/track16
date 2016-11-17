@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import track.container.Container;
-import track.messenger.User;
+import track.messenger.store.dao.User;
 import track.messenger.messages.*;
 import track.messenger.net.Protocol;
 import track.messenger.net.ProtocolException;
@@ -113,6 +113,14 @@ public class MessengerClient {
                 ChatHistResultMessage histMessage = (ChatHistResultMessage) msg;
                 histMessage.getHistory().forEach(System.out::println);
                 break;
+            case MSG_CHAT_LIST_RESULT:
+                ChatListResultMessage listMessage = (ChatListResultMessage) msg;
+                String chats = listMessage.getChatIds().stream()
+                        .map(id -> id.toString() + " ")
+                        .reduce((first, second) -> first + second)
+                        .orElse("Нет чатов.");
+                System.out.println(chats);
+                break;
             default:
                 System.out.println(this.getClass() + ": ошибка сервера");
         }
@@ -172,7 +180,14 @@ public class MessengerClient {
                 try {
                     send(new ChatHistMessage(user, data));
                 } catch (InstantiationException e) {
-                    System.out.println("ошибка запроса истории: " + e.toString());
+                    System.out.println("Ошибка запроса истории: " + e.toString());
+                }
+                break;
+            case "/chat_list":
+                try {
+                    send(new ChatListMessage(user));
+                } catch (InstantiationException e) {
+                    System.out.println("Ошибка запроса списков чатов. " + e.toString());
                 }
                 break;
             default:

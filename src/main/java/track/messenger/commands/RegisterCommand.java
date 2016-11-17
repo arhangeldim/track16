@@ -1,19 +1,23 @@
 package track.messenger.commands;
 
-import track.messenger.User;
+import track.messenger.store.dao.User;
 import track.messenger.messages.*;
 import track.messenger.net.Session;
 import track.messenger.store.UserStore;
+
+import java.security.MessageDigest;
 
 /**
  * Created by geoolekom on 16.11.16.
  */
 public class RegisterCommand implements Command {
 
-    UserStore users;
+    private UserStore users;
+    private String hashAlgorithm;
 
-    public RegisterCommand(UserStore users) {
+    public RegisterCommand(UserStore users, String hashAlgorithm) {
         this.users = users;
+        this.hashAlgorithm = hashAlgorithm;
     }
 
     @Override
@@ -21,6 +25,10 @@ public class RegisterCommand implements Command {
         RegisterMessage msg = (RegisterMessage) message;
         User user = new User(msg.getUsername(), msg.getPassword());
         try {
+            MessageDigest hasher = MessageDigest.getInstance(hashAlgorithm);
+            hasher.update(user.getPassword().getBytes());
+            String encryptedPassword = new String(hasher.digest());
+            user.setPassword(encryptedPassword);
             users.saveUser(user);
             session.setUser(user);
             session.send(new StatusMessage(user, Status.AUTHORIZED, user.getUsername()));

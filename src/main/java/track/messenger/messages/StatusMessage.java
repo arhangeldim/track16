@@ -1,6 +1,6 @@
 package track.messenger.messages;
 
-import track.messenger.User;
+import track.messenger.store.dao.User;
 
 /**
  * Created by geoolekom on 14.11.16.

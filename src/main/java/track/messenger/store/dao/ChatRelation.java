@@ -1,4 +1,4 @@
-package track.messenger.messages;
+package track.messenger.store.dao;
 
 import java.io.Serializable;
 
@@ -35,23 +35,19 @@ public class ChatRelation implements Serializable {
         return participantId;
     }
 
-    public void setId(String id) {
-        this.id = Integer.parseInt(id);
-    }
-
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public void setAdminId(String adminId) {
-        this.adminId = Integer.parseInt(adminId);
+    public void setChatId(Integer chatId) {
+        this.chatId = chatId;
     }
 
-    public void setChatId(String chatId) {
-        this.chatId = Integer.parseInt(chatId);
+    public void setAdminId(Integer adminId) {
+        this.adminId = adminId;
     }
 
-    public void setParticipantId(String participantId) {
-        this.participantId = Integer.parseInt(participantId);
+    public void setParticipantId(Integer participantId) {
+        this.participantId = participantId;
     }
 }

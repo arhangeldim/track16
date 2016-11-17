@@ -1,6 +1,6 @@
 package track.messenger.commands;
 
-import track.messenger.User;
+import track.messenger.store.dao.User;
 import track.messenger.messages.*;
 import track.messenger.net.Session;
 import track.messenger.store.ChatRelationStore;

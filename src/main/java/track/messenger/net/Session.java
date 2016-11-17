@@ -8,7 +8,7 @@ import java.net.SocketTimeoutException;
 import org.mockito.internal.util.io.IOUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import track.messenger.User;
+import track.messenger.store.dao.User;
 import track.messenger.commands.Command;
 import track.messenger.commands.CommandException;
 import track.messenger.commands.Commander;
