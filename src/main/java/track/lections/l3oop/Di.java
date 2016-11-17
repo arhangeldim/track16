@@ -1,5 +1,9 @@
 package track.lections.l3oop;
 
+interface Gear {
+    int nextGear();
+}
+
 /**
  *
  */
@@ -26,6 +30,18 @@ class Auto {
     private Gear gear;
     private Engine engine;
 
+    // BAD!
+    public Auto() {
+        gear = new AutoGear();
+
+    }
+
+    // GOOD!
+    public Auto(Gear gear, Engine engine) {
+        this.gear = gear;
+        this.engine = engine;
+    }
+
     public Gear getGear() {
         return gear;
     }
@@ -50,27 +66,11 @@ class Auto {
                 '}';
     }
 
-    // BAD!
-    public Auto() {
-        gear = new AutoGear();
-
-    }
-
-    // GOOD!
-    public Auto(Gear gear, Engine engine) {
-        this.gear = gear;
-        this.engine = engine;
-    }
-
     public void move() {
         System.out.println("gear: " + gear.nextGear());
     }
 
 
-}
-
-interface Gear {
-    int nextGear();
 }
 
 class Engine {

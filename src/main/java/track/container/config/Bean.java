@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * Представляет тег bean из конфига
  */
-public class Bean {
+public class Bean<T extends Map<String, Property>> {
 
     private String id; // Уникальный ID бина
     private String className; // Класс бина
@@ -17,19 +17,22 @@ public class Bean {
     put(key, value) - поместить значение с заданным ключом
     get(key) - получить значение по ключу (или null, если не найдено)
      */
-    private Map<String, Property> properties; // Набор полей бина ИмяПоля-Значение
+    private T properties; // Набор полей бина ИмяПоля-Значение
 
-    public Bean(String id, String className, Map<String, Property> properties) {
+    public Bean(String id, String className, T properties) {
         this.id = id;
         this.className = className;
         this.properties = properties;
     }
 
-    public Map<String, Property> getProperties() {
+    public Bean() {
+    }
+
+    public T getProperties() {
         return properties;
     }
 
-    public void setProperties(Map<String, Property> properties) {
+    public void setProperties(T properties) {
         this.properties = properties;
     }
 

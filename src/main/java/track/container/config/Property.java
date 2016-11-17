@@ -15,6 +15,9 @@ public class Property {
         this.type = type;
     }
 
+    public Property() {
+    }
+
     public String getName() {
         return name;
     }
