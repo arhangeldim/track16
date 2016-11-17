@@ -9,19 +9,28 @@ import java.io.FileReader;
 public class Parser {
 
     Document parse(String data) {
-        return null;
+        return new Document(data.split(" "));
     }
 
     public static void main(String[] args) throws Exception {
-
-        String path = "path/to/file";
+        String path = "/home/hellishnoob/test.lst";
         BufferedReader reader = new BufferedReader(new FileReader(path));
-        // reader умеет читать по строкам с помощью метода readLine()
 
-        // Создайте объект Parser
+        StringBuilder builder = new StringBuilder();
+        String line;
 
-        // Получите объект Document, реализовав метод parse()
+        while ((line = reader.readLine()) != null) {
+            builder.append(line);
+        }
 
+        Parser parser = new Parser();
+        Document document = parser.parse(builder.toString());
 
+        System.out.println("Token count: " + document.getTokenCount());
+        System.out.println("Has token 'test': " + document.hasToken("test"));
+        System.out.println("List of tokens:");
+        for (String token : document.getTokens()) {
+            System.out.println(token);
+        }
     }
 }
