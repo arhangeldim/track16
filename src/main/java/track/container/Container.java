@@ -1,5 +1,6 @@
 package track.container;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -55,45 +56,17 @@ public class Container {
             Object createdObject = classOfBean.getConstructor().newInstance();
             for (Map.Entry<String, Property> entry : bean.getProperties().entrySet()) {
                 for (Field field : createdObject.getClass().getDeclaredFields()) {
-                    if (field.getName().equals(entry.getKey())) {
-                        if (entry.getValue().getType() == ValueType.VAL) {
-                            field.setAccessible(true);
-                            String value = entry.getValue().getValue();
-                            switch (field.getType().getTypeName().toLowerCase()) {
-                                case "boolean":
-                                    field.set(createdObject, Boolean.parseBoolean(value));
-                                    break;
-                                case "byte":
-                                    field.set(createdObject, Byte.parseByte(value));
-                                    break;
-                                case "short":
-                                    field.set(createdObject, Short.parseShort(value));
-                                    break;
-                                case "int":
-                                    field.set(createdObject, Integer.parseInt(value));
-                                    break;
-                                case "char":
-                                    field.set(createdObject, value.charAt(0));
-                                    break;
-                                case "long":
-                                    field.set(createdObject, Long.parseLong(value));
-                                    break;
-                                case "float":
-                                    field.set(createdObject, Float.parseFloat(value));
-                                    break;
-                                case "double":
-                                    field.set(createdObject, Double.parseDouble(value));
-                                    break;
-                                default:
-                                    throw new InvalidPrimitiveTypeException("No such primitive type " + field.getType().getTypeName().toLowerCase());
-                            }
-                            field.setAccessible(false);
-                        } else {
-                            Object referense = getById(entry.getValue().getValue());
-                            field.setAccessible(true);
-                            field.set(createdObject, referense);
-                            field.setAccessible(false);
-                        }
+                    if (!field.getName().equals(entry.getKey())) {
+                        continue;
+                    }
+                    if (entry.getValue().getType() == ValueType.VAL) {
+                        String value = entry.getValue().getValue();
+                        setValForField(value, field, createdObject);
+                    } else {
+                        Object referense = getById(entry.getValue().getValue());
+                        field.setAccessible(true);
+                        field.set(createdObject, referense);
+                        field.setAccessible(false);
                     }
                 }
             }
@@ -104,6 +77,40 @@ public class Container {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    private void setValForField(String value, Field field, Object createdObject) throws InvalidPrimitiveTypeException,
+            IllegalAccessException {
+        field.setAccessible(true);
+        switch (field.getType().getTypeName().toLowerCase()) {
+            case "boolean":
+                field.set(createdObject, Boolean.parseBoolean(value));
+                break;
+            case "byte":
+                field.set(createdObject, Byte.parseByte(value));
+                break;
+            case "short":
+                field.set(createdObject, Short.parseShort(value));
+                break;
+            case "int":
+                field.set(createdObject, Integer.parseInt(value));
+                break;
+            case "char":
+                field.set(createdObject, value.charAt(0));
+                break;
+            case "long":
+                field.set(createdObject, Long.parseLong(value));
+                break;
+            case "float":
+                field.set(createdObject, Float.parseFloat(value));
+                break;
+            case "double":
+                field.set(createdObject, Double.parseDouble(value));
+                break;
+            default:
+                throw new InvalidPrimitiveTypeException("No such primitive type " + field.getType().getTypeName().toLowerCase());
+        }
+        field.setAccessible(false);
     }
 
 }
