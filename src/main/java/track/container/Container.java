@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Основной класс контейнера
@@ -19,8 +20,8 @@ import java.util.List;
 public class Container {
 
     private List<Bean> beans;
-    private HashMap<String, Object> objByName = new HashMap<String, Object>();
-    private HashMap<String, Object> objByClassName = new HashMap<String, Object>();
+    private Map<String, Object> objByName = new HashMap<String, Object>();
+    private Map<String, Object> objByClassName = new HashMap<String, Object>();
 
     public Container(String path) throws InvalidConfigurationException, IOException {
         File config = new File(path);
