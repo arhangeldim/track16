@@ -18,29 +18,28 @@ public class Container {
 
     private static final String INT = "int";
 
-    private Map<String,Bean> beansById;
-    private Map<String,Bean> beansByClassName;
+    private Map<String, Bean> beansById;
+    private Map<String, Bean> beansByClassName;
 
     // Реализуйте этот конструктор, используется в тестах!
     public Container(List<Bean> beans) {
         beansById = new HashMap<>();
         beansByClassName = new HashMap<>();
 
-        for (Bean bean: beans) {
-            this.beansById.put(bean.getId(),bean);
-            this.beansByClassName.put(bean.getClassName(),bean);
+        for (Bean bean : beans) {
+            this.beansById.put(bean.getId(), bean);
+            this.beansByClassName.put(bean.getClassName(), bean);
         }
     }
 
     /**
-     *  Вернуть объект по имени бина из конфига
-     *  Например, Car car = (Car) container.getById("carBean")
+     * Вернуть объект по имени бина из конфига
+     * Например, Car car = (Car) container.getById("carBean")
      */
     public Object getById(String id) {
         try {
             return makeRequiredObject(beansById.get(id));
-        }
-        catch (InvalidConfigurationException e){
+        } catch (InvalidConfigurationException e) {
             System.out.println(e.getMessage());
         }
         return null;
@@ -53,8 +52,7 @@ public class Container {
     public Object getByClass(String className) {
         try {
             return makeRequiredObject(beansByClassName.get(className));
-        }
-        catch (InvalidConfigurationException e){
+        } catch (InvalidConfigurationException e) {
             System.out.println(e.getMessage());
         }
         return null;
@@ -77,8 +75,8 @@ public class Container {
                 String properyName = new String(properyNameCharSet);
                 for (Method method : object.getClass().getDeclaredMethods()) {
                     if (method.getName().equals("set" + properyName)) {
-                        for (Primitives primitive: Primitives.values()){
-                            if (method.getParameterTypes()[0].getName().equals(primitive.getType())){
+                        for (Primitives primitive : Primitives.values()) {
+                            if (method.getParameterTypes()[0].getName().equals(primitive.getType())) {
                                 propertyValue = primitive.parse((String) propertyValue);
                             }
                         }
@@ -87,18 +85,18 @@ public class Container {
                 }
             }
             return object;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             InvalidConfigurationException ex = new InvalidConfigurationException("Invalid config");
             throw ex;
         }
     }
 
 
-    private enum Primitives{
-        BOOLEAN{
+    private enum Primitives {
+        BOOLEAN {
             private String type = "boolean";
-            public Boolean parse(String value){
+
+            public Boolean parse(String value) {
                 return Boolean.parseBoolean(value);
             }
 
@@ -107,9 +105,10 @@ public class Container {
                 return type;
             }
         },
-        SHORT{
+        SHORT {
             private String type = "short";
-            public Short parse(String value){
+
+            public Short parse(String value) {
                 return Short.parseShort(value);
             }
 
@@ -118,9 +117,10 @@ public class Container {
                 return type;
             }
         },
-        INTEGER{
+        INTEGER {
             private String type = "int";
-            public Integer parse(String value){
+
+            public Integer parse(String value) {
                 return Integer.parseInt(value);
             }
 
@@ -129,9 +129,10 @@ public class Container {
                 return type;
             }
         },
-        LONG{
+        LONG {
             private String type = "long";
-            public Long parse(String value){
+
+            public Long parse(String value) {
                 return Long.parseLong(value);
             }
 
@@ -141,9 +142,10 @@ public class Container {
             }
 
         },
-        DOUBLE{
+        DOUBLE {
             private String type = "double";
-            public Double parse(String value){
+
+            public Double parse(String value) {
                 return Double.parseDouble(value);
             }
 
@@ -152,9 +154,10 @@ public class Container {
                 return type;
             }
         },
-        FLOAT{
+        FLOAT {
             private String type = "float";
-            public Float parse(String value){
+
+            public Float parse(String value) {
                 return Float.parseFloat(value);
             }
 
@@ -165,6 +168,7 @@ public class Container {
         };
 
         public abstract Object parse(String value);
+
         public abstract String getType();
 
     }
