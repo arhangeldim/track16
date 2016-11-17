@@ -10,7 +10,7 @@ public enum Status {
     MESSAGE_DELIVERED,
     WRONG_DESTINATION,
     CHAT_CREATED,
-    CHAT_FOUND,
+    CHAT_EXISTS,
     GOODBYE,
     ERROR
 }

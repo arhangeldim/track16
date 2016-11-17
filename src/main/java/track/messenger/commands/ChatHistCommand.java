@@ -36,6 +36,7 @@ public class ChatHistCommand implements Command {
             if (chat.contains(msg.getSenderId())) {
                 List<String> history = messages.getChatHistory(chat.getId())
                         .stream()
+                        .sorted((first, second) -> first.getTimestampAsDate().compareTo(second.getTimestampAsDate()))
                         .map(textMessage -> {
                             User user = users.getUser(textMessage.getSenderId());
                             return textMessage.getTimestamp() + " " + user.getUsername() + ": " + textMessage.getText();

@@ -28,7 +28,7 @@ public class ChatCreateCommand implements Command {
                 Chat foundChat = chatRelations.getChat(msg.getSenderId(), participants.get(0));
                 if (foundChat != null) {
                     String foundChatId = foundChat.getId().toString();
-                    session.send(new StatusMessage(session.getUser(), Status.CHAT_CREATED, foundChatId));
+                    session.send(new StatusMessage(session.getUser(), Status.CHAT_EXISTS, foundChatId));
                     return;
                 }
             }

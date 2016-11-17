@@ -26,6 +26,7 @@ public abstract class Message implements Serializable {
             this.senderId = sender.getId();
         }
         this.type = type;
+        //DateFormat dateFormat = new SimpleDateFormat("MMM d, HH:mm:ss");
         this.timestamp = new Date();
     }
 
@@ -41,8 +42,13 @@ public abstract class Message implements Serializable {
         return senderId;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
+    public String getTimestamp() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy, z HH:mm:ss");
+        return dateFormat.format(timestamp);
+    }
+
+    public Date getTimestampAsDate() {
+        return this.timestamp;
     }
 
     public void setType(Type type) {
@@ -70,7 +76,7 @@ public abstract class Message implements Serializable {
     }
 
     public void setTimestamp(String timestamp) {
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy, z HH:mm:ss");
         try {
             this.timestamp = dateFormat.parse(timestamp);
         } catch (ParseException pe) {

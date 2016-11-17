@@ -101,7 +101,7 @@ public abstract class Store {
                     }).collect(Collectors.toList());
             int counter = 1;
             for (Object value : values) {
-                statement.setObject(counter++, value);
+                statement.setString(counter++, value.toString());
             }
             statement.executeUpdate();
 
