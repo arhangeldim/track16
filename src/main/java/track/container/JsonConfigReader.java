@@ -1,11 +1,13 @@
 package track.container;
 
 import java.io.File;
-import java.util.List;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
-import track.container.config.Bean;
-import track.container.config.ConfigReader;
-import track.container.config.InvalidConfigurationException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import track.container.config.*;
 
 /**
  * TODO: Реализовать
@@ -13,7 +15,15 @@ import track.container.config.InvalidConfigurationException;
 public class JsonConfigReader implements ConfigReader {
 
     @Override
-    public List<Bean> parseBeans(File configFile) throws InvalidConfigurationException {
-        return null;
+    public List<Bean> parseBeans(File configFile) throws InvalidConfigurationException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        Root root;
+        try {
+            root = mapper.readValue(configFile,Root.class);
+        } catch (IOException e) {
+            throw new InvalidConfigurationException(e.getMessage());
+        }
+
+        return root.getBeans();
     }
 }
