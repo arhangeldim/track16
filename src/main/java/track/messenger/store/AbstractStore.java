@@ -3,7 +3,6 @@ package track.messenger.store;
 import org.sqlite.javax.SQLiteConnectionPoolDataSource;
 
 import java.sql.*;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
