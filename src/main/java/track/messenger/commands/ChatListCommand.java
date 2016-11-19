@@ -3,7 +3,10 @@ package track.messenger.commands;
 import track.messenger.messages.ChatListResultMessage;
 import track.messenger.messages.Message;
 import track.messenger.net.Session;
+import track.messenger.security.CryptoSystem;
 import track.messenger.store.ChatRelationStore;
+import track.messenger.store.StoreFactory;
+import track.messenger.store.dao.ChatRelation;
 
 import java.util.List;
 
@@ -12,15 +15,10 @@ import java.util.List;
  */
 public class ChatListCommand implements Command {
 
-    private ChatRelationStore chatRelations;
-
-    public ChatListCommand(ChatRelationStore chatRelations) {
-        this.chatRelations = chatRelations;
-    }
-
 
     @Override
-    public void execute(Session session, Message message) throws CommandException {
+    public void execute(Session session, Message message, CryptoSystem crypto, StoreFactory stores) throws CommandException {
+        ChatRelationStore chatRelations = (ChatRelationStore) stores.get(ChatRelation.class);
         try {
             List<Integer> chatIds = chatRelations.getUserChats(session.getUser().getId());
             session.send(new ChatListResultMessage(session.getUser(), chatIds));

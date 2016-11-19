@@ -1,8 +1,12 @@
 package track.messenger.net;
 
 import org.mockito.internal.util.io.IOUtil;
-import track.messenger.commands.Commander;
+import track.messenger.commands.Command;
+import track.messenger.commands.CommandFactory;
 import track.messenger.messages.*;
+import track.messenger.security.CryptoSystem;
+import track.messenger.store.StoreFactory;
+
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.*;
@@ -13,12 +17,14 @@ import java.util.concurrent.*;
 
 public class MessengerServer {
 
-    private Integer port;
-    private Integer nthreads;
-    private Commander commander;
-
     private ServerSocket serverSocket;
     private LinkedBlockingQueue<Session> sessions;
+
+    private Integer port;
+    private Integer nthreads;
+    private StoreFactory stores;
+    private CommandFactory commands;
+    private CryptoSystem crypto;
 
     public MessengerServer() {}
 
@@ -30,9 +36,16 @@ public class MessengerServer {
         this.nthreads = nthreads;
     }
 
-    public void setCommander(Commander commander) {
-        this.commander = commander;
-        this.commander.setTypeCommandMap();
+    public void setStores(StoreFactory stores) {
+        this.stores = stores;
+    }
+
+    public void setCommands(CommandFactory commands) {
+        this.commands = commands;
+    }
+
+    public void setCrypto(CryptoSystem crypto) {
+        this.crypto = crypto;
     }
 
     public void listen() {
@@ -41,7 +54,7 @@ public class MessengerServer {
                 Socket clientSocket = null;
                 try {
                     clientSocket = serverSocket.accept();
-                    sessions.add(new Session(clientSocket, commander));
+                    sessions.add(new Session(clientSocket));
                 } catch (Exception e) {
                     System.out.println("listen: " + e.toString());
                     Thread.currentThread().interrupt();
@@ -67,7 +80,8 @@ public class MessengerServer {
                 if (msg != null) {
                     service.submit(() -> {
                         try {
-                            session.onMessage(msg);
+                            Command command = commands.get(msg.getType());
+                            command.execute(session, msg, crypto, stores);
                             if (session.isAlive()) {
                                 sessions.put(session);
                             } else {

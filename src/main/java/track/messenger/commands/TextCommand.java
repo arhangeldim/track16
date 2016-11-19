@@ -1,5 +1,8 @@
 package track.messenger.commands;
 
+import track.messenger.security.CryptoSystem;
+import track.messenger.store.StoreFactory;
+import track.messenger.store.dao.ChatRelation;
 import track.messenger.store.dao.User;
 import track.messenger.messages.*;
 import track.messenger.net.Session;
@@ -11,21 +14,15 @@ import track.messenger.store.MessageStore;
  */
 public class TextCommand implements Command {
 
-    private ChatRelationStore chats;
-    private MessageStore messages;
-
-    public TextCommand(ChatRelationStore chats, MessageStore messages) {
-        this.chats = chats;
-        this.messages = messages;
-    }
-
     @Override
-    public void execute(Session session, Message message) throws CommandException {
+    public void execute(Session session, Message message, CryptoSystem crypto, StoreFactory stores) throws CommandException {
+        ChatRelationStore chatRelations = (ChatRelationStore) stores.get(ChatRelation.class);
+        MessageStore messages = (MessageStore) stores.get(TextMessage.class);
         try {
             User user = session.getUser();
             TextMessage msg = (TextMessage) message;
             if (user != null) {
-                Chat chat = chats.getChat(msg.getChatId());
+                Chat chat = chatRelations.getChat(msg.getChatId());
                 if (chat != null && chat.contains(user)) {
                     messages.saveMessage(msg);
                     session.send(new StatusMessage(user, Status.MESSAGE_DELIVERED, chat.getId().toString()));

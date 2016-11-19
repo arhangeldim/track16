@@ -42,7 +42,6 @@ public abstract class AbstractStore<T> {
              PreparedStatement statement = connection
                      .prepareStatement("insert into '" + tableName + "' " +
                              columns() + " values " + values(objects) + ";")) {
-
             statement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(this.getClass() + ": ошибка добавления в базу. ");
@@ -75,5 +74,7 @@ public abstract class AbstractStore<T> {
     public abstract String values(List<T> objects) throws SQLException;
 
     public abstract String columns();
+
+    public abstract Class getDataClass();
 
 }

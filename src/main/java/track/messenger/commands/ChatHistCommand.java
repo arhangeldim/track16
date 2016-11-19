@@ -1,6 +1,9 @@
 package track.messenger.commands;
 
 import track.messenger.messages.*;
+import track.messenger.security.CryptoSystem;
+import track.messenger.store.StoreFactory;
+import track.messenger.store.dao.ChatRelation;
 import track.messenger.store.dao.User;
 import track.messenger.net.Session;
 import track.messenger.store.ChatRelationStore;
@@ -15,18 +18,11 @@ import java.util.stream.Collectors;
  */
 public class ChatHistCommand implements Command {
 
-    private ChatRelationStore chatRelations;
-    private MessageStore messages;
-    private UserStore users;
-
-    public ChatHistCommand(ChatRelationStore chatRelations, MessageStore messages, UserStore users) {
-        this.chatRelations = chatRelations;
-        this.messages = messages;
-        this.users = users;
-    }
-
     @Override
-    public void execute(Session session, Message message) throws CommandException {
+    public void execute(Session session, Message message, CryptoSystem crypto, StoreFactory stores) throws CommandException {
+        ChatRelationStore chatRelations = (ChatRelationStore) stores.get(ChatRelation.class);
+        MessageStore messages = (MessageStore) stores.get(TextMessage.class);
+        UserStore users = (UserStore) stores.get(User.class);
         ChatHistMessage msg = (ChatHistMessage) message;
         try {
             Chat chat = chatRelations.getChat(msg.getChatId());

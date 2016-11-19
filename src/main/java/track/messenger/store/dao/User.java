@@ -14,10 +14,17 @@ public class User implements Serializable {
     private Integer id;
     private String username;
     private String password;
+    private String salt;
 
     public User() {}
 
     public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(Integer id, String username, String password) {
+        this.id = id;
         this.username = username;
         this.password = password;
     }
@@ -34,12 +41,12 @@ public class User implements Serializable {
         return password;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public String getSalt() {
+        return salt;
     }
 
-    public void setId(String id) {
-        this.id = Integer.parseInt(id);
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setUsername(String username) {
@@ -48,6 +55,10 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     @Override

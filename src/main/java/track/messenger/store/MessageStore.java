@@ -49,6 +49,11 @@ public class MessageStore extends AbstractStore<TextMessage> {
         return "(timestamp, chatId, senderId, text)";
     }
 
+    @Override
+    public Class getDataClass() {
+        return TextMessage.class;
+    }
+
     public void saveMessage(TextMessage msg) {
         save(Collections.nCopies(1, msg));
     }

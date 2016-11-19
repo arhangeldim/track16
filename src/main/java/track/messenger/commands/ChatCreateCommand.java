@@ -2,7 +2,9 @@ package track.messenger.commands;
 
 import track.messenger.messages.*;
 import track.messenger.net.Session;
+import track.messenger.security.CryptoSystem;
 import track.messenger.store.ChatRelationStore;
+import track.messenger.store.StoreFactory;
 import track.messenger.store.dao.ChatRelation;
 
 import java.util.List;
@@ -13,14 +15,9 @@ import java.util.stream.Collectors;
  */
 public class ChatCreateCommand implements Command {
 
-    ChatRelationStore chatRelations;
-
-    public ChatCreateCommand(ChatRelationStore chatRelations) {
-        this.chatRelations = chatRelations;
-    }
-
     @Override
-    public void execute(Session session, Message message) throws CommandException {
+    public void execute(Session session, Message message, CryptoSystem crypto, StoreFactory stores) throws CommandException {
+        ChatRelationStore chatRelations = (ChatRelationStore) stores.get(ChatRelation.class);
         ChatCreateMessage msg = (ChatCreateMessage) message;
         List<Integer> participants = msg.getParticipants();
         try {

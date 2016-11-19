@@ -18,7 +18,7 @@ public class UserStore extends AbstractStore<User> {
     public String values(List<User> objects) {
         StringBuilder insert = new StringBuilder();
         for (User user : objects) {
-            insert.append("('" + user.getUsername() + "', '" + user.getPassword() + "'), ");
+            insert.append("('" + user.getUsername() + "', '" + user.getPassword() + "', '" + user.getSalt() + "'), ");
         }
         String value = insert.toString();
         return value.substring(0, value.length() - 2);
@@ -32,21 +32,27 @@ public class UserStore extends AbstractStore<User> {
             user.setId(resultSet.getInt("id"));
             user.setUsername(resultSet.getString("username"));
             user.setPassword(resultSet.getString("password"));
+            user.setSalt(resultSet.getString("salt"));
             users.add(user);
         }
-        return users;
+        if (users.isEmpty()) {
+            return null;
+        } else {
+            return users;
+        }
     }
 
     @Override
     public String columns() {
-        return "(username, password)";
+        return "(username, password, salt)";
     }
 
     public User getUser(String username) {
         List<User> users = get("username = '" + username + "'");
-        System.out.println(users.size());
         if (users != null) {
-            return users.get(0);
+            User user = users.get(0);
+            user.setSalt(null);
+            return user;
         } else {
             return null;
         }
@@ -55,10 +61,26 @@ public class UserStore extends AbstractStore<User> {
     public User getUser(Integer id) {
         List<User> users = get("id = '" + id.toString() + "'");
         if (users != null) {
-            return users.get(0);
+            User user = users.get(0);
+            user.setSalt(null);
+            return user;
         } else {
             return null;
         }
+    }
+
+    public String getUserSalt(String username) {
+        List<User> users = get("username = '" + username + "'");
+        if (users != null) {
+            return users.get(0).getSalt();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Class getDataClass() {
+        return User.class;
     }
 
     public void saveUser(User user) {

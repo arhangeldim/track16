@@ -9,9 +9,6 @@ import org.mockito.internal.util.io.IOUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import track.messenger.store.dao.User;
-import track.messenger.commands.Command;
-import track.messenger.commands.CommandException;
-import track.messenger.commands.Commander;
 import track.messenger.messages.*;
 
 import javax.annotation.PreDestroy;
@@ -32,7 +29,6 @@ public class Session {
     private static final int MAX_MSG_SIZE = 32 * 1024;
     private static final int TIMEOUT = 100;
     private User user;
-    private Commander commander;
 
     private Socket socket;
     private Protocol protocol;
@@ -69,16 +65,14 @@ public class Session {
         return ret;
     }
 
-    public Session(Socket clientSocket, Commander commander) {
+    public Session(Socket clientSocket) {
         try {
-            //socket = serverSocket.accept();
             socket = clientSocket;
             socket.setSoTimeout(TIMEOUT);
             System.out.println("Подключение: " + socket.getInetAddress() + ", " + this.toString());
             in = socket.getInputStream();
             out = socket.getOutputStream();
             protocol = new ObjectProtocol();
-            this.commander = commander;
             alive = true;
         } catch (Exception e) {
             System.out.println(this.getClass() + "Не удалось создать сессию. " + e.toString());
@@ -96,16 +90,7 @@ public class Session {
         out.flush();
     }
 
-    public void onMessage(Message msg) throws ProtocolException, IOException {
-        Type msgType = msg.getType();
-        Command command = null;
-        try {
-            command = commander.get(msgType);
-            command.execute(this, msg);
-        } catch (CommandException e) {
-            System.out.println(this.getClass() + ": ошибка выполнения команды." + e.toString());
-        }
-    }
+    // onMessage не нужен
 
     @PreDestroy
     public void close() {

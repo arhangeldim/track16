@@ -72,6 +72,11 @@ public class ChatRelationStore extends AbstractStore<ChatRelation> {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public Class getDataClass() {
+        return ChatRelation.class;
+    }
+
     public void saveChat(Chat chat) {
         save(chat.getRelations());
     }
