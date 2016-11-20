@@ -28,7 +28,7 @@ public class CommandFactory {
         typeCommandMap.put(Type.MSG_CHAT_CREATE, new ChatCreateCommand());
         typeCommandMap.put(Type.MSG_CHAT_HIST, new ChatHistCommand());
         typeCommandMap.put(Type.MSG_CHAT_LIST, new ChatListCommand());
-        typeCommandMap.put(Type.MSG_REFRESH, new RefreshCommand());
+        typeCommandMap.put(Type.REFRESH, new RefreshCommand());
     }
 
     public Command get(Type type) {
