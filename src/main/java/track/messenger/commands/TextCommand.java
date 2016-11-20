@@ -25,6 +25,7 @@ public class TextCommand implements Command {
                 Chat chat = chatRelations.getChat(msg.getChatId());
                 if (chat != null && chat.contains(user)) {
                     messages.saveMessage(msg);
+                    session.setActiveChatId(msg.getChatId());
                     session.send(new StatusMessage(user, Status.MESSAGE_DELIVERED, chat.getId().toString()));
                     /*
                     ChatHistMessage chatHistMessage;

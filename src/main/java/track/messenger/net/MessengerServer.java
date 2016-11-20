@@ -5,11 +5,20 @@ import track.messenger.commands.Command;
 import track.messenger.commands.CommandFactory;
 import track.messenger.messages.*;
 import track.messenger.security.CryptoSystem;
+import track.messenger.store.ChatRelationStore;
+import track.messenger.store.MessageStore;
 import track.messenger.store.StoreFactory;
+import track.messenger.store.UserStore;
+import track.messenger.store.dao.ChatRelation;
+import track.messenger.store.dao.User;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Date;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -54,7 +63,7 @@ public class MessengerServer {
                 Socket clientSocket = null;
                 try {
                     clientSocket = serverSocket.accept();
-                    sessions.add(new Session(clientSocket));
+                    sessions.put(new Session(clientSocket));
                 } catch (Exception e) {
                     System.out.println("listen: " + e.toString());
                     Thread.currentThread().interrupt();
@@ -92,7 +101,15 @@ public class MessengerServer {
                         }
                     });
                 } else if (session.isAlive()) {
-                    sessions.put(session);
+                    service.submit(() -> {
+                        try {
+                            Command command = commands.get(Type.REFRESH);
+                            command.execute(session, new ChatHistMessage(), crypto, stores);
+                            sessions.put(session);
+                        } catch (Exception e) {
+                            System.out.println(this.getClass() + ": ошибка обработки входящих сообщений: " + e.toString());
+                        }
+                    });
                 }
             }
 

@@ -10,6 +10,7 @@ import track.messenger.store.ChatRelationStore;
 import track.messenger.store.MessageStore;
 import track.messenger.store.UserStore;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,7 @@ public class ChatHistCommand implements Command {
         try {
             Chat chat = chatRelations.getChat(msg.getChatId());
             if (chat != null && chat.contains(msg.getSenderId())) {
+                session.setActiveChatId(msg.getChatId());
                 List<String> history = messages.getChatHistory(chat.getId())
                         .stream()
                         .sorted((first, second) -> first.getTimestampAsDate().compareTo(second.getTimestampAsDate()))
@@ -35,6 +37,7 @@ public class ChatHistCommand implements Command {
                             return textMessage.getTimestamp() + " " + user.getUsername() + ": " + textMessage.getText();
                         }).collect(Collectors.toList());
                 session.send(new ChatHistResultMessage(session.getUser(), history));
+                session.setLastRefreshTime(new Date());
             } else {
                 session.send(new StatusMessage(session.getUser(), Status.WRONG_DESTINATION));
             }

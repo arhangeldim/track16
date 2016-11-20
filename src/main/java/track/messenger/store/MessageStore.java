@@ -4,7 +4,10 @@ import track.messenger.messages.TextMessage;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -60,5 +63,11 @@ public class MessageStore extends AbstractStore<TextMessage> {
 
     public List<TextMessage> getChatHistory(Integer chatId) {
         return get("chatId = '" + chatId.toString() + "' order by timestamp");
+    }
+
+    public List<TextMessage> getChatHistorySince(Integer chatId, Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy, z HH:mm:ss");
+        String dateAsString = dateFormat.format(date);
+        return get("chatId = '" + chatId.toString() + "' and timestamp > '" + dateAsString +  "' order by timestamp");
     }
 }

@@ -150,7 +150,18 @@ public class MessengerClient {
                 }
                 break;
             case "/help":
-                // TODO: реализация
+                System.out.println("Помощь:\n" +
+                        "/help - показать эту справку.\n" +
+                        "/register [username] [password] - регистрация пользователяю\n" +
+                        "/login [username] [password] - авторизация пользователя.\n" +
+                        "/info - информация о себе.\n" +
+                        "/info [id] - информация о пользователе id.\n" +
+                        "/chat_list - показать список ваших чатов.\n" +
+                        "/chat_create [id1] [id2] ... - создать чат с пользователями id1, id2...\n" +
+                        "/text [id] [text] - отправить сообщение text в чат id.\n" +
+                        "/chat_hist [id] - показать сообщения из чата id.\n" +
+                        "/quit - выход из приложения."
+                );
                 break;
             case "/info":
                 try {

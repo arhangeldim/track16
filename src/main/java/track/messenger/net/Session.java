@@ -3,6 +3,7 @@ package track.messenger.net;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.Date;
 
 
 import org.mockito.internal.util.io.IOUtil;
@@ -26,6 +27,25 @@ public class Session {
      * Пользователь сессии, пока не прошел логин, user == null
      * После логина устанавливается реальный пользователь
      */
+    private Integer activeChatId = 0;
+    private Date lastRefreshTime = new Date();
+
+    public Integer getActiveChatId() {
+        return activeChatId;
+    }
+
+    public Date getLastRefreshTime() {
+        return lastRefreshTime;
+    }
+
+    public void setActiveChatId(Integer activeChatId) {
+        this.activeChatId = activeChatId;
+    }
+
+    public void setLastRefreshTime(Date lastRefreshTime) {
+        this.lastRefreshTime = lastRefreshTime;
+    }
+
     private static final int MAX_MSG_SIZE = 32 * 1024;
     private static final int TIMEOUT = 100;
     private User user;

@@ -1,49 +1,32 @@
-2016-11-20 02:07:21 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.LoginMessage@533ddba
-2016-11-20 02:07:21 INFO  Session:85 - sent to: 1
-2016-11-20 02:07:21 INFO  ObjectProtocol:25 - encoded: AUTHORIZED geoolekom
-2016-11-20 02:07:21 INFO  Session:85 - sent to: 1
-2016-11-20 02:07:21 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.In2016-11-20 02:07:21 INFO 2016-11-20 02:07:24 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatListMessage@2b71fc7e
-2016-11-20 02:07:24 INFO  Session:85 - sent to: 1
-2016-11-20 02:07:24 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatListResultMessage@2fc35b44
-2016-11-20 02:07:29 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistMessage@3eb07fd3
-2016-11-20 02:07:29 INFO  Session:85 - sent to: 1
-2016-11-20 02:07:29 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistResultMessage@3638c20f
-2016-11-20 02:08:24 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatCreateMessage@799f7e29
-2016-11-20 02:08:24 INFO  Session:85 - sent to: 1
-2016-11-20 02:08:24 INFO  ObjectProtocol:25 - encoded: CHAT_EXISTS 1
-2016-11-20 02:08:28 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatListMessage@277050dc
-2016-11-20 02:08:28 INFO  Session:85 - sent to: 1
-2016-11-20 02:08:28 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatListResultMessage@3e02282b
-2016-11-20 02:08:33 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistMessage@5c29bfd
-2016-11-20 02:08:33 INFO  Session:85 - sent to: 1
-2016-11-20 02:08:33 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistResultMessage@4a746631
-2016-11-20 02:08:51 INFO  ObjectProtocol:19 - decoded: TextMessage{text='Переделали еще раз, соль к паролям добавили. Крутота!'}
-2016-11-20 02:08:51 INFO  Session:85 - sent to: 1
-2016-11-20 02:08:51 INFO  ObjectProtocol:25 - encoded: MESSAGE_DELIVERED 1
-2016-11-20 02:09:01 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistMessage@67424e82
-2016-11-20 02:09:01 INFO  Session:85 - sent to: 1
-2016-11-20 02:09:01 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistResultMessage@2b025ead
-: CHAT_EXISTS 1
-2016-11-20 02:08:24 INFO  MessengerClient:92 - Message received: CHAT_EXISTS 1
-2016-11-20 02:08:28 INFO  MessengerClient:131 - Tokens: [/chat_list, 1]
-2016-11-20 02:08:28 INFO  MessengerClient:200 - track.messenger.messages.ChatListMessage@606d8acf
-2016-11-20 02:08:28 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatListMessage@606d8acf
-2016-11-20 02:08:28 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatListResultMessage@53f305fe
-2016-11-20 02:08:28 INFO  MessengerClient:92 - Message received: track.messenger.messages.ChatListResultMessage@53f305fe
-2016-11-20 02:08:33 INFO  MessengerClient:131 - Tokens: [/chat_hist, 1]
-2016-11-20 02:08:33 INFO  MessengerClient:200 - track.messenger.messages.ChatHistMessage@470e2030
-2016-11-20 02:08:33 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistMessage@470e2030
-2016-11-20 02:08:33 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistResultMessage@4a8f2f45
-2016-11-20 02:08:33 INFO  MessengerClient:92 - Message received: track.messenger.messages.ChatHistResultMessage@4a8f2f45
-2016-11-20 02:08:51 INFO  MessengerClient:131 - Tokens: [/text, 1, Переделали, еще, раз,, соль, к, паролям, добавили., Крутота!]
-2016-11-20 02:08:51 INFO  MessengerClient:200 - TextMessage{text='Переделали еще раз, соль к паролям добавили. Крутота!'}
-2016-11-20 02:08:51 INFO  ObjectProtocol:25 - encoded: TextMessage{text='Переделали еще раз, соль к паролям добавили. Крутота!'}
-2016-11-20 02:08:51 INFO  ObjectProtocol:19 - decoded: MESSAGE_DELIVERED 1
-2016-11-20 02:08:51 INFO  MessengerClient:92 - Message received: MESSAGE_DELIVERED 1
-2016-11-20 02:08:56 INFO  MessengerClient:131 - Tokens: [срфе_ршіе, 1]
-2016-11-20 02:08:56 ERROR MessengerClient:194 - Invalid input: срфе_ршіе 1
-2016-11-20 02:09:01 INFO  MessengerClient:131 - Tokens: [/chat_hist, 1]
-2016-11-20 02:09:01 INFO  MessengerClient:200 - track.messenger.messages.ChatHistMessage@1e81f4dc
-2016-11-20 02:09:01 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistMessage@1e81f4dc
-2016-11-20 02:09:01 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistResultMessage@77607a32
-2016-11-20 02:09:01 INFO  MessengerClient:92 - Message received: track.messenger.messages.ChatHistResultMessage@77607a32
+2016-11-20 04:05:40 INFO  ObjectProtocol:19 - decoded: track.messenger.message2016-11-20 04:05:53 INFO  MessengerClient:131 - Tokens: [/login, one, qwerty]
+2016-11-20 04:05:53 INFO  MessengerClient:211 - track.messenger.messages.LoginMessage@6ae40994
+2016-11-20 04:05:53 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.LoginMessage@6ae40994
+2016-11-20 04:05:53 INFO  ObjectProtocol:19 - decoded: AUTHORIZED one
+2016-11-20 04:05:53 INFO  MessengerClient:92 - Message received: AUTHORIZED one
+2016-11-20 04:05:53 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoResultMessage@1caf8e52
+2016-11-20 04:05:53 INFO  MessengerClient:92 - Message received: track.messenger.messages.InfoResultMessage@1caf8e52
+2016-11-20 04:06:00 INFO  MessengerClient:131 - Tokens: [/text, 1, Хорошо-то, как.]
+2016-11-20 04:06:00 INFO  MessengerClient:211 - TextMessage{text='Хорошо-то как.'}
+2016-11-20 04:06:00 INFO  ObjectProtocol:25 - encoded: TextMessage{text='Хорошо-то как.'}
+2016-11-20 04:06:00 INFO  ObjectProtocol:19 - decoded: MESSAGE_DELIVERED 1
+2016-11-20 04:06:00 INFO  MessengerClient:92 - Message received: MESSAGE_DELIVERED 1
+2016-11-20 04:06:00 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistResultMessage@4d5f73c
+2016-11-20 04:06:00 INFO  MessengerClient:92 - Message received: track.messenger.messages.ChatHistResultMessage@4d5f73c
+2016-11-20 04:06:31 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistResultMessage@f29cfe5
+2016-11-20 04:06:31 INFO  MessengerClient:92 - Message received: track.messenger.messages.ChatHistResultMessage@f29cfe5
+2016-11-20 04:06:50 INFO  MessengerClient:131 - Tokens: [/quit]
+2016-11-20 04:06:50 INFO  MessengerClient:211 - track.messenger.messages.QuitMessage@515f550a
+2016-11-20 04:06:50 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.QuitMessage@515f550a
+ObjectProtocol:25 - encoded: MESSAGE_DELIVERED 1
+2016-11-20 04:06:31 INFO  Session:105 - sent to: 2
+2016-11-20 04:06:31 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistResultMessage@777e57b4
+2016-11-20 04:06:31 INFO  Session:105 - sent to: 1
+2016-11-20 04:06:31 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistResultMessage@7fb97570
+2016-11-20 04:06:46 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.QuitMessage@5c29bfd
+2016-11-20 04:06:46 INFO  Session:105 - sent to: 1
+2016-11-20 04:06:46 INFO  ObjectProtocol:25 - encoded: GOODBYE 
+2016-11-20 04:06:50 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.QuitMessage@7aec35a
+2016-11-20 04:06:50 INFO  Session:105 - sent to: 2
+2016-11-20 04:06:50 INFO  ObjectProtocol:25 - encoded: GOODBYE 
+essenger.messages.QuitMessage@36aa7bc2
+2016-11-20 04:06:46 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.QuitMessage@36aa7bc2

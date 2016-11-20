@@ -24,8 +24,9 @@ public class ChatCreateCommand implements Command {
             if (participants.size() == 1) {
                 Chat foundChat = chatRelations.getChat(msg.getSenderId(), participants.get(0));
                 if (foundChat != null) {
-                    String foundChatId = foundChat.getId().toString();
-                    session.send(new StatusMessage(session.getUser(), Status.CHAT_EXISTS, foundChatId));
+                    Integer foundChatId = foundChat.getId();
+                    session.setActiveChatId(foundChatId);
+                    session.send(new StatusMessage(session.getUser(), Status.CHAT_EXISTS, foundChatId.toString()));
                     return;
                 }
             }
@@ -35,6 +36,7 @@ public class ChatCreateCommand implements Command {
                     .map(partId -> new ChatRelation(msg.getSenderId(), chatId, partId))
                     .collect(Collectors.toList());
             chatRelations.saveRelations(relations);
+            session.setActiveChatId(chatId);
             session.send(new StatusMessage(session.getUser(), Status.CHAT_CREATED, chatId.toString()));
         } catch (Exception e) {
             throw new CommandException(this.getClass() + ": ошибка создания беседы. " + e.toString());
