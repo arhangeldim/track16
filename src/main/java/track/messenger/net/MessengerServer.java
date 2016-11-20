@@ -107,7 +107,7 @@ public class MessengerServer {
                             command.execute(session, new ChatHistMessage(), crypto, stores);
                             sessions.put(session);
                         } catch (Exception e) {
-                            System.out.println(this.getClass() + ": ошибка обработки входящих сообщений: " + e.toString());
+                            System.out.println(this.getClass() + ": ошибка обработки входящих: " + e.toString());
                         }
                     });
                 }
