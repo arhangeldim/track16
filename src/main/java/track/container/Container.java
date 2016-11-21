@@ -86,16 +86,13 @@ public class Container {
                             method.invoke(object, newPropClass1);
                         } else {
                             Object value = null;
-                            if(((String)method.getParameterTypes()[0].toString()).equals("int")) {
+                            if (((String) method.getParameterTypes()[0].toString()).equals("int")) {
                                 value = Integer.parseInt(property.getValue().toString());
-                            }
-                            else if(((String)method.getParameterTypes()[0].toString()).equals("float")){
+                            } else if (((String) method.getParameterTypes()[0].toString()).equals("float")) {
                                 value = Float.parseFloat(property.getValue().toString());
-                            }
-                            else if(((String)method.getParameterTypes()[0].toString()).equals("double")) {
+                            } else if (((String) method.getParameterTypes()[0].toString()).equals("double")) {
                                 value = Double.parseDouble(property.getValue().toString());
-                            }
-                            else {
+                            } else {
                                 value = property.getValue().toString();
                             }
 
