@@ -1,16 +1,16 @@
 package track.container;
 
-import java.io.File;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import track.container.beans.Car;
 import track.container.beans.Engine;
 import track.container.beans.Gear;
 import track.container.config.ConfigReader;
 import track.container.config.InvalidConfigurationException;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  *
@@ -25,7 +25,7 @@ public class ContainerTest {
     private static Engine expectedEngine;
 
     @BeforeClass
-    public static void init() {
+    public static void init() throws IOException {
         try {
             ClassLoader classLoader = Container.class.getClassLoader();
             File file = new File(classLoader.getResource("config.json").getFile());
