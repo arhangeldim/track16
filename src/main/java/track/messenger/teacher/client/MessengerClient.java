@@ -117,6 +117,7 @@ public class MessengerClient {
         String cmdType = tokens[0];
         switch (cmdType) {
             case "/login":
+
                 // TODO: реализация
                 break;
             case "/help":
@@ -149,7 +150,7 @@ public class MessengerClient {
 
         MessengerClient client = new MessengerClient();
         client.setHost("localhost");
-        client.setPort(19000);
+        client.setPort(8888);
         client.setProtocol(new StringProtocol());
 
         try {
