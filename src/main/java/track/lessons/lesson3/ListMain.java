@@ -7,12 +7,28 @@ public class ListMain {
 
     public static void main(String[] args) {
 
-
-//        List list = new DynamicList();
-//        list.add(1);
-//        list.add(2);
-//        list.add(10);
-//        int first = list.remove(0);
+        //Создаем листы 2-х типов
+        List linkedList = new LinkedList();
+        List dynamicLict = new DynamicList();
+        //Пример добаления
+        for (int i = 0;i < 10;i++) {
+            linkedList.add(i);
+            dynamicLict.add(i);
+        }
+        //Пример получения
+        linkedList.get(5);
+        dynamicLict.get(7);
+        //Пример удаления
+        linkedList.remove(2);
+        dynamicLict.remove(6);
+        //Cтек
+        Stack stack = (Stack) linkedList;
+        stack.push(8);
+        stack.pop();
+        //Очередь
+        Queue queue = (Queue) linkedList;
+        queue.enqueue(9);
+        queue.dequeu();
 
     }
 }
