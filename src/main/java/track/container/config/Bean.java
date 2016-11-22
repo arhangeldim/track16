@@ -1,6 +1,6 @@
 package track.container.config;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * Представляет тег bean из конфига
@@ -9,27 +9,22 @@ public class Bean {
 
     private String id; // Уникальный ID бина
     private String className; // Класс бина
+    private List<Property> properties; // Набор полей бина ИмяПоля-Значение
 
-    /*
-    Встроенная структура данных Java - ассоциативная таблица
-    С помощью неё можно хранить данные типа Ключ-Значение
-    доступны операции
-    put(key, value) - поместить значение с заданным ключом
-    get(key) - получить значение по ключу (или null, если не найдено)
-     */
-    private Map<String, Property> properties; // Набор полей бина ИмяПоля-Значение
+    public Bean() {
+    }
 
-    public Bean(String id, String className, Map<String, Property> properties) {
+    public Bean(String id, String className, List<Property> properties) {
         this.id = id;
         this.className = className;
         this.properties = properties;
     }
 
-    public Map<String, Property> getProperties() {
+    public List<Property> getProperties() {
         return properties;
     }
 
-    public void setProperties(Map<String, Property> properties) {
+    public void setProperties(List<Property> properties) {
         this.properties = properties;
     }
 
