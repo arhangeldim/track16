@@ -1,5 +1,17 @@
 package track.container;
 
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+
+import track.container.beans.Car;
+import track.container.config.ConfigReader;
+import track.container.config.Bean;
+import track.container.JsonConfigReader;
+import track.container.config.InvalidConfigurationException;
+
+import static org.apache.log4j.helpers.Loader.getResource;
+
 /**
  *
  */
@@ -7,20 +19,22 @@ public class Main {
 
     public static void main(String[] args) {
 
-        /*
+        // При чтении нужно обработать исключение
 
-        ПРИМЕР ИСПОЛЬЗОВАНИЯ
-
-         */
-
-//        // При чтении нужно обработать исключение
-//        ConfigReader reader = new JsonReader();
-//        List<Bean> beans = reader.parseBeans("config.json");
-//        Container container = new Container(beans);
-//
-//        Car car = (Car) container.getByClass("track.container.beans.Car");
-//        car = (Car) container.getById("carBean");
-
+        File file = new File(getResource("config.json").getFile());
+        ConfigReader reader = new JsonConfigReader();
+        List<Bean> beans;
+        try {
+            beans = reader.parseBeans(file);
+            System.out.print(beans.toString());
+            Container container = new Container(beans);
+            Car car = (Car) container.getByClass("track.container.beans.Car");
+        } catch (InvalidConfigurationException exception) {
+            System.out.println(exception.getMessage());
+        } catch (InstantiationException | InvocationTargetException | IllegalAccessException |
+                NoSuchMethodException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 }
