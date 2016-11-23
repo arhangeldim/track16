@@ -25,6 +25,7 @@ public class ParserTest {
         String line = null;
         while ((line = reader.readLine()) != null) {
             builder.append(line);
+            builder.append(" ");
         }
         data = builder.toString();
     }
