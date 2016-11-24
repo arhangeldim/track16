@@ -1,20 +1,35 @@
 package track.lessons.lesson2;
 
+import java.util.Arrays;
+
 /**
  *
  */
 public class Document {
-    String[] tokens;
+
+    private String[] tokens;
 
     String[] getTokens() {
-        return null;
+        return tokens;
     }
 
-    int getTokenCount() {
-        return 0;
+    public int getTokenCount() {
+        return (tokens == null) ? 0 : tokens.length;
     }
 
-    boolean hasToken(String token) {
+    public boolean hasToken(String token) {
+        if (tokens == null) {
+            return false;
+        }
+        for (int i = 0; i < tokens.length; i++) {
+            if (token.equals(tokens[i])) {
+                return true;
+            }
+        }
         return false;
+    }
+
+    public Document(String[] tokens) {
+        this.tokens = tokens;
     }
 }
