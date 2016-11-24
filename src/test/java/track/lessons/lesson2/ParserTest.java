@@ -8,11 +8,9 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-/**
- *
- */
 public class ParserTest {
 
+    /*
     static String data;
 
     @BeforeClass
@@ -40,5 +38,5 @@ public class ParserTest {
 
         Assert.assertTrue(doc.hasToken("</layout>"));
     }
-
+    */
 }
