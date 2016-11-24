@@ -1,20 +1,26 @@
 package track.lessons.lesson2;
 
+import java.util.Arrays;
+
 /**
  *
  */
 public class Document {
     String[] tokens;
 
+    Document(String[] newTokens) {
+        tokens = newTokens;
+    }
+
     String[] getTokens() {
-        return null;
+        return tokens;
     }
 
     int getTokenCount() {
-        return 0;
+        return tokens.length;
     }
 
     boolean hasToken(String token) {
-        return false;
+        return Arrays.stream(tokens).anyMatch(token::equals);
     }
 }
