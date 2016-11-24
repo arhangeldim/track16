@@ -17,7 +17,7 @@ import track.container.config.InvalidConfigurationException;
  */
 public class ContainerTest {
 
-
+/*
     private static Container container;
 
     private static Car expectedCar;
@@ -61,5 +61,5 @@ public class ContainerTest {
         Assert.assertTrue(car != null);
         Assert.assertEquals(expectedCar, car);
     }
-
+*/
 }

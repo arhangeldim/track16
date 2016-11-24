@@ -7,14 +7,23 @@ public class Document {
     String[] tokens;
 
     String[] getTokens() {
-        return null;
+        return tokens;
     }
 
     int getTokenCount() {
-        return 0;
+        return (tokens == null) ? 0 : tokens.length;
     }
 
     boolean hasToken(String token) {
+        if (tokens == null) {
+            return false;
+        }
+
+        for (String string : tokens) {
+            if (string.equals(token)) {
+                return true;
+            }
+        }
         return false;
     }
 }
