@@ -15,6 +15,9 @@ public class LinkedList extends List implements Stack, Queue {
             head = tail = new Node(item, null, null);
         } else {
             Node node = new Node(item, tail, null);
+            if(tail != null) {
+                tail.changeNext(node);
+            }
             tail = node;
         }
         size++;
@@ -33,7 +36,7 @@ public class LinkedList extends List implements Stack, Queue {
     }
 
     private Node getNode(int idx) {
-        if (idx + 1 > size) {
+        if (idx + 1 > size || idx < 0) {
             return null;
         } else {
             Node temp = head;

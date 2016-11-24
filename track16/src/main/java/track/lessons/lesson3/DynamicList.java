@@ -34,7 +34,7 @@ public class DynamicList extends List {
 
     @Override
     public int remove(int idx) {
-        if (size < 1) {
+        if (size < 1 || idx < 0) {
             return -1;
         }
         int temp = dynamicArray[idx];
