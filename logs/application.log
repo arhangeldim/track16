@@ -1,32 +1,13 @@
-2016-11-20 04:05:40 INFO  ObjectProtocol:19 - decoded: track.messenger.message2016-11-20 04:05:53 INFO  MessengerClient:131 - Tokens: [/login, one, qwerty]
-2016-11-20 04:05:53 INFO  MessengerClient:211 - track.messenger.messages.LoginMessage@6ae40994
-2016-11-20 04:05:53 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.LoginMessage@6ae40994
-2016-11-20 04:05:53 INFO  ObjectProtocol:19 - decoded: AUTHORIZED one
-2016-11-20 04:05:53 INFO  MessengerClient:92 - Message received: AUTHORIZED one
-2016-11-20 04:05:53 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.InfoResultMessage@1caf8e52
-2016-11-20 04:05:53 INFO  MessengerClient:92 - Message received: track.messenger.messages.InfoResultMessage@1caf8e52
-2016-11-20 04:06:00 INFO  MessengerClient:131 - Tokens: [/text, 1, Хорошо-то, как.]
-2016-11-20 04:06:00 INFO  MessengerClient:211 - TextMessage{text='Хорошо-то как.'}
-2016-11-20 04:06:00 INFO  ObjectProtocol:25 - encoded: TextMessage{text='Хорошо-то как.'}
-2016-11-20 04:06:00 INFO  ObjectProtocol:19 - decoded: MESSAGE_DELIVERED 1
-2016-11-20 04:06:00 INFO  MessengerClient:92 - Message received: MESSAGE_DELIVERED 1
-2016-11-20 04:06:00 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistResultMessage@4d5f73c
-2016-11-20 04:06:00 INFO  MessengerClient:92 - Message received: track.messenger.messages.ChatHistResultMessage@4d5f73c
-2016-11-20 04:06:31 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.ChatHistResultMessage@f29cfe5
-2016-11-20 04:06:31 INFO  MessengerClient:92 - Message received: track.messenger.messages.ChatHistResultMessage@f29cfe5
-2016-11-20 04:06:50 INFO  MessengerClient:131 - Tokens: [/quit]
-2016-11-20 04:06:50 INFO  MessengerClient:211 - track.messenger.messages.QuitMessage@515f550a
-2016-11-20 04:06:50 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.QuitMessage@515f550a
-ObjectProtocol:25 - encoded: MESSAGE_DELIVERED 1
-2016-11-20 04:06:31 INFO  Session:105 - sent to: 2
-2016-11-20 04:06:31 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistResultMessage@777e57b4
-2016-11-20 04:06:31 INFO  Session:105 - sent to: 1
-2016-11-20 04:06:31 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.ChatHistResultMessage@7fb97570
-2016-11-20 04:06:46 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.QuitMessage@5c29bfd
-2016-11-20 04:06:46 INFO  Session:105 - sent to: 1
-2016-11-20 04:06:46 INFO  ObjectProtocol:25 - encoded: GOODBYE 
-2016-11-20 04:06:50 INFO  ObjectProtocol:19 - decoded: track.messenger.messages.QuitMessage@7aec35a
-2016-11-20 04:06:50 INFO  Session:105 - sent to: 2
-2016-11-20 04:06:50 INFO  ObjectProtocol:25 - encoded: GOODBYE 
-essenger.messages.QuitMessage@36aa7bc2
-2016-11-20 04:06:46 INFO  ObjectProtocol:25 - encoded: track.messenger.messages.QuitMessage@36aa7bc2
+2016-11-24 18:10:19 INFO  ObjectProtocol:17 - decoded: track.messenger.messages.LoginMessage@41cf53f9
+2016-11-24 18:10:19 INFO  Session:106 - sent to: 1
+2016-11-24 18:10:19 INFO  ObjectProtocol:23 - encoded: AUTHORIZED geoolekom
+2016-11-24 18:10:19 INFO  Session:106 - sent to: 1
+2016-11-24 18:10:19 INFO  ObjectProtocol:23 - encoded: track.messenger.messages2016-11-24 18:10:20 INFO  Ob2016-11-24 18:10:25 INFO  ObjectProtocol:17 - decoded: track.messenger.messages.ChatHistMessage@4b85612c
+2016-11-24 18:10:25 INFO  Session:106 - sent to: 1
+2016-11-24 18:10:25 INFO  ObjectProtocol:23 - encoded: track.messenger.messages.ChatHistResultMessage@55348a0c
+ MessengerClient:103 - Message received: track.messenger.messages.InfoResultMessage@69dc4b88
+2016-11-24 18:10:25 INFO  MessengerClient:142 - Tokens: [/chat_hist, 1]
+2016-11-24 18:10:25 INFO  MessengerClient:222 - track.messenger.messages.ChatHistMessage@626b2d4a
+2016-11-24 18:10:25 INFO  ObjectProtocol:23 - encoded: track.messenger.messages.ChatHistMessage@626b2d4a
+2016-11-24 18:10:25 INFO  ObjectProtocol:17 - decoded: track.messenger.messages.ChatHistResultMessage@174747f9
+2016-11-24 18:10:25 INFO  MessengerClient:103 - Message received: track.messenger.messages.ChatHistResultMessage@174747f9

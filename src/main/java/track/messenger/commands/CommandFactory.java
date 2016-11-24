@@ -1,13 +1,6 @@
 package track.messenger.commands;
 
-import track.messenger.messages.TextMessage;
 import track.messenger.messages.Type;
-import track.messenger.store.ChatRelationStore;
-import track.messenger.store.MessageStore;
-import track.messenger.store.StoreFactory;
-import track.messenger.store.UserStore;
-import track.messenger.store.dao.ChatRelation;
-import track.messenger.store.dao.User;
 
 import java.util.HashMap;
 import java.util.Map;

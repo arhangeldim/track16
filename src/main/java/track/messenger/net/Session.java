@@ -3,6 +3,7 @@ package track.messenger.net;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.Arrays;
 import java.util.Date;
 
 
@@ -72,12 +73,12 @@ public class Session {
     public Message getMessage() throws IOException, ProtocolException {
 
         byte[] buf = new byte[MAX_MSG_SIZE];
-        int read = 0;
+        int read;
         Message ret = null;
         try {
             read = in.read(buf, 0, MAX_MSG_SIZE);
             if (read > 0) {
-                ret = protocol.decode(buf);
+                ret = protocol.decode(Arrays.copyOf(buf, read));
             }
         } catch (SocketTimeoutException ste) {
             ret = null;
@@ -112,11 +113,16 @@ public class Session {
 
     // onMessage не нужен
 
-    @PreDestroy
+
+    public void kill() {
+        if (!alive) {
+            IOUtil.closeQuietly(in);
+            IOUtil.closeQuietly(out);
+            IOUtil.closeQuietly(socket);
+        }
+    }
+
     public void close() {
-        IOUtil.closeQuietly(in);
-        IOUtil.closeQuietly(out);
-        IOUtil.closeQuietly(socket);
         alive = false;
     }
 

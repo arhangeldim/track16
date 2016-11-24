@@ -6,8 +6,6 @@
         <property name="protocol" ref="protocol"/>
     </bean>
 
-    <bean id="protocol" class="track.messenger.net.ObjectProtocol">
-
-    </bean>
+    <bean id="protocol" class="track.messenger.net.ObjectProtocol"/>
 
 </root>

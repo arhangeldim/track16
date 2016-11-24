@@ -2,23 +2,17 @@ package track.messenger.net;
 
 import org.mockito.internal.util.io.IOUtil;
 import track.messenger.commands.Command;
+import track.messenger.commands.CommandException;
 import track.messenger.commands.CommandFactory;
 import track.messenger.messages.*;
 import track.messenger.security.CryptoSystem;
-import track.messenger.store.ChatRelationStore;
-import track.messenger.store.MessageStore;
 import track.messenger.store.StoreFactory;
-import track.messenger.store.UserStore;
-import track.messenger.store.dao.ChatRelation;
-import track.messenger.store.dao.User;
 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Date;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.net.SocketException;
 import java.util.concurrent.*;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -27,7 +21,7 @@ import java.util.stream.Collectors;
 public class MessengerServer {
 
     private ServerSocket serverSocket;
-    private LinkedBlockingQueue<Session> sessions;
+    private BlockingQueue<Session> sessions;
 
     private Integer port;
     private Integer nthreads;
@@ -64,7 +58,10 @@ public class MessengerServer {
                 try {
                     clientSocket = serverSocket.accept();
                     sessions.put(new Session(clientSocket));
-                } catch (Exception e) {
+                } catch (IOException e) {
+                    System.out.println("Клиент отключился. " + e.toString());
+                    Thread.currentThread().interrupt();
+                } catch (InterruptedException e) {
                     System.out.println("listen: " + e.toString());
                     Thread.currentThread().interrupt();
                 }
@@ -90,26 +87,28 @@ public class MessengerServer {
                     service.submit(() -> {
                         try {
                             Command command = commands.get(msg.getType());
-                            command.execute(session, msg, crypto, stores);
-                            if (session.isAlive()) {
-                                sessions.put(session);
-                            } else {
-                                System.out.println("Клиент отключился.");
+                            try {
+                                command.execute(session, msg, crypto, stores);
+                            } catch (CommandException e) {
+                                System.out.println("Ошибка выполнения команды: " + e.toString());
                             }
-                        } catch (Exception e) {
-                            System.out.println(this.getClass() + ": ошибка обработки сообщения: " + e.toString());
+                            sessions.put(session);
+                        } catch (InterruptedException e) {
+                            System.out.println("Клиент отключился. " + e.toString());
                         }
                     });
                 } else if (session.isAlive()) {
                     service.submit(() -> {
                         try {
                             Command command = commands.get(Type.REFRESH);
-                            command.execute(session, new ChatHistMessage(), crypto, stores);
+                            command.execute(session, msg, crypto, stores);
                             sessions.put(session);
                         } catch (Exception e) {
                             System.out.println(this.getClass() + ": ошибка обработки входящих: " + e.toString());
                         }
                     });
+                } else {
+                    session.kill();
                 }
             }
 

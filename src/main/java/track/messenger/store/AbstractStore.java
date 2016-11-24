@@ -4,6 +4,7 @@ import org.sqlite.javax.SQLiteConnectionPoolDataSource;
 
 import java.sql.*;
 import java.util.List;
+import java.util.concurrent.FutureTask;
 
 /**
  * Created by geoolekom on 17.11.16.
@@ -24,9 +25,12 @@ public abstract class AbstractStore<T> {
         List<T> objects;
         try (Connection connection = dataSource.getPooledConnection().getConnection();
              PreparedStatement statement = connection
-                        .prepareStatement("select * from " + tableName + " where " + filter + ";")) {
+                     .prepareStatement("select * from " + tableName + " where " + filter + ";")) {
             ResultSet resultSet = statement.executeQuery();
             objects = fill(resultSet);
+            resultSet.close();
+            statement.close();
+            connection.close();
         } catch (SQLException e) {
             objects = null;
         }
@@ -38,13 +42,16 @@ public abstract class AbstractStore<T> {
             System.out.println(this.getClass() + ": попытка сохранить пустой список. ");
             return;
         }
+
         try (Connection connection = dataSource.getPooledConnection().getConnection();
              PreparedStatement statement = connection
                      .prepareStatement("insert into '" + tableName + "' " +
                              columns() + " values " + values(objects) + ";")) {
             statement.executeUpdate();
+            statement.close();
+            connection.close();
         } catch (SQLException e) {
-            System.out.println(this.getClass() + ": ошибка добавления в базу. ");
+            System.out.println(this.getClass() + ": ошибка добавления в базу. "  + e.toString());
         }
     }
 
@@ -52,9 +59,12 @@ public abstract class AbstractStore<T> {
         Integer maxId;
         try (Connection connection = dataSource.getPooledConnection().getConnection();
              PreparedStatement statement = connection
-                        .prepareStatement("select max(" + field + ") as m from " + tableName + ";")) {
+                     .prepareStatement("select max(" + field + ") as m from " + tableName + ";")) {
             ResultSet resultRows = statement.executeQuery();
             maxId = resultRows.getInt("m");
+            resultRows.close();
+            statement.close();
+            connection.close();
         } catch (SQLException e) {
             maxId = 1;
         }

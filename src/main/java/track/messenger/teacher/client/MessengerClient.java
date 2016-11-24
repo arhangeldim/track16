@@ -4,10 +4,16 @@ package track.messenger.teacher.client;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.SequenceInputStream;
 import java.net.Socket;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,11 +36,16 @@ public class MessengerClient {
     private Protocol protocol;
     private Integer port;
     private String host;
+    private int recieved;
 
     private InputStream in;
     private OutputStream out;
 
     private User user;
+
+    public int getRecieved() {
+        return recieved;
+    }
 
     public Protocol getProtocol() {
         return protocol;
@@ -93,7 +104,7 @@ public class MessengerClient {
         if (msg == null) {
             return;
         }
-
+        recieved ++;
         Type msgType = msg.getType();
         switch (msgType) {
             case MSG_SELF_INFO:
@@ -216,12 +227,12 @@ public class MessengerClient {
     public void close() {
     }
 
-    public void start() {
+    public void start(InputStream in) {
         try {
             initSocket();
 
             // Цикл чтения с консоли
-            Scanner scanner = new Scanner(System.in);
+            Scanner scanner = new Scanner(in);
             while (true) {
                 String input = scanner.nextLine();
                 try {
@@ -233,6 +244,7 @@ public class MessengerClient {
                     System.out.println("Завершение сеанса...");
                     break;
                 }
+                Thread.sleep(500);
             }
         } catch (Exception e) {
             log.error("Приложение рухнуло с оглушительным грохотом.", e);
@@ -243,8 +255,11 @@ public class MessengerClient {
 
     public static void main(String[] args) throws Exception {
 
+        String command = "/login geoolekom qwerty\n";
         Container container = new Container("client.xml");
+        InputStream commandStream = IOUtils.toInputStream(command);
+        SequenceInputStream in = new SequenceInputStream(commandStream, System.in);
         MessengerClient client = (MessengerClient) container.getByName("messengerClient");
-        client.start();
+        client.start(in);
     }
 }

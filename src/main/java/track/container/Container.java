@@ -90,10 +90,10 @@ public class Container {
                     paramTypes = new Class[] { field.getType() };
                     args = new Object[] { constructor.newInstance(prop.getValue()) };
                 } catch (NoSuchMethodException exception) {
-                    System.out.println("No string constructor.");
+                    System.out.println("No string constructor." + field.toString());
                     throw (exception);
                 } catch (Exception exception) {
-                    System.out.println("Wrong data format.");
+                    System.out.println("Wrong data format." + field.toString());
                     throw (exception);
                 }
             } else {
