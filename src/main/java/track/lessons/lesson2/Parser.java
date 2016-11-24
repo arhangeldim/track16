@@ -1,27 +1,34 @@
 package track.lessons.lesson2;
 
+import javax.print.Doc;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.Arrays;
 
-/**
- *
- */
 public class Parser {
+    //Second trying
 
     Document parse(String data) {
-        return null;
+
+        String[] tokens = data.split(" ");
+
+        Document document = new Document(tokens);
+
+        return document;
     }
 
     public static void main(String[] args) throws Exception {
 
-        String path = "path/to/file";
+        String path = "/home/user/";
         BufferedReader reader = new BufferedReader(new FileReader(path));
-        // reader умеет читать по строкам с помощью метода readLine()
+        StringBuilder stringBuilder = new StringBuilder();
 
-        // Создайте объект Parser
+        String temp;
+        while ((temp = reader.readLine()) != null) {
+            stringBuilder.append(temp + " ");
+        }
 
-        // Получите объект Document, реализовав метод parse()
-
-
+        Parser parser = new Parser();
+        Document document = parser.parse(stringBuilder.toString());
     }
 }
