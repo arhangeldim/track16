@@ -57,12 +57,16 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public void setPassword(byte[] rawPassword) {
+        this.password = new String(rawPassword);
+    }
+
     public void setSalt(String salt) {
         this.salt = salt;
     }
 
     @Override
     public String toString() {
-        return "username:\t" + username.toString();
+        return "username:\t" + username;
     }
 }

@@ -2,6 +2,7 @@ package track.messenger.store;
 
 import track.messenger.store.dao.User;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
@@ -15,13 +16,15 @@ import java.util.List;
 public class UserStore extends AbstractStore<User> {
 
     @Override
-    public String values(List<User> objects) {
-        StringBuilder insert = new StringBuilder();
-        for (User user : objects) {
-            insert.append("('" + user.getUsername() + "', '" + user.getPassword() + "', '" + user.getSalt() + "'), ");
-        }
-        String value = insert.toString();
-        return value.substring(0, value.length() - 2);
+    public void setup(PreparedStatement statement, User user) throws SQLException {
+        statement.setString(1, user.getUsername());
+        statement.setBytes(2, user.getPassword().getBytes());
+        statement.setString(3, user.getSalt());
+    }
+
+    @Override
+    public String values() {
+        return "(?, ?, ?)";
     }
 
     @Override
@@ -31,7 +34,7 @@ public class UserStore extends AbstractStore<User> {
             User user = new User();
             user.setId(resultSet.getInt("id"));
             user.setUsername(resultSet.getString("username"));
-            user.setPassword(resultSet.getString("password"));
+            user.setPassword(resultSet.getBytes("password"));
             user.setSalt(resultSet.getString("salt"));
             users.add(user);
         }

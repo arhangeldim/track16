@@ -230,7 +230,7 @@ public class MessengerClient {
     public void start(InputStream in) {
         try {
             initSocket();
-
+            Thread.sleep(2000);
             // Цикл чтения с консоли
             Scanner scanner = new Scanner(in);
             while (true) {
@@ -255,11 +255,12 @@ public class MessengerClient {
 
     public static void main(String[] args) throws Exception {
 
-        String command = "/login geoolekom qwerty\n";
+        String command = "/login geoolekom qwerty\n" +
+                "/chat_hist 1\n";
         Container container = new Container("client.xml");
         InputStream commandStream = IOUtils.toInputStream(command);
         SequenceInputStream in = new SequenceInputStream(commandStream, System.in);
         MessengerClient client = (MessengerClient) container.getByName("messengerClient");
-        client.start(in);
+        client.start(System.in);
     }
 }

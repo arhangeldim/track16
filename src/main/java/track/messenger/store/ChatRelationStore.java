@@ -3,6 +3,7 @@ package track.messenger.store;
 import track.messenger.messages.Chat;
 import track.messenger.store.dao.ChatRelation;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -15,17 +16,15 @@ import java.util.stream.Collectors;
 public class ChatRelationStore extends AbstractStore<ChatRelation> {
 
     @Override
-    public String values(List<ChatRelation> objects) throws SQLException {
-        StringBuilder insert = new StringBuilder();
-        for (ChatRelation relation : objects) {
-            insert.append(
-                    "('" + relation.getAdminId() + "', '" +
-                            relation.getChatId() + "', '" +
-                            relation.getParticipantId() + "'), "
-            );
-        }
-        String value = insert.toString();
-        return value.substring(0, value.length() - 2);
+    public void setup(PreparedStatement statement, ChatRelation relation) throws SQLException {
+        statement.setInt(1, relation.getAdminId());
+        statement.setInt(2, relation.getChatId());
+        statement.setInt(3, relation.getParticipantId());
+    }
+
+    @Override
+    public String values() throws SQLException {
+        return "(?, ?, ?)";
     }
 
     @Override

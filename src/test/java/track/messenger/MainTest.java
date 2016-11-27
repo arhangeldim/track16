@@ -9,6 +9,7 @@ import track.messenger.net.MessengerServer;
 import track.messenger.net.ObjectProtocol;
 import track.messenger.teacher.client.MessengerClient;
 
+import java.util.Arrays;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -21,6 +22,7 @@ public class MainTest {
     ExecutorService workers;
     MessengerServer server;
     BlockingQueue<String> logins;
+    String command = "";
 
     @Before
     public void setUp() throws Exception {
@@ -49,27 +51,39 @@ public class MainTest {
     @Test
     public void ManyClientsTest() {
         BlockingQueue<Integer> executed = new LinkedBlockingQueue<>();
-        workers.submit(() -> {
+
+        Runnable clientImpl = () -> {
             MessengerClient client = new MessengerClient();
             client.setHost("localhost");
             client.setPort(19000);
             client.setProtocol(new ObjectProtocol());
-            client.start(IOUtils.toInputStream(
-                    "/login one qwerty\n" +
-                            "/text 2 blabla\n" +
-                            "/text 2 " + Thread.currentThread().getName() + "\n" +
-                            "/quit"
-            ));
+            try {
+                client.start(IOUtils.toInputStream(
+                        "/login " + logins.take() + " qwerty\n" +
+                                //"/chat_create 3 4 5 6 7 8 9 10 11 12" +
+                                //"/text 2 blabla\n" +
+                                //"/text 2 " + Thread.currentThread().getName() + "\n" +
+                                "/quit"
+                ));
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
             System.out.println(client.getRecieved());
             executed.add(0);
-        });
-        workers.shutdown();
+        };
+
         try {
+            for (int i = 0; i < 10; i++) {
+                workers.submit(clientImpl);
+                Thread.sleep(100);
+            }
+            workers.shutdown();
             workers.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
-            System.out.println("FUCK");
+            System.out.println("FINAL VALUE: " + executed.size());
+            Thread.currentThread().interrupt();
         }
-        System.out.println(executed.size());
+        System.out.println("FINAL VALUE: " + executed.size());
     }
 
 

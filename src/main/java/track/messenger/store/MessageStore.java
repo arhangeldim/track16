@@ -2,6 +2,7 @@ package track.messenger.store;
 
 import track.messenger.messages.TextMessage;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -18,18 +19,16 @@ import java.util.List;
 public class MessageStore extends AbstractStore<TextMessage> {
 
     @Override
-    public String values(List<TextMessage> objects) throws SQLException {
-        StringBuilder insert = new StringBuilder();
-        for (TextMessage msg : objects) {
-            insert.append(
-                    "('" + msg.getTimestamp() + "', '" +
-                            msg.getChatId().toString() + "', '" +
-                            msg.getSenderId().toString() + "', '" +
-                            msg.getText() + "'), "
-            );
-        }
-        String value = insert.toString();
-        return value.substring(0, value.length() - 2);
+    public void setup(PreparedStatement statement, TextMessage message) throws SQLException {
+        statement.setString(1, message.getTimestamp());
+        statement.setInt(2, message.getChatId());
+        statement.setInt(3, message.getSenderId());
+        statement.setString(4, message.getText());
+    }
+
+    @Override
+    public String values() throws SQLException {
+        return "(?, ?, ?, ?)";
     }
 
     @Override
