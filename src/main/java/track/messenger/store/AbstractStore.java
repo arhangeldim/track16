@@ -19,11 +19,11 @@ public abstract class AbstractStore<T> {
         try {
             dataSource.setDriverClass("org.sqlite.JDBC");
             dataSource.setJdbcUrl("jdbc:sqlite:" + databaseName);
-            dataSource.setInitialPoolSize(4);
-            dataSource.setMinPoolSize(4);
-            dataSource.setUnreturnedConnectionTimeout(10000);
-            dataSource.setMaxPoolSize(32);
-            dataSource.setMaxStatements(256);
+            dataSource.setInitialPoolSize(16);
+            dataSource.setMinPoolSize(16);
+            dataSource.setUnreturnedConnectionTimeout(1000);
+            dataSource.setMaxPoolSize(64);
+            dataSource.setMaxStatements(512);
             dataSource.setMaxStatementsPerConnection(16);
         } catch (Exception e) {
             dataSource = null;

@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.SequenceInputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -89,6 +90,9 @@ public class MessengerClient {
                         Message msg = protocol.decode(Arrays.copyOf(buf, read));
                         onMessage(msg);
                     }
+                } catch (SocketException e) {
+                    log.error("Server doesn't exist.", e);
+                    halt();
                 } catch (Exception e) {
                     log.error("Failed to process connection: {}", e);
                     e.printStackTrace();

@@ -1,10 +1,7 @@
 package track.messenger;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import track.container.Container;
 import track.messenger.net.MessengerServer;
 import track.messenger.net.ObjectProtocol;
@@ -24,18 +21,16 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class MainTest {
 
-    private String host = "localhost";
-    private int port = 19000;
-    private int nusers = 2;
+    static private String host = "localhost";
+    static private int port = 19000;
+    static private int nusers = 2;
 
-    private ExecutorService workers;
-    private MessengerServer server;
-    private BlockingQueue<String> logins;
-    private BlockingQueue<MessengerClient> executed = new LinkedBlockingQueue<>();
+    static private MessengerServer server;
+    static private BlockingQueue<String> logins;
+    static private BlockingQueue<MessengerClient> executed = new LinkedBlockingQueue<>();
 
-    @Before
-    public void setUp() throws Exception {
-        workers = Executors.newCachedThreadPool();
+    @BeforeClass
+    static public void setUpClass() throws Exception {
         Container container = new Container("server.xml");
         server = (MessengerServer) container.getByName("messengerServer");
         Thread serverThread = new Thread(() -> {
@@ -44,26 +39,36 @@ public class MainTest {
             } catch (Exception e) {
                 Thread.currentThread().interrupt();
             }
+
         });
+        serverThread.start();
+
+    }
+
+    @AfterClass
+    static public void tearDownClass() throws Exception {
+        server.halt();
+    }
+
+    @Before
+    public void setUp() throws Exception {
         logins = new LinkedBlockingQueue<>();
         for (int i = 0; i < nusers; i++) {
             logins.add("user" + i);
         }
-        serverThread.start();
     }
 
     @After
     public void tearDown() throws Exception {
-        server.halt();
+        executed.clear();
     }
 
-    //@Test
+    @Test
     public void ConnectionTest() {
-        executeClientsQuietly("");
+        executeClients("");
         //executed.stream().map(MessengerClient::getRecieved).forEach(System.out::println);
         executed.forEach(client -> Assert.assertEquals(3, client.getRecieved()));
         System.out.println("+ Connection test passed.");
-        executed.clear();
     }
 
     @Test
@@ -72,10 +77,10 @@ public class MainTest {
         //executed.stream().map(MessengerClient::getRecieved).forEach(System.out::println);
         executed.forEach(client -> Assert.assertEquals(4, client.getRecieved()));
         System.out.println("+ Login test passed.");
-        executed.clear();
     }
 
     private void executeClients(String command) {
+        ExecutorService workers = Executors.newFixedThreadPool(nusers);
         Runnable clientImpl = () -> {
             MessengerClient client = new MessengerClient();
             client.setHost(host);
@@ -94,10 +99,12 @@ public class MainTest {
         };
 
         try {
+            Thread.sleep(100);
             for (int i = 0; i < nusers; i++) {
                 workers.submit(clientImpl);
                 Thread.sleep(100);
             }
+
             workers.shutdown();
             workers.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
@@ -112,7 +119,7 @@ public class MainTest {
         } catch (FileNotFoundException e) {
             //
         }
-        executeClients("");
+        executeClients(command);
         System.setOut(out);
     }
 
