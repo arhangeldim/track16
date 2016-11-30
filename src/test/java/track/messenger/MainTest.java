@@ -73,7 +73,7 @@ public class MainTest {
 
     @Test
     public void AuthTest() {
-        executeClientsQuietly("/info\n");
+        executeClients("/info\n");
         //executed.stream().map(MessengerClient::getRecieved).forEach(System.out::println);
         executed.forEach(client -> Assert.assertEquals(4, client.getRecieved()));
         System.out.println("+ Login test passed.");
