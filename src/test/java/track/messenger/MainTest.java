@@ -65,15 +65,15 @@ public class MainTest {
 
     @Test
     public void ConnectionTest() {
-        executeClients("");
+        executeClientsQuietly("");
         //executed.stream().map(MessengerClient::getRecieved).forEach(System.out::println);
-        //executed.forEach(client -> Assert.assertEquals(3, client.getRecieved()));
+        executed.forEach(client -> Assert.assertEquals(3, client.getRecieved()));
         System.out.println("+ Connection test passed.");
     }
 
     @Test
     public void AuthTest() {
-        executeClients("/info\n");
+        executeClientsQuietly("/info\n");
         //executed.stream().map(MessengerClient::getRecieved).forEach(System.out::println);
         executed.forEach(client -> Assert.assertEquals(4, client.getRecieved()));
         System.out.println("+ Login test passed.");
@@ -99,7 +99,7 @@ public class MainTest {
         };
 
         try {
-            Thread.sleep(100);
+            Thread.sleep(500);
             for (int i = 0; i < nusers; i++) {
                 workers.submit(clientImpl);
                 Thread.sleep(500);

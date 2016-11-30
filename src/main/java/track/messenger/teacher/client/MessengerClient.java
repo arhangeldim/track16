@@ -238,7 +238,7 @@ public class MessengerClient {
         try {
             alive = true;
             initSocket();
-            Thread.sleep(2000);
+            Thread.sleep(1000);
             // Цикл чтения с консоли
             Scanner scanner = new Scanner(in);
             while (alive) {
@@ -248,7 +248,7 @@ public class MessengerClient {
                 } catch (ProtocolException | IOException e) {
                     log.error("Ошибки при обработке потока ввода.", e);
                 }
-                Thread.sleep(500);
+                Thread.sleep(1000);
             }
         } catch (Exception e) {
             log.error("Приложение рухнуло с оглушительным грохотом.", e);
