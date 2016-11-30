@@ -78,7 +78,7 @@ public class MainTest {
         }
 
         workers = Executors.newFixedThreadPool(nusers);
-        ///*
+        /*
         try {
             System.setOut(new PrintStream(new FileOutputStream("/dev/null")));
         } catch (FileNotFoundException e) {
@@ -97,7 +97,7 @@ public class MainTest {
         try {
             for (int i = 0; i < nusers; i++) {
                 workers.submit(clientSession);
-                Thread.sleep(1000);
+                Thread.sleep(500);
             }
             workers.shutdown();
             workers.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
@@ -115,7 +115,7 @@ public class MainTest {
             for (int i = 0; i < nusers; i++) {
                 command = "/login " + logins.take() + " qwerty \n" + "/info\n";
                 workers.submit(clientSession);
-                Thread.sleep(1000);
+                Thread.sleep(500);
             }
             workers.shutdown();
             workers.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
@@ -136,7 +136,7 @@ public class MainTest {
                 command =
                         "/login " + login + " qwerty \n" + "/chat_create 2\n";
                 workers.submit(clientSession);
-                Thread.sleep(1000);
+                Thread.sleep(500);
             }
             workers.shutdown();
             workers.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
