@@ -25,6 +25,7 @@ public class MessengerServer {
 
     private Integer port;
     private Integer nthreads;
+    private boolean alive;
     private StoreFactory stores;
     private CommandFactory commands;
     private CryptoSystem crypto;
@@ -53,7 +54,7 @@ public class MessengerServer {
 
     public void listen() {
         Thread listenerThread = new Thread(() -> {
-            while (!Thread.currentThread().isInterrupted()) {
+            while (!Thread.currentThread().isInterrupted() && alive) {
                 Socket clientSocket = null;
                 try {
                     clientSocket = serverSocket.accept();
@@ -75,12 +76,13 @@ public class MessengerServer {
         serverSocket = null;
         sessions = new LinkedBlockingQueue<>();
         ExecutorService service = Executors.newFixedThreadPool(nthreads);
+        alive = true;
         try {
             serverSocket = new ServerSocket(port);
             System.out.println("Ждем соединения...");
             listen();
 
-            while (true) {
+            while (alive) {
                 Session session = sessions.take();
                 Message msg = session.getMessage();
                 if (msg != null) {
@@ -113,8 +115,14 @@ public class MessengerServer {
             }
 
         } finally {
+            sessions.forEach(Session::kill);
+            stores.close();
             IOUtil.closeQuietly(serverSocket);
         }
+    }
+
+    public void halt() {
+        alive = false;
     }
 
 }

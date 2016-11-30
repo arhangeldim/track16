@@ -26,5 +26,9 @@ public class StoreFactory {
         put(storeImpl);
     }
 
+    public void close() {
+        stores.values().forEach(AbstractStore::close);
+    }
+
 
 }

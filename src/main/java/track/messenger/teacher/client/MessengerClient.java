@@ -37,6 +37,7 @@ public class MessengerClient {
     private Integer port;
     private String host;
     private int recieved;
+    private boolean alive;
 
     private InputStream in;
     private OutputStream out;
@@ -79,7 +80,7 @@ public class MessengerClient {
         Thread socketListenerThread = new Thread(() -> {
             final byte[] buf = new byte[MAX_MSG_SIZE];
             log.info("Слушаем сервер...");
-            while (!Thread.currentThread().isInterrupted()) {
+            while (!Thread.currentThread().isInterrupted() && alive) {
                 try {
                     // Здесь поток блокируется на ожидании данных
                     int read = in.read(buf);
@@ -118,7 +119,11 @@ public class MessengerClient {
                 break;
             case MSG_STATUS:
                 StatusMessage statusMessage = (StatusMessage) msg;
-                System.out.println(statusMessage);
+                if (statusMessage.getStatus() == Status.GOODBYE) {
+                    halt();
+                } else {
+                    System.out.println(statusMessage);
+                }
                 break;
             case MSG_CHAT_HIST_RESULT:
                 ChatHistResultMessage histMessage = (ChatHistResultMessage) msg;
@@ -224,33 +229,31 @@ public class MessengerClient {
         out.flush(); // принудительно проталкиваем буфер с данными
     }
 
-    public void close() {
-    }
-
     public void start(InputStream in) {
         try {
+            alive = true;
             initSocket();
             Thread.sleep(2000);
             // Цикл чтения с консоли
             Scanner scanner = new Scanner(in);
-            while (true) {
+            while (alive) {
                 String input = scanner.nextLine();
                 try {
                     processInput(input);
                 } catch (ProtocolException | IOException e) {
                     log.error("Ошибки при обработке потока ввода.", e);
                 }
-                if ("/quit".equals(input)) {
-                    System.out.println("Завершение сеанса...");
-                    break;
-                }
                 Thread.sleep(500);
             }
         } catch (Exception e) {
             log.error("Приложение рухнуло с оглушительным грохотом.", e);
         } finally {
-            close();
+            halt();
         }
+    }
+
+    public void halt() {
+        alive = false;
     }
 
     public static void main(String[] args) throws Exception {

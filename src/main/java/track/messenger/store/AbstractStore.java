@@ -88,6 +88,10 @@ public abstract class AbstractStore<T> {
         return maxId;
     }
 
+    public void close() {
+        dataSource.close();
+    }
+
     public void setTableName(String tableName) {
         this.tableName = tableName;
     }
