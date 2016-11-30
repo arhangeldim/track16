@@ -242,14 +242,14 @@ public class MessengerClient {
             // Цикл чтения с консоли
             Scanner scanner = new Scanner(in);
             while (alive) {
-                Thread.sleep(1000); // имитируем набор
+                Thread.sleep(500); // имитируем набор
                 String input = scanner.nextLine();
                 try {
                     processInput(input);
                 } catch (ProtocolException | IOException e) {
                     log.error("Ошибки при обработке потока ввода.", e);
                 }
-                Thread.sleep(1000);
+                Thread.sleep(2000);
             }
         } catch (Exception e) {
             log.error("Приложение рухнуло с оглушительным грохотом.", e);
