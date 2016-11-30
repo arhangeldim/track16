@@ -242,6 +242,7 @@ public class MessengerClient {
             // Цикл чтения с консоли
             Scanner scanner = new Scanner(in);
             while (alive) {
+                Thread.sleep(3000);
                 String input = scanner.nextLine();
                 try {
                     processInput(input);
