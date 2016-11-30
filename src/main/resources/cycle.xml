@@ -1,0 +1,23 @@
+<root>
+
+    <bean id="bodyBean" class="track.container.beans.Body">
+        <property name="weight" val="1500"/>
+        <property name="gear" ref="gearBean"/>
+    </bean>
+
+    <bean id="carBean" class="track.container.beans.Car">
+        <property name="gear" ref="gearBean"/>
+        <property name="engine" ref="engineBean"/>
+        <property name="body" ref="bodyBean"/>
+    </bean>
+
+    <bean id="gearBean" class="track.container.beans.Gear">
+        <property name="count" val="6"/>
+        <property name="body" ref="bodyBean"/>
+    </bean>
+
+    <bean id="engineBean" class="track.container.beans.Engine">
+        <property name="power" val="200"/>
+    </bean>
+
+</root>

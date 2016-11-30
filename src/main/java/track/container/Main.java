@@ -1,26 +1,20 @@
 package track.container;
 
 /**
- *
+ * Created by geoolekom on 12.10.16.
  */
+import track.container.beans.*;
+
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
-        /*
-
-        ПРИМЕР ИСПОЛЬЗОВАНИЯ
-
-         */
-
-//        // При чтении нужно обработать исключение
-//        ConfigReader reader = new JsonReader();
-//        List<Bean> beans = reader.parseBeans("config.json");
-//        Container container = new Container(beans);
-//
-//        Car car = (Car) container.getByClass("track.container.beans.Car");
-//        car = (Car) container.getById("carBean");
-
-
+        Container container = new Container("config.xml");
+        System.out.println(container.getBeans());
+        Gear gear = (Gear) container.getByClass("track.container.beans.Gear");
+        System.out.println(gear.getCount());
+        gear.setCount(5);
+        System.out.println(gear.getCount());
     }
+
 }

@@ -1,0 +1,11 @@
+<root>
+
+    <bean id="messengerClient" class="track.messenger.teacher.client.MessengerClient">
+        <property name="host" val="localhost"/>
+        <property name="port" val="19000"/>
+        <property name="protocol" ref="protocol"/>
+    </bean>
+
+    <bean id="protocol" class="track.messenger.net.ObjectProtocol"/>
+
+</root>

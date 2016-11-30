@@ -25,11 +25,10 @@ public class Server {
             try (InputStream in = socket.getInputStream();
                  OutputStream out = socket.getOutputStream()) {
 
-
                 byte[] buf = new byte[32 * 1024];
                 int readBytes = in.read(buf);
                 String line = new String(buf, 0, readBytes);
-                System.out.printf("Client>%s", line);
+                System.out.printf("lient>%s", line);
 
                 out.write(line.getBytes());
                 out.flush();

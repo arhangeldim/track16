@@ -1,0 +1,40 @@
+<root>
+
+    <bean id="messengerServer" class="track.messenger.net.MessengerServer">
+        <property name="port" val="19000"/>
+        <property name="nthreads" val="4"/>
+        <property name="crypto" ref="cryptoSystem"/>
+        <property name="commands" ref="commandFactory"/>
+        <property name="stores" ref="storeFactory"/>
+    </bean>
+
+    <bean id="cryptoSystem" class="track.messenger.security.CryptoSystem">
+        <property name="hashAlgorithm" val="SHA-256"/>
+        <property name="saltLength" val="10"/>
+        <property name="numberOfIterations" val="1000"/>
+    </bean>
+
+    <bean id="commandFactory" class="track.messenger.commands.CommandFactory"/>
+
+    <bean id="storeFactory" class="track.messenger.store.StoreFactory">
+        <property name="storeImpl" ref="userStore"/>
+        <property name="storeImpl" ref="messageStore"/>
+        <property name="storeImpl" ref="chatRelationStore"/>
+    </bean>
+
+    <bean id="userStore" class="track.messenger.store.UserStore">
+        <property name="databaseName" val="store.sqlite3"/>
+        <property name="tableName" val="Users"/>
+    </bean>
+
+    <bean id="messageStore" class="track.messenger.store.MessageStore">
+        <property name="databaseName" val="store.sqlite3"/>
+        <property name="tableName" val="Messages"/>
+    </bean>
+
+    <bean id="chatRelationStore" class="track.messenger.store.ChatRelationStore">
+        <property name="databaseName" val="store.sqlite3"/>
+        <property name="tableName" val="ChatRelations"/>
+    </bean>
+
+</root>
