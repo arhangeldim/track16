@@ -23,11 +23,28 @@ public class MainTest {
 
     static private String host = "localhost";
     static private int port = 19000;
-    static private int nusers = 2;
-
+    static private int nusers = 5;
     static private MessengerServer server;
-    static private BlockingQueue<String> logins;
-    static private BlockingQueue<MessengerClient> executed = new LinkedBlockingQueue<>();
+    static private PrintStream stdout = System.out;
+
+    private BlockingQueue<String> chats;
+    private BlockingQueue<String> logins;
+    private BlockingQueue<MessengerClient> executed = new LinkedBlockingQueue<>();
+    private ExecutorService workers;
+    private String command = "";
+
+    private Runnable clientSession = () -> {
+        String myCommand;
+        synchronized (command) {
+            myCommand = command + "/quit\n";
+        }
+        MessengerClient client = new MessengerClient();
+        client.setHost(host);
+        client.setPort(port);
+        client.setProtocol(new ObjectProtocol());
+        client.start(IOUtils.toInputStream(myCommand));
+        executed.add(client);
+    };
 
     @BeforeClass
     static public void setUpClass() throws Exception {
@@ -53,9 +70,21 @@ public class MainTest {
     @Before
     public void setUp() throws Exception {
         logins = new LinkedBlockingQueue<>();
+        chats = new LinkedBlockingQueue<>();
+
         for (Integer i = 0; i < nusers; i++) {
             logins.add("user" + i.toString());
+            chats.add(Integer.toString(i+25));
         }
+
+        workers = Executors.newFixedThreadPool(nusers);
+        ///*
+        try {
+            System.setOut(new PrintStream(new FileOutputStream("/dev/null")));
+        } catch (FileNotFoundException e) {
+            //
+        }
+        //*/
     }
 
     @After
@@ -64,64 +93,60 @@ public class MainTest {
     }
 
     @Test
-    public void ConnectionTest() {
-        executeClientsQuietly("");
-        //executed.stream().map(MessengerClient::getRecieved).forEach(System.out::println);
-        executed.forEach(client -> Assert.assertEquals(3, client.getRecieved()));
-        System.out.println("+ Connection test passed.");
-    }
-
-    @Test
-    public void AuthTest() {
-        executeClients("/info\n");
-        //executed.stream().map(MessengerClient::getRecieved).forEach(System.out::println);
-        executed.forEach(client -> Assert.assertEquals(4, client.getRecieved()));
-        System.out.println("+ Login test passed.");
-    }
-
-    private void executeClients(String command) {
-        ExecutorService workers = Executors.newFixedThreadPool(nusers);
-        Runnable clientImpl = () -> {
-            MessengerClient client = new MessengerClient();
-            client.setHost(host);
-            client.setPort(port);
-            client.setProtocol(new ObjectProtocol());
-            try {
-                client.start(IOUtils.toInputStream(
-                        "/login " + logins.take() + " qwerty \n" +
-                                command +
-                                "/quit \n"
-                ));
-                executed.add(client);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        };
-
+    public void connectionTest() {
         try {
-            Thread.sleep(500);
             for (int i = 0; i < nusers; i++) {
-                workers.submit(clientImpl);
+                workers.submit(clientSession);
                 Thread.sleep(500);
             }
-
             workers.shutdown();
             workers.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+        System.setOut(stdout);
+        executed.forEach(client -> Assert.assertEquals(1, client.getRecieved()));
+        System.out.println("+ Connection test passed.");
     }
 
-    public void executeClientsQuietly(String command) {
-        PrintStream out = System.out;
+    @Test
+    public void authTest() {
         try {
-            System.setOut(new PrintStream(new FileOutputStream("/dev/null")));
-        } catch (FileNotFoundException e) {
-            //
+            for (int i = 0; i < nusers; i++) {
+                command = "/login " + logins.take() + " qwerty \n" + "/info\n";
+                workers.submit(clientSession);
+                Thread.sleep(500);
+            }
+            workers.shutdown();
+            workers.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
-        executeClients(command);
-        System.setOut(out);
+        System.setOut(stdout);
+        //executed.stream().map(MessengerClient::getRecieved).forEach(System.out::println);
+        executed.forEach(client -> Assert.assertEquals(4, client.getRecieved()));
+        System.out.println("+ Login test passed.");
     }
 
+    @Test
+    public void dialogTest() {
+        try {
+            for (int i = 0; i < nusers; i++) {
+                String login = logins.take();
+                command =
+                        "/login " + login + " qwerty \n" + "/chat_create 2\n";
+                workers.submit(clientSession);
+                Thread.sleep(1000);
+            }
+            workers.shutdown();
+            workers.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        System.setOut(stdout);
+        //executed.stream().map(MessengerClient::getRecieved).forEach(System.out::println);
+        executed.forEach(client -> Assert.assertEquals(4, client.getRecieved()));
+        System.out.println("+ Dialog test passed.");
+    }
 
 }
