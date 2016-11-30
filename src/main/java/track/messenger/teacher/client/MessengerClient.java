@@ -198,6 +198,7 @@ public class MessengerClient {
                 }
                 break;
             case "/quit":
+                halt();
                 send(new QuitMessage(user));
                 break;
             case "/chat_create":

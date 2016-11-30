@@ -43,12 +43,14 @@ public class CryptoSystem {
     }
 
     public String encrypt(String value, String salt) {
+
         if (value == null || salt == null) {
             return null;
         }
         for (int count = 0; count < numberOfIterations; count ++ ) {
             hasher.update((value + salt).getBytes());
             value = new String(hasher.digest());
+            hasher.reset();
         }
         return value;
     }
@@ -57,7 +59,7 @@ public class CryptoSystem {
         if (encrypted == null) {
             return false;
         } else {
-            return encrypted.equals(encrypt(raw, salt));
+            return (encrypted.compareTo(encrypt(raw, salt)) == 0);
         }
     }
 
