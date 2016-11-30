@@ -248,7 +248,7 @@ public class MessengerClient {
                 } catch (ProtocolException | IOException e) {
                     log.error("Ошибки при обработке потока ввода.", e);
                 }
-                Thread.sleep(2000);
+                Thread.sleep(3000);
             }
         } catch (Exception e) {
             log.error("Приложение рухнуло с оглушительным грохотом.", e);
