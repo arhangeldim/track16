@@ -16,6 +16,7 @@ public class MessengerServer {
     public static final int PORT = 8888;
     public static boolean interrupted = false;
 
+
     public static void main(String[] args) throws SQLException, ProtocolException {
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         SqliteManager sqliteManager = new SqliteManager();
