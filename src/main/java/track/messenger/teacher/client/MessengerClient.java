@@ -21,7 +21,6 @@ import track.messenger.net.StringProtocol;
  */
 public class MessengerClient {
 
-
     /**
      * Механизм логирования позволяет более гибко управлять записью данных в лог (консоль, файл и тд)
      * */

@@ -8,6 +8,7 @@ import java.util.Objects;
 public class TextMessage extends Message {
 
     private String text;
+
     private Long SendToId;
 
     public TextMessage(Long sendToId) {
