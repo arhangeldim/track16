@@ -26,7 +26,33 @@ class Graph {
 
     }
 
-    /*
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Graph graph1 = (Graph) o;
+
+        if (hasCircles != graph1.hasCircles) return false;
+        if (currTime != graph1.currTime) return false;
+        if (vertices != null ? !vertices.equals(graph1.vertices) : graph1.vertices != null) return false;
+        if (graph != null ? !graph.equals(graph1.graph) : graph1.graph != null) return false;
+        if (visited != null ? !visited.equals(graph1.visited) : graph1.visited != null) return false;
+        return timeOut != null ? timeOut.equals(graph1.timeOut) : graph1.timeOut == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = vertices != null ? vertices.hashCode() : 0;
+        result = 31 * result + (graph != null ? graph.hashCode() : 0);
+        result = 31 * result + (hasCircles ? 1 : 0);
+        result = 31 * result + (visited != null ? visited.hashCode() : 0);
+        result = 31 * result + (timeOut != null ? timeOut.hashCode() : 0);
+        result = 31 * result + currTime;
+        return result;
+    }
+/*
     Будем организовывать доступ к вершинам по строке id, а не по всему bean, т которого вершина создана.
     */
 
@@ -93,6 +119,10 @@ class Graph {
         } else if (visitedFlag.equals(visited.get(curr))) {
             hasCircles = true;
         }
+    }
+
+    private void bfs() {
+
     }
 
     /*

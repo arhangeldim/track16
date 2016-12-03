@@ -10,6 +10,7 @@ import java.util.Map;
 import org.xml.sax.SAXException;
 import track.container.config.Bean;
 import track.container.config.InvalidConfigurationException;
+import track.container.config.Property;
 import track.container.config.ValueType;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -76,46 +77,48 @@ public class Container {
         Class currClass = Class.forName(beanMap.get(beanId).getClassName());
         Object obj = currClass.newInstance();
 
-        beanMap.get(beanId).getProperties().forEach((name, property) -> {
-            String methodName = "set" + property.getName().substring(0,1).toUpperCase() +
-                    property.getName().substring(1);
-            Class[] argsTypes = new Class[0];
-            Object[] args = new Object[0];
-
-            if (property.getType().equals(ValueType.VAL)) {
-                argsTypes = new Class[] { int.class };
-                args = new Object[] { (int) Integer.valueOf(property.getValue()) };
-
-            } else {
-                try {
-                    
-                    Bean childBean = beanMap.get(property.getValue());
-                    argsTypes = new Class[] { Class.forName(childBean.getClassName()) };
-                    args = new Object[] { objByName.get(childBean.getId()) };
-
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-
-
-            Method setter = null;
-            try {
-                setter = currClass.getMethod(methodName, argsTypes);
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            }
-            if (setter != null) {
-                try {
-                    setter.invoke(obj, args);
-                } catch (IllegalAccessException | InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        beanMap.get(beanId).getProperties().forEach((name, property) -> generateObject());
 
         objByClass.put(beanMap.get(beanId).getClassName(), obj);
         objByName.put(beanId, obj);
+    }
+
+    private Object generateObj(String name, Property property) {
+        String methodName = "set" + property.getName().substring(0,1).toUpperCase() +
+                property.getName().substring(1);
+        Class[] argsTypes = new Class[0];
+        Object[] args = new Object[0];
+
+        if (property.getType().equals(ValueType.VAL)) {
+            argsTypes = new Class[] { int.class };
+            args = new Object[] { (int) Integer.valueOf(property.getValue()) };
+
+        } else {
+            try {
+
+                Bean childBean = beanMap.get(property.getValue());
+                argsTypes = new Class[] { Class.forName(childBean.getClassName()) };
+                args = new Object[] { objByName.get(childBean.getId()) };
+
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        Method setter = null;
+        try {
+            setter = currClass.getMethod(methodName, argsTypes);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        if (setter != null) {
+            try {
+                setter.invoke(obj, args);
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public Object getById(String id) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
