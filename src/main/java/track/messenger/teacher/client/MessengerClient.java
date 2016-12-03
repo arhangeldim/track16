@@ -1,19 +1,16 @@
 package track.messenger.teacher.client;
 
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import track.messenger.messages.Message;
-import track.messenger.messages.TextMessage;
-import track.messenger.messages.Type;
+import track.messenger.messages.*;
 import track.messenger.net.Protocol;
 import track.messenger.net.ProtocolException;
 import track.messenger.net.StringProtocol;
@@ -82,11 +79,11 @@ public class MessengerClient {
             while (!Thread.currentThread().isInterrupted()) {
                 try {
                     // Здесь поток блокируется на ожидании данных
-                    int read = in.read(buf);
+                    int read = 2;
                     if (read > 0) {
 
                         // По сети передается поток байт, его нужно раскодировать с помощью протокола
-                        Message msg = protocol.decode(Arrays.copyOf(buf, read));
+                        Message msg = (Message) new ObjectInputStream(in).readObject();
                         onMessage(msg);
                     }
                 } catch (Exception e) {
@@ -117,8 +114,35 @@ public class MessengerClient {
         String cmdType = tokens[0];
         switch (cmdType) {
             case "/login":
-
+                LoginMessage loginMessage = new LoginMessage(1l, 2l, Type.MSG_LOGIN, tokens[1], tokens[2]); // Id, SenderId - not used, not usefull))
+                send(loginMessage);
                 // TODO: реализация
+                break;
+            case "/sign_up":
+                SignUpMessage signUpMessage = new SignUpMessage(1l, 2l, Type.MSG_SIGN_UP, tokens[1], tokens[2]); // Id, SenderId - usage??
+                send(signUpMessage);
+                break;
+            case "/create_chat":
+                ChatCommandMessage chatCommandMessage = new ChatCommandMessage();
+                ArrayList<Long> arrayList = new ArrayList<Long>();
+                for(int i = 1; i < tokens.length; i++)
+                {
+                    arrayList.add(Long.valueOf(tokens[i]));
+                }
+                chatCommandMessage.setIdToDo(arrayList);
+                chatCommandMessage.setId(1l); //ID  usage ??
+                chatCommandMessage.setSenderId(2l); // SenderID usage ??
+                chatCommandMessage.setType(Type.MSG_CHAT_CREATE);
+                send(chatCommandMessage);
+                break;
+            case "/chat_list":
+                ChatInfMessage chatInf = new ChatInfMessage(1l, 2l, Type.MSG_CHAT_LIST); // Id, SenderId - usage??
+                send(chatInf);
+                break;
+            case "/chat_hist":
+                ChatInfMessage chatHist = new ChatInfMessage(1l, 2l, Type.MSG_CHAT_HIST); // Id, SenderId - usage??
+                chatHist.setText(tokens[1]);
+                send(chatHist);
                 break;
             case "/help":
                 // TODO: реализация
@@ -127,7 +151,9 @@ public class MessengerClient {
                 // FIXME: пример реализации для простого текстового сообщения
                 TextMessage sendMessage = new TextMessage();
                 sendMessage.setType(Type.MSG_TEXT);
-                sendMessage.setText(tokens[1]);
+                sendMessage.setSendToId(Long.parseLong(tokens[1]));
+                sendMessage.setSenderId(2l); // My ID
+                sendMessage.setText(tokens[2]);
                 send(sendMessage);
                 break;
             // TODO: implement another types from wiki
@@ -142,8 +168,9 @@ public class MessengerClient {
      */
     public void send(Message msg) throws IOException, ProtocolException {
         log.info(msg.toString());
-        out.write(protocol.encode(msg));
-        out.flush(); // принудительно проталкиваем буфер с данными
+        ObjectOutputStream out2 = new ObjectOutputStream(out);
+        out2.writeObject(msg);
+        out2.flush(); // принудительно проталкиваем буфер с данными
     }
 
     public static void main(String[] args) throws Exception {

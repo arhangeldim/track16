@@ -1,0 +1,23 @@
+2016-12-03 21:02:35 INFO  MessengerClient:78 - Starting listener thread...
+2016-12-03 21:03:31 INFO  MessengerClient:113 - Tokens: [/login, bez, 12]
+2016-12-03 21:03:31 INFO  MessengerClient:170 - track.messenger.messages.LoginMessage@1b4fb997
+2016-12-03 21:03:31 INFO  MessengerClient:104 - Message received: TextMessage{text='Successfully logged in'}
+2016-12-03 21:03:36 INFO  MessengerClient:113 - Tokens: [/chat_hist, 10]
+2016-12-03 21:03:36 INFO  MessengerClient:170 - ChatInfMessage{text='10'}
+2016-12-03 21:03:36 INFO  MessengerClient:104 - Message received: ChatInfMessage{text='Pers10: errrrrr 
+Pers124: null 
+Pers10: Malik 
+Pers124: null 
+'}
+2016-12-03 21:03:54 INFO  MessengerClient:113 - Tokens: [/text, 10, ThirdMesssage))]
+2016-12-03 21:03:54 INFO  MessengerClient:170 - TextMessage{text='ThirdMesssage))'}
+2016-12-03 21:03:54 INFO  MessengerClient:104 - Message received: TextMessage{text='successfully sended'}
+2016-12-03 21:04:02 INFO  MessengerClient:113 - Tokens: [/chat_hist, 10]
+2016-12-03 21:04:02 INFO  MessengerClient:170 - ChatInfMessage{text='10'}
+2016-12-03 21:04:02 INFO  MessengerClient:104 - Message received: ChatInfMessage{text='Pers10: errrrrr 
+Pers124: null 
+Pers10: Malik 
+Pers124: null 
+Pers10: ThirdMesssage)) 
+Pers124: null 
+'}
