@@ -5,15 +5,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
+import java.util.regex.PatternSyntaxException;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import track.messenger.messages.Message;
-import track.messenger.messages.TextMessage;
-import track.messenger.messages.Type;
+import track.messenger.messages.*;
 import track.messenger.net.Protocol;
 import track.messenger.net.ProtocolException;
 import track.messenger.net.StringProtocol;
@@ -113,27 +112,81 @@ public class MessengerClient {
      */
     public void processInput(String line) throws IOException, ProtocolException {
         String[] tokens = line.split(" ");
+        try {
+            if (tokens.length == 0) return;
+            if (tokens[0].equals("/help")) {
+                //TODO help
+            }
+            Message message = parseToMessage(tokens);
+            send(message);
+        } catch (InvalidInputExeption e) {
+            log.error("Invalid input: " + line);
+        }
+    }
+
+    public Message parseToMessage(String[] tokens) throws InvalidInputExeption {
         log.info("Tokens: {}", Arrays.toString(tokens));
         String cmdType = tokens[0];
         switch (cmdType) {
             case "/login":
-                // TODO: реализация
-                break;
-            case "/help":
-                // TODO: реализация
-                break;
+                LoginMessage loginMessage = new LoginMessage();
+                loginMessage.setUsername(tokens[1]);
+                loginMessage.setPassword(tokens[2]);
+                return loginMessage;
             case "/text":
-                // FIXME: пример реализации для простого текстового сообщения
-                TextMessage sendMessage = new TextMessage();
-                sendMessage.setType(Type.MSG_TEXT);
-                sendMessage.setText(tokens[1]);
-                send(sendMessage);
-                break;
-            // TODO: implement another types from wiki
-
+                if (tokens.length != 3)
+                    throw new InvalidInputExeption();
+                if (!isLong(tokens[1]))
+                    throw new InvalidInputExeption();
+                TextMessage textMessage = new TextMessage();
+                textMessage.setChatId(Long.parseLong(tokens[1]));
+                textMessage.setText(tokens[2]);
+                return textMessage;
+            case "/info":
+                InfoMessage infoMessage = new InfoMessage();
+                if (tokens.length < 2) {
+                    infoMessage.setUserId(null);
+                } else {
+                    if (tokens[1].matches("[0-9]+")) {
+                        infoMessage.setUserId(new Integer(tokens[1]));
+                    } else {
+                        throw new InvalidInputExeption();
+                    }
+                }
+                return infoMessage;
+            case "/chat_list":
+                assert tokens.length < 2;
+                return new ChatListMessage();
+            case "/chat_create":
+                assert tokens.length == 2;
+                try {
+                    List<Long> ids = Arrays.stream(tokens[1].split(","))
+                            .map(Long::parseLong)
+                            .collect(Collectors.toList());
+                    ChatCreateMessage chatCreateMessage = new ChatCreateMessage();
+                    chatCreateMessage.setUserIds(ids);
+                    return chatCreateMessage;
+                } catch (PatternSyntaxException | NumberFormatException e) {
+                    throw new InvalidInputExeption();
+                }
+            case "/chat_history":
+                assert tokens.length == 2;
+                assert isLong(tokens[1]);
+                ChatHistMessage chatHistMessage = new ChatHistMessage();
+                chatHistMessage.setChatId(Long.parseLong(tokens[1]));
+                return chatHistMessage;
             default:
-                log.error("Invalid input: " + line);
+                throw new InvalidInputExeption();
         }
+    }
+
+    private boolean isLong(String s) {
+        try {
+            Long.parseLong(s);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -178,4 +231,5 @@ public class MessengerClient {
             }
         }
     }
+
 }

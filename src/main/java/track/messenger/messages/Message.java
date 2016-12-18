@@ -11,6 +11,10 @@ public abstract class Message implements Serializable {
     private Long senderId;
     private Type type;
 
+    public Message(Type type) {
+        this.type = type;
+    }
+
     public Long getId() {
         return id;
     }
@@ -29,9 +33,5 @@ public abstract class Message implements Serializable {
 
     public Type getType() {
         return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
     }
 }

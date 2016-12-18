@@ -27,7 +27,6 @@ public class StringProtocol implements Protocol {
                 TextMessage textMsg = new TextMessage();
                 textMsg.setSenderId(parseLong(tokens[1]));
                 textMsg.setText(tokens[2]);
-                textMsg.setType(type);
                 return textMsg;
             default:
                 throw new ProtocolException("Invalid type: " + type);

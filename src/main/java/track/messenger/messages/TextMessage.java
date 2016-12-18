@@ -6,7 +6,12 @@ import java.util.Objects;
  * Простое текстовое сообщение
  */
 public class TextMessage extends Message {
+    private Long chatId;
     private String text;
+
+    public TextMessage() {
+        super(Type.MSG_TEXT);
+    }
 
     public String getText() {
         return text;
@@ -14,6 +19,14 @@ public class TextMessage extends Message {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Long getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(Long chatId) {
+        this.chatId = chatId;
     }
 
     @Override
@@ -24,11 +37,8 @@ public class TextMessage extends Message {
         if (other == null || getClass() != other.getClass()) {
             return false;
         }
-        if (!super.equals(other)) {
-            return false;
-        }
         TextMessage message = (TextMessage) other;
-        return Objects.equals(text, message.text);
+        return Objects.equals(text, message.text) && Objects.equals(chatId, message.chatId);
     }
 
     @Override
@@ -39,6 +49,7 @@ public class TextMessage extends Message {
     @Override
     public String toString() {
         return "TextMessage{" +
+                "chatId=" + chatId + ", " +
                 "text='" + text + '\'' +
                 '}';
     }
