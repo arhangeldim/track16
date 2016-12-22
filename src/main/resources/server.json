@@ -1,0 +1,52 @@
+{
+  "beans": [
+    {
+      "id": "messengerServer",
+      "className": "track.messenger.net.MessengerServer",
+      "properties": {
+        "port": {
+          "name": "port",
+          "value": 19000,
+          "type": "VAL"
+        },
+        "nthreads": {
+          "name": "nthreads",
+          "value": 4,
+          "type": "VAL"
+        }
+      }
+    },
+    {
+      "id": "userStore",
+      "className": "track.messenger.store.UserStore",
+      "properties": {
+        "databaseName": {
+          "name": "databaseName",
+          "value": "store.sqlite3",
+          "type": "VAL"
+        },
+        "tableName": {
+          "name": "tableName",
+          "value": "Users",
+          "type": "VAL"
+        }
+      }
+    },
+    {
+      "id": "messageStore",
+      "className": "track.messenger.store.MessageStore",
+      "properties": {
+        "databaseName": {
+          "name": "databaseName",
+          "value": "store.sqlite3",
+          "type": "VAL"
+        },
+        "tableName": {
+          "name": "tableName",
+          "value": "Messages",
+          "type": "VAL"
+        }
+      }
+    }
+  ]
+}

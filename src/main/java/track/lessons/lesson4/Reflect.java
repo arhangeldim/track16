@@ -1,4 +1,3 @@
-package arhangel.dim.lections.reflection;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;

@@ -1,0 +1,20 @@
+<root>
+
+    <bean id="messengerServer" class="track.messenger.net.MessengerServer">
+        <property name="port" val="19000"/>
+        <property name="nthreads" val="4"/>
+    </bean>
+
+
+    <bean id="userStore" class="track.messenger.store.UserStore">
+        <property name="databaseName" val="store.sqlite3"/>
+        <property name="tableName" val="Users"/>
+    </bean>
+
+    <bean id="messageStore" class="track.messenger.store.MessageStore">
+        <property name="databaseName" val="store.sqlite3"/>
+        <property name="tableName" val="Messages"/>
+    </bean>
+
+
+</root>
