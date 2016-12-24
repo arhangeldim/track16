@@ -1,0 +1,27 @@
+{
+  "beans": [
+    {
+      "id": "messengerClient",
+      "className": "track.messenger.teacher.client.MessengerClient",
+      "properties": [
+        {
+          "name": "port",
+          "val": "19000"
+        },
+        {
+          "name": "host",
+          "val": "localhost"
+        },
+        {
+          "name": "protocol",
+          "ref": "protocolBean"
+        }
+      ]
+    },
+    {
+      "id": "protocolBean",
+      "className": "track.messenger.net.StringProtocol",
+      "properties": []
+    }
+  ]
+}

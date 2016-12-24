@@ -1,6 +1,7 @@
 package track.messenger.teacher.client;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,10 +13,11 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import track.container.Container;
+import track.container.JsonConfigReader;
 import track.messenger.messages.*;
 import track.messenger.net.Protocol;
 import track.messenger.net.ProtocolException;
-import track.messenger.net.StringProtocol;
 
 
 /**
@@ -200,10 +202,8 @@ public class MessengerClient {
 
     public static void main(String[] args) throws Exception {
 
-        MessengerClient client = new MessengerClient();
-        client.setHost("localhost");
-        client.setPort(19000);
-        client.setProtocol(new StringProtocol());
+        Container container = new Container("src\\main\\resources\\client.json", new JsonConfigReader());
+        MessengerClient client = (MessengerClient) container.getById("messengerClient");
 
         try {
             client.initSocket();

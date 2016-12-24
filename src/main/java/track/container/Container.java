@@ -1,11 +1,14 @@
 package track.container;
 
+import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
 
 import track.container.config.Bean;
+import track.container.config.ConfigReader;
+import track.container.config.InvalidConfigurationException;
 import track.container.config.Property;
 
 /**
@@ -20,6 +23,17 @@ public class Container {
     // Реализуйте этот конструктор, используется в тестах!
     public Container(List<Bean> beans) {
         this.beans = beans;
+        objById = new HashMap<>();
+        objByClass = new HashMap<>();
+    }
+
+    public Container(String pathname, ConfigReader configReader) {
+        try {
+            beans = configReader.parseBeans(
+                    new File(pathname));
+        } catch (InvalidConfigurationException e) {
+            e.printStackTrace();
+        }
         objById = new HashMap<>();
         objByClass = new HashMap<>();
     }
