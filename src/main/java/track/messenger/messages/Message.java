@@ -1,6 +1,10 @@
 package track.messenger.messages;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.Serializable;
+import java.util.EnumMap;
 
 /**
  *
@@ -33,5 +37,15 @@ public abstract class Message implements Serializable {
 
     public Type getType() {
         return type;
+    }
+
+    @Override
+    public String toString() {
+        try {
+            return new ObjectMapper().writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 }
