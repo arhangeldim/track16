@@ -41,4 +41,13 @@ public class Session {
     public void close() {
         // TODO: закрыть in/out каналы и сокет. Освободить другие ресурсы, если необходимо
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public boolean hasLogined() {
+        return user != null;
+
+    }
 }

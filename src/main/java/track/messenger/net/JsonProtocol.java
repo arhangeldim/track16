@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class JsonProtocol implements Protocol {
     static Logger log = LoggerFactory.getLogger(JsonProtocol.class);
-    
+
     @Override
     public Message decode(byte[] bytes) throws ProtocolException {
         ObjectMapper mapper = new ObjectMapper();

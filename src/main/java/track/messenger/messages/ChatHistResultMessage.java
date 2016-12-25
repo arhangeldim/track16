@@ -1,10 +1,22 @@
 package track.messenger.messages;
 
-/**
- * Created by Александр on 25.12.2016.
- */
+import java.util.List;
+
 public class ChatHistResultMessage extends Message {
+    Result result;
+    Status status;
+    String errorMessage;
+
     public ChatHistResultMessage() {
         super(Type.MSG_CHAT_HIST_RESULT);
+    }
+
+    class Result{
+        public List<Long> chatHist;
+    }
+
+    enum Status{
+        OK,
+        FAIL
     }
 }
