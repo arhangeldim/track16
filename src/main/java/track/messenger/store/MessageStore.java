@@ -1,11 +1,12 @@
 package track.messenger.store;
 
+import track.messenger.messages.Message;
 import track.messenger.messages.client.TextMessage;
 
 import java.util.List;
 
 public interface MessageStore extends BaseStore {
-    List<Long> getChatsByUserId(Long userId);
+    List<Long> getChatIdsByUserId(Long userId);
 
     //Chat getChatById(Long chatId);
 
@@ -13,7 +14,7 @@ public interface MessageStore extends BaseStore {
 
     TextMessage getMessageById(Long messageId);
 
-    void addMessage(Long chatId, TextMessage message);
+    void addMessage(Message message);
 
     void addUserToChat(Long userId, Long chatId);
 

@@ -26,7 +26,7 @@ public class LoginCommand implements Command {
                     loginMessage.getLogin(),
                     loginMessage.getPassword())
             );
-            session.send(new StatusMessage(ResultMessage.Status.OK, null));
+            session.send(StatusMessage.OKMessage);
             return;
         }
         if (! user.checkPassword(loginMessage.getPassword())) {
@@ -34,6 +34,6 @@ public class LoginCommand implements Command {
             return;
         }
         session.setUser(user);
-        session.send(new StatusMessage(ResultMessage.Status.OK, null));
+        session.send(StatusMessage.OKMessage);
     }
 }

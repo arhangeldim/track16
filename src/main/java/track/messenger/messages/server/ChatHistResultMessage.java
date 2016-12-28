@@ -13,7 +13,11 @@ public class ChatHistResultMessage extends ResultMessage {
         this.errorMessage = errorMessage;
     }
 
-    class ChatHistResult extends Result{
+    public static class ChatHistResult extends Result{
+        public ChatHistResult(List<Message> chatHist) {
+            this.chatHist = chatHist;
+        }
+
         public List<Message> chatHist;
     }
 }

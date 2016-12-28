@@ -1,7 +1,6 @@
 package track.messenger.messages.server;
 
 import track.messenger.messages.Type;
-import track.messenger.messages.server.ResultMessage;
 
 import java.util.List;
 
@@ -14,6 +13,10 @@ public class ChatListResultMessage extends ResultMessage {
     }
 
     public static class ChatListResult extends Result{
-        List<Long> chatList;
+        public ChatListResult(List<Long> chatList) {
+            this.chatList = chatList;
+        }
+
+        public List<Long> chatList;
     }
 }
