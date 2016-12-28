@@ -16,10 +16,10 @@ public interface UserStore extends BaseStore {
 
     /**
      *
-     * Получить пользователя по логину/паролю
+     * Получить пользователя по логину
      * return null if user not found
      */
-    User getUser(String login, String pass);
+    User getUser(String login);
 
     /**
      *
@@ -27,4 +27,6 @@ public interface UserStore extends BaseStore {
      * return null if user not found
      */
     User getUserById(Long id);
+
+    Long getFreeUserId();
 }

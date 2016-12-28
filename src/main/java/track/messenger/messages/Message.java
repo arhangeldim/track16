@@ -51,6 +51,9 @@ public abstract class Message implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
         if (!(obj instanceof Message)) {
             return false;
         }
