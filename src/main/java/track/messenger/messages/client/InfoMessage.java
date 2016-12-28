@@ -1,8 +1,9 @@
-package track.messenger.messages;
+package track.messenger.messages.client;
 
-/**
- * Created by Tsepa Stas on 18.12.2016.
- */
+
+import track.messenger.messages.Message;
+import track.messenger.messages.Type;
+
 public class InfoMessage extends Message {
     private Long userId;
 

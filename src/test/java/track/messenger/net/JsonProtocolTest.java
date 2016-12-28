@@ -1,10 +1,7 @@
 package track.messenger.net;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
-import track.messenger.messages.ChatListMessage;
-import track.messenger.messages.InfoMessage;
-import track.messenger.messages.Message;
+import track.messenger.messages.client.InfoMessage;
 
 import static org.junit.Assert.*;
 
@@ -23,7 +20,7 @@ public class JsonProtocolTest {
     public void encode() throws Exception {
         JsonProtocol protocol = new JsonProtocol();
         InfoMessage message = new InfoMessage();
-        message.setUserId(10);
+        message.setUserId(10L);
         assertArrayEquals(protocol.encode(message),
                 "{\"id\":null,\"senderId\":null,\"type\":\"MSG_INFO\",\"userId\":10}".getBytes());
     }

@@ -1,11 +1,10 @@
 package track.messenger.store;
 
-import track.messenger.messages.Message;
-import track.messenger.messages.TextMessage;
+import track.messenger.messages.client.TextMessage;
 
 import java.util.List;
 
-public interface MessageStore {
+public interface MessageStore extends BaseStore {
     List<Long> getChatsByUserId(Long userId);
 
     //Chat getChatById(Long chatId);

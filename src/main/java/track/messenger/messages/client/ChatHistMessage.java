@@ -1,14 +1,15 @@
-package track.messenger.messages;
+package track.messenger.messages.client;
 
-/**
- * Created by Tsepa Stas on 18.12.2016.
- */
+import track.messenger.messages.Message;
+import track.messenger.messages.Type;
+
 public class ChatHistMessage extends Message {
 
     private Long chatId;
 
-    public ChatHistMessage() {
+    public ChatHistMessage(Long chatId) {
         super(Type.MSG_CHAT_HIST);
+        this.chatId = chatId;
     }
 
     public Long getChatId() {

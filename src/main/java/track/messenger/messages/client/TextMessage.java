@@ -1,4 +1,7 @@
-package track.messenger.messages;
+package track.messenger.messages.client;
+
+import track.messenger.messages.Message;
+import track.messenger.messages.Type;
 
 import java.util.Objects;
 
@@ -9,8 +12,10 @@ public class TextMessage extends Message {
     private Long chatId;
     private String text;
 
-    public TextMessage() {
+    public TextMessage(Long chatId, String text) {
         super(Type.MSG_TEXT);
+        this.chatId = chatId;
+        this.text = text;
     }
 
     public String getText() {

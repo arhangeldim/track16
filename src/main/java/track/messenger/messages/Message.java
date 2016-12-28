@@ -48,4 +48,13 @@ public abstract class Message implements Serializable {
             return "";
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Message)) {
+            return false;
+        }
+        Message message = (Message) obj;
+        return this.toString().equals(message.toString());
+    }
 }

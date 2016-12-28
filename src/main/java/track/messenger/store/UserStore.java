@@ -2,7 +2,7 @@ package track.messenger.store;
 
 import track.messenger.User;
 
-public interface UserStore {
+public interface UserStore extends BaseStore {
     /**
      * Добавить пользователя в хранилище
      * Вернуть его же

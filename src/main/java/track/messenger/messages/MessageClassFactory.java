@@ -1,13 +1,16 @@
 package track.messenger.messages;
 
+import track.messenger.messages.client.*;
+import track.messenger.messages.server.ChatHistResultMessage;
+import track.messenger.messages.server.ChatListResultMessage;
+import track.messenger.messages.server.InfoResultMessage;
+import track.messenger.messages.server.StatusMessage;
+
 import java.util.EnumMap;
 
-/**
- * Created by Александр on 25.12.2016.
- */
 public class MessageClassFactory {
     private static EnumMap<Type, Class<? extends Message>> messageClassMap;
-    {
+    static {
         messageClassMap = new EnumMap<>(Type.class);
         messageClassMap.put(Type.MSG_CHAT_CREATE, ChatCreateMessage.class);
         messageClassMap.put(Type.MSG_CHAT_HIST, ChatHistMessage.class);

@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import track.messenger.User;
 import track.messenger.messages.Message;
 
@@ -14,6 +16,8 @@ import track.messenger.messages.Message;
  * Сетевая часть привязывает нас к определнному соединению по сети (от клиента)
  */
 public class Session {
+
+    static Logger log = LoggerFactory.getLogger(Session.class);
 
     /**
      * Пользователь сессии, пока не прошел логин, user == null
@@ -32,6 +36,7 @@ public class Session {
 
     public void send(Message msg) throws ProtocolException, IOException {
         // TODO: Отправить клиенту сообщение
+        log.info("Message sent: " + msg);
     }
 
     public void onMessage(Message msg) {
@@ -44,6 +49,10 @@ public class Session {
 
     public User getUser() {
         return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public boolean hasLogined() {

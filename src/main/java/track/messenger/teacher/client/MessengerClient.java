@@ -1,7 +1,6 @@
 package track.messenger.teacher.client;
 
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -16,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import track.container.Container;
 import track.container.JsonConfigReader;
 import track.messenger.messages.*;
+import track.messenger.messages.client.*;
 import track.messenger.net.Protocol;
 import track.messenger.net.ProtocolException;
 
@@ -131,26 +131,20 @@ public class MessengerClient {
         String cmdType = tokens[0];
         switch (cmdType) {
             case "/login":
-                LoginMessage loginMessage = new LoginMessage();
-                loginMessage.setUsername(tokens[1]);
-                loginMessage.setPassword(tokens[2]);
-                return loginMessage;
+                return new LoginMessage(tokens[1], tokens[2]);
             case "/text":
                 if (tokens.length != 3)
                     throw new InvalidInputExeption();
                 if (!isLong(tokens[1]))
                     throw new InvalidInputExeption();
-                TextMessage textMessage = new TextMessage();
-                textMessage.setChatId(Long.parseLong(tokens[1]));
-                textMessage.setText(tokens[2]);
-                return textMessage;
+                return new TextMessage(Long.parseLong(tokens[1]), tokens[2]);
             case "/info":
                 InfoMessage infoMessage = new InfoMessage();
                 if (tokens.length < 2) {
                     infoMessage.setUserId(null);
                 } else {
                     if (tokens[1].matches("[0-9]+")) {
-                        infoMessage.setUserId(new Integer(tokens[1]));
+                        infoMessage.setUserId(new Long(tokens[1]));
                     } else {
                         throw new InvalidInputExeption();
                     }
@@ -165,18 +159,14 @@ public class MessengerClient {
                     List<Long> ids = Arrays.stream(tokens[1].split(","))
                             .map(Long::parseLong)
                             .collect(Collectors.toList());
-                    ChatCreateMessage chatCreateMessage = new ChatCreateMessage();
-                    chatCreateMessage.setUserIds(ids);
-                    return chatCreateMessage;
+                    return new ChatCreateMessage(ids);
                 } catch (PatternSyntaxException | NumberFormatException e) {
                     throw new InvalidInputExeption();
                 }
             case "/chat_history":
                 assert tokens.length == 2;
                 assert isLong(tokens[1]);
-                ChatHistMessage chatHistMessage = new ChatHistMessage();
-                chatHistMessage.setChatId(Long.parseLong(tokens[1]));
-                return chatHistMessage;
+                return new ChatHistMessage(Long.parseLong(tokens[1]));
             default:
                 throw new InvalidInputExeption();
         }

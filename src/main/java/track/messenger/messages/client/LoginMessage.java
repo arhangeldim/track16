@@ -1,4 +1,7 @@
-package track.messenger.messages;
+package track.messenger.messages.client;
+
+import track.messenger.messages.Message;
+import track.messenger.messages.Type;
 
 /**
  * Created by Tsepa Stas on 18.12.2016.
@@ -7,8 +10,10 @@ public class LoginMessage extends Message {
     private String username;
     private String password;
 
-    public LoginMessage() {
+    public LoginMessage(String username, String password) {
         super(Type.MSG_LOGIN);
+        this.username = username;
+        this.password = password;
     }
 
     public String getUsername() {
