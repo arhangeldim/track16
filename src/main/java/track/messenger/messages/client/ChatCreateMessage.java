@@ -5,9 +5,6 @@ import track.messenger.messages.Type;
 
 import java.util.List;
 
-/**
- * Created by Tsepa Stas on 18.12.2016.
- */
 public class ChatCreateMessage extends Message {
 
     private List<Long> userIds;

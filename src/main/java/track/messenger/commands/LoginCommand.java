@@ -21,11 +21,12 @@ public class LoginCommand implements Command {
         UserStore userStore = (UserStore) storeFactory.get(Type.USER_STORE);
         User user = userStore.getUser(loginMessage.getLogin());
         if (user == null) {
-            userStore.addUser(new User(
+            user = userStore.addUser(new User(
                     userStore.getFreeUserId(),
                     loginMessage.getLogin(),
                     loginMessage.getPassword())
             );
+            session.setUser(user);
             session.send(StatusMessage.OKMessage);
             return;
         }
