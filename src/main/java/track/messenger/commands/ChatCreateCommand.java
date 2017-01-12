@@ -4,6 +4,7 @@ import track.messenger.Chat;
 import track.messenger.User;
 import track.messenger.messages.Message;
 import track.messenger.messages.client.ChatCreateMessage;
+import track.messenger.messages.server.ChatCreateResultMessage;
 import track.messenger.messages.server.ResultMessage;
 import track.messenger.messages.server.StatusMessage;
 import track.messenger.net.ProtocolException;
@@ -14,10 +15,7 @@ import track.messenger.store.Type;
 import track.messenger.store.UserStore;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ChatCreateCommand implements Command {
     @Override
@@ -39,7 +37,7 @@ public class ChatCreateCommand implements Command {
             return;
         }
         if (chatCreateMessage.getUserIds().size() > 1) {
-            messageStore.addChat(
+            Chat chat = messageStore.addChat(
                     new Chat(chatCreateMessage
                             .getUserIds()
                             .stream()
@@ -47,6 +45,9 @@ public class ChatCreateCommand implements Command {
                             .collect(Collectors.toList())
                     )
             );
+            session.send(new ChatCreateResultMessage(new ChatCreateResultMessage.ChatCreateResult(chat.getId()),
+                    ResultMessage.Status.OK,
+                    null));
         }
     }
 }

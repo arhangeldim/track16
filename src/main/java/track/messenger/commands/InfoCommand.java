@@ -5,6 +5,7 @@ import track.messenger.messages.client.InfoMessage;
 import track.messenger.messages.server.InfoResultMessage;
 import track.messenger.messages.server.InfoResultMessage.InfoResult;
 import track.messenger.messages.Message;
+import track.messenger.net.JsonProtocol;
 import track.messenger.net.ProtocolException;
 import track.messenger.net.Session;
 import track.messenger.store.StoreFactory;
@@ -43,14 +44,5 @@ public class InfoCommand implements Command {
                         null
                 )
         );
-    }
-
-    public static void main(String... strings) throws ProtocolException, IOException, CommandException {
-        Session session = new Session();
-        User user = new User(1L, "aaa", "aaa");
-        session.setUser(user);
-        InfoMessage infoMessage = new InfoMessage();
-        Command infoCommand = new InfoCommand();
-        infoCommand.execute(session, infoMessage, null);
     }
 }

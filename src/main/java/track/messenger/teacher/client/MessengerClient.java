@@ -4,6 +4,8 @@ package track.messenger.teacher.client;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.util.*;
 import java.util.regex.PatternSyntaxException;
@@ -16,6 +18,9 @@ import track.container.Container;
 import track.container.JsonConfigReader;
 import track.messenger.messages.*;
 import track.messenger.messages.client.*;
+import track.messenger.messages.server.ChatHistResultMessage;
+import track.messenger.messages.server.ChatListResultMessage;
+import track.messenger.messages.server.ResultMessage;
 import track.messenger.net.Protocol;
 import track.messenger.net.ProtocolException;
 
@@ -43,7 +48,7 @@ public class MessengerClient {
      * С каждым сокетом связано 2 канала in/out
      */
     private InputStream in;
-    private OutputStream out;
+    private OutputStream outputStream;
 
     public Protocol getProtocol() {
         return protocol;
@@ -69,10 +74,10 @@ public class MessengerClient {
         this.host = host;
     }
 
-    public void initSocket() throws IOException {
+    public void initSocket() throws IOException, ConnectException {
         Socket socket = new Socket(host, port);
         in = socket.getInputStream();
-        out = socket.getOutputStream();
+        outputStream = socket.getOutputStream();
 
         /*
       Тред "слушает" сокет на наличие входящих сообщений от сервера
@@ -105,15 +110,39 @@ public class MessengerClient {
      * Реагируем на входящее сообщение
      */
     public void onMessage(Message msg) {
-        log.info("Message received: {}", msg);
+        if (msg instanceof ResultMessage) {
+            ResultMessage resultMessage = (ResultMessage) msg;
+            if (resultMessage.status == ResultMessage.Status.FAIL) {
+                System.out.println(resultMessage.errorMessage);
+            }
+            if (resultMessage.status == ResultMessage.Status.OK) {
+                switch (resultMessage.getType()) {
+                    case MSG_STATUS:
+                        System.out.println("OK");
+                        break;
+                    case MSG_CHAT_HIST_RESULT:
+                        ChatHistResultMessage chatHistResultMessage = (ChatHistResultMessage) resultMessage;
+                        for (TextMessage m : chatHistResultMessage.result.chatHist) {
+                            System.out.println(m.getSenderId() + ": " + m.getText());
+                        }
+                        break;
+                    default:
+                        log.info("Message received: {}", msg);
+                }
+            }
+        }
     }
 
     /**
      * Обрабатывает входящую строку, полученную с консоли
      * Формат строки можно посмотреть в вики проекта
      */
-    public void processInput(String line) throws IOException, ProtocolException {
-        String[] tokens = line.split(" ");
+    public void processInput(String line) throws IOException, ProtocolException, InvalidInputExeption {
+        String[] tokens =
+                Arrays.stream(line.split(" "))
+                        .filter(str -> !str.isEmpty())
+                        .collect(Collectors.toList())
+                        .toArray(new String[0]);
         try {
             if (tokens.length == 0) return;
             if (tokens[0].equals("/help")) {
@@ -122,15 +151,18 @@ public class MessengerClient {
             Message message = parseToMessage(tokens);
             send(message);
         } catch (InvalidInputExeption e) {
-            log.error("Invalid input: " + line);
+            e.setMessage("input data: " + line);
+            throw e;
         }
     }
 
     public Message parseToMessage(String[] tokens) throws InvalidInputExeption {
-        log.info("Tokens: {}", Arrays.toString(tokens));
+        //log.info("Tokens: {}", Arrays.toString(tokens));
         String cmdType = tokens[0];
         switch (cmdType) {
             case "/login":
+                if (tokens.length != 3)
+                    throw new InvalidInputExeption();
                 return new LoginMessage(tokens[1], tokens[2]);
             case "/text":
                 if (tokens.length != 3)
@@ -154,9 +186,9 @@ public class MessengerClient {
                 assert tokens.length < 2;
                 return new ChatListMessage();
             case "/chat_create":
-                assert tokens.length == 2;
                 try {
-                    List<Long> ids = Arrays.stream(tokens[1].split(","))
+                    List<Long> ids = Arrays.stream(tokens)
+                            .skip(1)
                             .map(Long::parseLong)
                             .collect(Collectors.toList());
                     return new ChatCreateMessage(ids);
@@ -164,8 +196,10 @@ public class MessengerClient {
                     throw new InvalidInputExeption();
                 }
             case "/chat_history":
-                assert tokens.length == 2;
-                assert isLong(tokens[1]);
+                if(tokens.length != 2)
+                    throw new InvalidInputExeption();
+                if(!isLong(tokens[1]))
+                    throw new InvalidInputExeption();
                 return new ChatHistMessage(Long.parseLong(tokens[1]));
             default:
                 throw new InvalidInputExeption();
@@ -185,9 +219,10 @@ public class MessengerClient {
      * Отправка сообщения в сокет клиент -> сервер
      */
     public void send(Message msg) throws IOException, ProtocolException {
-        log.info(msg.toString());
-        out.write(protocol.encode(msg));
-        out.flush(); // принудительно проталкиваем буфер с данными
+        PrintWriter out = new PrintWriter(outputStream);
+        out.println(new String(protocol.encode(msg)));
+        out.flush();
+        //log.info("Sent message: " + msg);
     }
 
     public static void main(String[] args) throws Exception {
@@ -208,10 +243,15 @@ public class MessengerClient {
                 }
                 try {
                     client.processInput(input);
+                } catch (InvalidInputExeption e) {
+                    log.error("Invalid input", e.getMessage());
                 } catch (ProtocolException | IOException e) {
                     log.error("Failed to process user input", e);
                 }
             }
+        }
+        catch (ConnectException e) {
+            log.error("Connection failed.", e);
         } catch (Exception e) {
             log.error("Application failed.", e);
         } finally {

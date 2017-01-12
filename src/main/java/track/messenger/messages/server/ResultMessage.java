@@ -15,7 +15,7 @@ public abstract class ResultMessage extends Message {
         super(type);
     }
 
-    public static abstract class Result{
+    public static abstract class Result {
     }
 
     public static enum Status{

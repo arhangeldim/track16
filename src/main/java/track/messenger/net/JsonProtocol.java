@@ -2,6 +2,7 @@ package track.messenger.net;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import track.messenger.messages.*;
@@ -14,7 +15,7 @@ public class JsonProtocol implements Protocol {
     static Logger log = LoggerFactory.getLogger(JsonProtocol.class);
 
     @Override
-    public Message decode(byte[] bytes) throws ProtocolException {
+    public @Nullable Message decode(byte[] bytes) throws ProtocolException {
         ObjectMapper mapper = new ObjectMapper();
         try {
             String typeString = mapper.readTree(bytes).get("type").asText();
@@ -30,7 +31,6 @@ public class JsonProtocol implements Protocol {
         ObjectMapper mapper = new ObjectMapper();
         try {
             String jsonString = mapper.writeValueAsString(msg);
-            log.info(jsonString);
             return jsonString.getBytes();
         } catch (JsonProcessingException e) {
             throw new ProtocolException(e);

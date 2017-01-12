@@ -7,6 +7,10 @@ public class ChatHistMessage extends Message {
 
     private Long chatId;
 
+    public ChatHistMessage() {
+        super(Type.MSG_CHAT_HIST);
+    }
+
     public ChatHistMessage(Long chatId) {
         super(Type.MSG_CHAT_HIST);
         this.chatId = chatId;

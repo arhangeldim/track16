@@ -9,6 +9,10 @@ public class ChatCreateMessage extends Message {
 
     private List<Long> userIds;
 
+    public ChatCreateMessage() {
+        super(Type.MSG_CHAT_CREATE);
+    }
+
     public ChatCreateMessage(List<Long> userIds) {
         super(Type.MSG_CHAT_CREATE);
         this.userIds = userIds;

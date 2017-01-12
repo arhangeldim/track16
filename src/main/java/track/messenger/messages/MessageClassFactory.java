@@ -1,10 +1,7 @@
 package track.messenger.messages;
 
 import track.messenger.messages.client.*;
-import track.messenger.messages.server.ChatHistResultMessage;
-import track.messenger.messages.server.ChatListResultMessage;
-import track.messenger.messages.server.InfoResultMessage;
-import track.messenger.messages.server.StatusMessage;
+import track.messenger.messages.server.*;
 
 import java.util.EnumMap;
 
@@ -22,6 +19,7 @@ public class MessageClassFactory {
         messageClassMap.put(Type.MSG_CHAT_LIST_RESULT, ChatListResultMessage.class);
         messageClassMap.put(Type.MSG_STATUS, StatusMessage.class);
         messageClassMap.put(Type.MSG_INFO_RESULT, InfoResultMessage.class);
+        messageClassMap.put(Type.MSG_CHAT_CREATE_RESULT, ChatCreateResultMessage.class);
     }
 
     public static Class<? extends Message> get(Type type) {

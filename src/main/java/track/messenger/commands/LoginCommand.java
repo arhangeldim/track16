@@ -22,7 +22,6 @@ public class LoginCommand implements Command {
         User user = userStore.getUser(loginMessage.getLogin());
         if (user == null) {
             user = userStore.addUser(new User(
-                    userStore.getFreeUserId(),
                     loginMessage.getLogin(),
                     loginMessage.getPassword())
             );

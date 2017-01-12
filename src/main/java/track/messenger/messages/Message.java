@@ -14,6 +14,7 @@ public abstract class Message implements Serializable {
     private Long id;
     private Long senderId;
     private Type type;
+    private Long timestamp;
 
     public Message(Type type) {
         this.type = type;

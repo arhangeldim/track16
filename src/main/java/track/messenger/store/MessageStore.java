@@ -1,6 +1,7 @@
 package track.messenger.store;
 
 import track.messenger.Chat;
+import track.messenger.User;
 import track.messenger.messages.Message;
 import track.messenger.messages.client.TextMessage;
 
@@ -13,12 +14,12 @@ public interface MessageStore extends BaseStore {
 
     Chat addChat(Chat chat);
 
-    List<Message> getMessagesFromChat(Long chatId);
+    List<TextMessage> getMessagesFromChat(Long chatId);
 
     Message getMessageById(Long messageId);
 
-    void addMessage(Message message);
+    void addTextMessage(TextMessage message);
 
-    void addUserToChat(Long userId, Long chatId);
+    void addUserToChat(User user, Long chatId);
 
 }

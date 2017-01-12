@@ -1,7 +1,13 @@
 package track.messenger.teacher.client;
 
-/**
- * Created by Tsepa Stas on 18.12.2016.
- */
+
 public class InvalidInputExeption extends Exception {
+    private String message;
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    public String getMessage() {
+        return message;
+    }
 }
