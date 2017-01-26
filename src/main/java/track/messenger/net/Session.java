@@ -37,7 +37,7 @@ public class Session {
             socket = clientSocket;
             in = socket.getInputStream();
             out = socket.getOutputStream();
-            protocol = new StringProtocol();
+            protocol = new JsonProtocol(); //TODO добавить в конфиг
         } catch (Exception e) {
             System.out.println("session init error: " + e.toString());
             close();
