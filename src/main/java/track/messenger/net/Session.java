@@ -30,15 +30,54 @@ public class Session {
     private InputStream in;
     private OutputStream out;
 
-    public void send(Message msg) throws ProtocolException, IOException {
+    private Protocol protocol;
+
+    public Session(Socket clientSocket) {
+        try {
+            socket = clientSocket;
+            in = socket.getInputStream();
+            out = socket.getOutputStream();
+            protocol = new StringProtocol();
+        } catch (Exception e) {
+            System.out.println("session init error: " + e.toString());
+            close();
+        }
+
+    }
+
+    public Message receiveMessage() throws IOException, ProtocolException {
+        // буффер данных в 64 килобайта
+        byte buf[] = new byte[64 * 1024]; // TODO: Magic number
+        // читаем 64кб от клиента, результат - кол-во реально принятых данных
+        int r = in.read(buf);
+        Message msg = protocol.decode(buf);
+        onMessage(msg);
+        return msg;
+    }
+
+    public void send(Message msg) {
         // TODO: Отправить клиенту сообщение
+        try {
+            out.write(msg.toString().getBytes());
+        } catch (Exception e) {
+            System.out.println("send error: " + e.toString());
+        }
     }
 
     public void onMessage(Message msg) {
         // TODO: Пришло некое сообщение от клиента, его нужно обработать
+        System.out.println("Client said: " + msg.toString());
+
     }
 
     public void close() {
         // TODO: закрыть in/out каналы и сокет. Освободить другие ресурсы, если необходимо
+        try {
+            socket.close();
+            in.close();
+            out.close();
+        } catch (Exception e) {
+            System.out.println("session close error : " + e.toString());
+        }
     }
 }
