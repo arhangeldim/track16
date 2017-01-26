@@ -11,6 +11,7 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import track.messenger.messages.LoginMessage;
 import track.messenger.messages.Message;
 import track.messenger.messages.TextMessage;
 import track.messenger.messages.Type;
@@ -118,18 +119,29 @@ public class MessengerClient {
         String cmdType = tokens[0];
         switch (cmdType) {
             case "/login":
-                // TODO: реализация
+                LoginMessage loginMessage = new LoginMessage();
+                loginMessage.setType(Type.MSG_LOGIN);
+                try {
+                    loginMessage.setLogin(tokens[1]);
+                    loginMessage.setPassword(tokens[2]);
+                    send(loginMessage);
+                } catch (Exception e) {
+                    System.out.println("Usage: \"/login <login> <password> \"");
+                }
                 break;
             case "/help":
                 // TODO: реализация
                 break;
             case "/text":
                 // FIXME: пример реализации для простого текстового сообщения
-                TextMessage sendMessage = new TextMessage();
-                sendMessage.setType(Type.MSG_TEXT);
-                sendMessage.setSenderId(Long.getLong(tokens[1]));
-                sendMessage.setText(tokens[2]);
-                send(sendMessage);
+                TextMessage textMessage = new TextMessage();
+                textMessage.setType(Type.MSG_TEXT);
+                try {
+                    textMessage.setText(tokens[1]);
+                } catch (Exception e) {
+                    System.out.println("Usage: \"/text <Your text>\"");
+                }
+                send(textMessage);
                 break;
             // TODO: implement another types from wiki
 

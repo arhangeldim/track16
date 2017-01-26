@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import track.messenger.User;
 import track.messenger.messages.Message;
 
@@ -32,6 +34,8 @@ public class Session {
 
     private Protocol protocol;
 
+    static Logger log = LoggerFactory.getLogger(MessengerServer.class);
+
     public Session(Socket clientSocket) {
         try {
             socket = clientSocket;
@@ -39,10 +43,18 @@ public class Session {
             out = socket.getOutputStream();
             protocol = new JsonProtocol(); //TODO добавить в конфиг
         } catch (Exception e) {
-            System.out.println("session init error: " + e.toString());
+            log.error("session init: " + e.toString());
             close();
         }
 
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Message receiveMessage() throws IOException, ProtocolException {
@@ -58,26 +70,26 @@ public class Session {
     public void send(Message msg) {
         // TODO: Отправить клиенту сообщение
         try {
-            out.write(msg.toString().getBytes());
+            out.write(protocol.encode(msg));
         } catch (Exception e) {
-            System.out.println("send error: " + e.toString());
+            log.error("send error: " + e.toString());
         }
     }
 
     public void onMessage(Message msg) {
         // TODO: Пришло некое сообщение от клиента, его нужно обработать
-        System.out.println(Long.toString(msg.getSenderId()) + msg.toString());
+        log.info(msg.toString());
 
     }
 
     public void close() {
         // TODO: закрыть in/out каналы и сокет. Освободить другие ресурсы, если необходимо
         try {
-            socket.close();
             in.close();
             out.close();
+            socket.close();
         } catch (Exception e) {
-            System.out.println("session close error : " + e.toString());
+            log.error("session closing: " + e.toString());
         }
     }
 }

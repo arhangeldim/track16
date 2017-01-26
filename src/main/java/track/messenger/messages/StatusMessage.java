@@ -1,24 +1,51 @@
 package track.messenger.messages;
 
+import com.sun.org.apache.regexp.internal.RE;
+
 /**
  * Created by ksushar on 1/26/17.
  */
 public class StatusMessage extends Message {
-    private enum Status {
+    public enum Result {
         OK,
-        ERROR
+        FAIL
     }
 
-    private Status status;
+    private Result result;
+    private String status;
 
-    public Status getStatus() {
-        return status;
+    public StatusMessage() {
+        this.setType(Type.MSG_STATUS);
     }
 
-    public void setStatus(Status status) {
+    ;
+
+    public StatusMessage(String resultString) {
+        this.setType(Type.MSG_STATUS);
+        result = Result.valueOf(resultString);
+    }
+
+    public StatusMessage(String stringResult, String status) {
+        this.setType(Type.MSG_STATUS);
+        result = Result.valueOf(stringResult);
         this.status = status;
     }
 
+    public Result getResult() {
+        return result;
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -32,12 +59,16 @@ public class StatusMessage extends Message {
             return false;
         }
         StatusMessage message = (StatusMessage) other;
-        return status == message.getStatus();
+        if (result != message.getResult()) {
+            return false;
+        }
+        return status.equals(message.getStatus());
     }
 
     @Override
     public String toString() {
-        return "StatusMessage{ status=" + status.toString() + "}";
+        return "StatusMessage{ result=" + result.toString() + ", " +
+                "status=" + status + " }";
     }
 
 }

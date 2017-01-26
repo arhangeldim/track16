@@ -23,8 +23,16 @@ public class MessageList implements MessageStore {
 
     Map<Long, Chat> chats;
 
-    MessageList() {
+    public MessageList() {
         chats = new HashMap<>();
+    }
+
+    private long getMessagesCount() {
+        long count = 0;
+        for (Chat chat : chats.values()) {
+            count += chat.messages.size();
+        }
+        return count;
     }
 
     @Override
@@ -58,7 +66,7 @@ public class MessageList implements MessageStore {
 //                chats.get(chatId).messages.put(message.getId(), message);
 //            }
 //        };
-        chats.get(chatId).messages.put(message.getId(), message);
+        chats.get(chatId).messages.put(getMessagesCount(), message);
     }
 
     @Override

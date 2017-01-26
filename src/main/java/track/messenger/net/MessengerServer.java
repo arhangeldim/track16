@@ -2,6 +2,13 @@ package track.messenger.net;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import track.messenger.commands.Command;
+import track.messenger.commands.CommandFactory;
+import track.messenger.messages.Message;
+import track.messenger.store.MessageList;
+import track.messenger.store.MessageStore;
+import track.messenger.store.UserList;
+import track.messenger.store.UserStore;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,9 +22,11 @@ import java.net.Socket;
  */
 public class MessengerServer {
     private ServerSocket serverSocket;
-    private Session session; //TODO очередь сессий
     private String host;
     private int port;
+
+    private UserStore userStore;
+    private MessageStore messageStore;
 
     static Logger log = LoggerFactory.getLogger(MessengerServer.class);
 
@@ -35,6 +44,22 @@ public class MessengerServer {
 
     public int getPort() {
         return port;
+    }
+
+    public UserStore getUserStore() {
+        return userStore;
+    }
+
+    public void setUserStore(UserStore userStore) {
+        this.userStore = userStore;
+    }
+
+    public MessageStore getMessageStore() {
+        return messageStore;
+    }
+
+    public void setMessageStore(MessageStore messageStore) {
+        this.messageStore = messageStore;
     }
 
     public void setServerSocket(ServerSocket serverSocket) {
@@ -69,11 +94,13 @@ public class MessengerServer {
                 while (true) {
                     try {
                         Socket clientSocket = serverSocket.accept();
-                        session = new Session(clientSocket);
+                        Session session = new Session(clientSocket);
                         new Thread(() -> {
                             while (true) {
                                 try {
-                                    session.receiveMessage();
+                                    Message msg = session.receiveMessage();
+                                    Command command = CommandFactory.get(msg.getType());
+                                    command.execute(session, msg, messageStore, userStore);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 } catch (ProtocolException e) {
@@ -101,6 +128,10 @@ public class MessengerServer {
 
     public static void main(String args[]) {
         MessengerServer server = new MessengerServer("localhost", 19000);
+        MessageStore messageStore = new MessageList();
+        server.setMessageStore(messageStore);
+        UserStore userStore = new UserList();
+        server.setUserStore(userStore);
         server.run();
     }
 }

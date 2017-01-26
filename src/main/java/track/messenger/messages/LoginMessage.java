@@ -10,6 +10,9 @@ public class LoginMessage extends Message {
     private String login;
     private String password;
 
+    public LoginMessage() {
+        this.setType(Type.MSG_LOGIN);
+    }
     public String getLogin() {
         return login;
     }

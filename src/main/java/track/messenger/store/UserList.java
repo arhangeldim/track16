@@ -11,13 +11,14 @@ import java.util.List;
 public class UserList implements UserStore {
     List<User> userList;
 
-    UserList() {
+    public UserList() {
         userList = new ArrayList<User>();
     }
 
     @Override
     public User addUser(User user) {
         userList.add(user);
+        user.setId(userList.indexOf(user));
         return user;
     }
 
@@ -27,9 +28,9 @@ public class UserList implements UserStore {
     }
 
     @Override
-    public User getUser(String login, String pass) {
+    public User getUser(String login) {
         for (User user : userList) {
-            if (user.getLogin().equals(login) && user.getPassword().equals(pass)) {
+            if (user.getLogin().equals(login)) {
                 return user;
             }
         }
