@@ -50,4 +50,9 @@ public class ArrayUserStore implements UserStore {
     public User updateUser(User user) {
         return null;
     }
+
+    @Override
+    public void clear() {
+        userList.clear();
+    }
 }

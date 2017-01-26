@@ -19,7 +19,6 @@ import track.container.JsonConfigReader;
 import track.messenger.messages.*;
 import track.messenger.messages.client.*;
 import track.messenger.messages.server.ChatHistResultMessage;
-import track.messenger.messages.server.ChatListResultMessage;
 import track.messenger.messages.server.ResultMessage;
 import track.messenger.net.Protocol;
 import track.messenger.net.ProtocolException;
@@ -29,26 +28,24 @@ import track.messenger.net.ProtocolException;
  *
  */
 public class MessengerClient {
-
-
     /**
      * Механизм логирования позволяет более гибко управлять записью данных в лог (консоль, файл и тд)
      * */
     static Logger log = LoggerFactory.getLogger(MessengerClient.class);
 
-    /**
-     * Протокол, хост и порт инициализируются из конфига
-     *
-     * */
     private Protocol protocol;
     private int port;
     private String host;
+
+    private ReceiveCallback receiveCallback = null;
 
     /**
      * С каждым сокетом связано 2 канала in/out
      */
     private InputStream in;
     private OutputStream outputStream;
+
+    private List<Message> receivedMessages = new ArrayList<>();
 
     public Protocol getProtocol() {
         return protocol;
@@ -72,6 +69,14 @@ public class MessengerClient {
 
     public void setHost(String host) {
         this.host = host;
+    }
+
+    public List<Message> getReceivedMessages() {
+        return receivedMessages;
+    }
+
+    public void setReceiveCallback(ReceiveCallback receiveCallback) {
+        this.receiveCallback = receiveCallback;
     }
 
     public void initSocket() throws IOException, ConnectException {
@@ -110,8 +115,12 @@ public class MessengerClient {
      * Реагируем на входящее сообщение
      */
     public void onMessage(Message msg) {
+        receivedMessages.add(msg);
         if (msg instanceof ResultMessage) {
             ResultMessage resultMessage = (ResultMessage) msg;
+            if (receiveCallback != null) {
+                receiveCallback.onRecieve(resultMessage);
+            }
             if (resultMessage.status == ResultMessage.Status.FAIL) {
                 System.out.println(resultMessage.errorMessage);
             }
@@ -127,7 +136,7 @@ public class MessengerClient {
                         }
                         break;
                     default:
-                        log.info("Message received: {}", msg);
+                        System.out.println("Message received: " + msg);
                 }
             }
         }
@@ -218,22 +227,20 @@ public class MessengerClient {
     /**
      * Отправка сообщения в сокет клиент -> сервер
      */
-    public void send(Message msg) throws IOException, ProtocolException {
+    private void send(Message msg) throws IOException, ProtocolException {
         PrintWriter out = new PrintWriter(outputStream);
         out.println(new String(protocol.encode(msg)));
         out.flush();
-        //log.info("Sent message: " + msg);
     }
 
     public static void main(String[] args) throws Exception {
 
-        Container container = new Container("src\\main\\resources\\client.json", new JsonConfigReader());
+        Container container = new Container("src/main/resources/client.json", new JsonConfigReader());
         MessengerClient client = (MessengerClient) container.getById("messengerClient");
 
         try {
             client.initSocket();
 
-            // Цикл чтения с консоли
             Scanner scanner = new Scanner(System.in);
             System.out.println("$");
             while (true) {

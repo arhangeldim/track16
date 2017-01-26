@@ -10,6 +10,7 @@ import track.messenger.messages.Message;
 import track.messenger.store.ArrayStoreImpl.ArrayMessageStore;
 import track.messenger.store.ArrayStoreImpl.ArrayUserStore;
 import track.messenger.store.StoreFactory;
+import track.messenger.store.Type;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -49,7 +50,11 @@ public class MessengerServer {
 
     private void initSocket() throws IOException {
         serverSocket = new ServerSocket(getPort());
-       // serverSocket.setSoTimeout(3000);
+    }
+
+    public void clearState() {
+        storeFactory.get(Type.MESSAGE_STORE).clear();
+        storeFactory.get(Type.USER_STORE).clear();
     }
 
     public void runListener() {
@@ -86,18 +91,15 @@ public class MessengerServer {
                     Thread.sleep(500);
                     continue;
                 }
-                Session session = sessionBlockingQueue.poll(3000, TimeUnit.MILLISECONDS);
+                Session session = sessionBlockingQueue.poll(500, TimeUnit.MILLISECONDS);
                 if (session == null) {
                     continue;
                 }
-                //log.info("Took session from queue, id: " + session.getId());
                 Message message;
                 try {
-                    //message = session.receiveMessage();
                     message = session.pollMessage(1000);
                     if (message == null) {
                         sessionBlockingQueue.put(session);
-                        //log.info("Added session to queue");
                         continue;
                     }
                     executor.execute(() -> {
@@ -133,7 +135,7 @@ public class MessengerServer {
     }
 
     public static void main(String... args) {
-        Container container = new Container("src\\main\\resources\\server.json", new JsonConfigReader());
+        Container container = new Container("src/main/resources/server.json", new JsonConfigReader());
         MessengerServer server = (MessengerServer) container.getById("messengerServer");
         if (server == null) {
             log.error("Cannot initialize sever.");

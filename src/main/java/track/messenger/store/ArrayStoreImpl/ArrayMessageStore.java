@@ -72,6 +72,11 @@ public class ArrayMessageStore implements MessageStore {
         getChatById(chatId).addUser(user);
     }
 
+    @Override
+    public void clear() {
+        chatList.clear();
+    }
+
     private Long getFreeChatId() {
         freeChatId++;
         return freeChatId;
