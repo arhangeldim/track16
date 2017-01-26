@@ -45,7 +45,6 @@ public class MessengerClient {
     private InputStream in;
     private OutputStream outputStream;
 
-    private List<Message> receivedMessages = new ArrayList<>();
 
     public Protocol getProtocol() {
         return protocol;
@@ -69,10 +68,6 @@ public class MessengerClient {
 
     public void setHost(String host) {
         this.host = host;
-    }
-
-    public List<Message> getReceivedMessages() {
-        return receivedMessages;
     }
 
     public void setReceiveCallback(ReceiveCallback receiveCallback) {
@@ -115,7 +110,6 @@ public class MessengerClient {
      * Реагируем на входящее сообщение
      */
     public void onMessage(Message msg) {
-        receivedMessages.add(msg);
         if (msg instanceof ResultMessage) {
             ResultMessage resultMessage = (ResultMessage) msg;
             if (receiveCallback != null) {

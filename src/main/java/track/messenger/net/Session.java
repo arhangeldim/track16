@@ -71,7 +71,11 @@ public class Session {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         Message message;
         try {
-            message = protocol.decode(bufferedReader.readLine().getBytes());
+            String line = bufferedReader.readLine();
+            if (line == null) {
+                return null;
+            }
+            message = protocol.decode(line.getBytes());
         } catch (SocketTimeoutException e) {
             return null;
         }
