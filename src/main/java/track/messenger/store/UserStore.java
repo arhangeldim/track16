@@ -2,7 +2,7 @@ package track.messenger.store;
 
 import track.messenger.User;
 
-public interface UserStore {
+public interface UserStore extends BaseStore {
     /**
      * Добавить пользователя в хранилище
      * Вернуть его же
@@ -16,10 +16,10 @@ public interface UserStore {
 
     /**
      *
-     * Получить пользователя по логину/паролю
+     * Получить пользователя по логину
      * return null if user not found
      */
-    User getUser(String login, String pass);
+    User getUser(String login);
 
     /**
      *
@@ -27,4 +27,6 @@ public interface UserStore {
      * return null if user not found
      */
     User getUserById(Long id);
+
+    Long getFreeUserId();
 }

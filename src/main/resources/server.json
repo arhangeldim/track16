@@ -1,0 +1,23 @@
+{
+  "beans": [
+    {
+      "id": "messengerServer",
+      "className": "track.messenger.net.MessengerServer",
+      "properties": [
+        {
+          "name": "port",
+          "val": "19000"
+        },
+        {
+          "name": "protocol",
+          "ref": "protocolBean"
+        }
+      ]
+    },
+    {
+      "id": "protocolBean",
+      "className": "track.messenger.net.JsonProtocol",
+      "properties": []
+    }
+  ]
+}

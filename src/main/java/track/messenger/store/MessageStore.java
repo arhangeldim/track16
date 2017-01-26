@@ -1,38 +1,25 @@
 package track.messenger.store;
 
+import track.messenger.Chat;
+import track.messenger.User;
 import track.messenger.messages.Message;
+import track.messenger.messages.client.TextMessage;
 
 import java.util.List;
 
-public interface MessageStore {
-    /**
-     * получаем список ид пользователей заданного чата
-     */
-    List<Long> getChatsByUserId(Long userId);
+public interface MessageStore extends BaseStore {
+    List<Long> getChatIdsByUserId(Long userId);
 
-    /**
-     * получить информацию о чате
-     */
-    //Chat getChatById(Long chatId);
+    Chat getChatById(Long chatId);
 
-    /**
-     * Список сообщений из чата
-     */
-    List<Long> getMessagesFromChat(Long chatId);
+    Chat addChat(Chat chat);
 
-    /**
-     * Получить информацию о сообщении
-     */
+    List<TextMessage> getMessagesFromChat(Long chatId);
+
     Message getMessageById(Long messageId);
 
-    /**
-     * Добавить сообщение в чат
-     */
-    void addMessage(Long chatId, Message message);
+    void addTextMessage(TextMessage message);
 
-    /**
-     * Добавить пользователя к чату
-     */
-    void addUserToChat(Long userId, Long chatId);
+    void addUserToChat(User user, Long chatId);
 
 }
