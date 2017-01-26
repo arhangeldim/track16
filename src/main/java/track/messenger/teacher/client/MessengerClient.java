@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import track.messenger.messages.Message;
 import track.messenger.messages.TextMessage;
 import track.messenger.messages.Type;
+import track.messenger.net.JsonProtocol;
 import track.messenger.net.Protocol;
 import track.messenger.net.ProtocolException;
 import track.messenger.net.StringProtocol;
@@ -126,7 +127,8 @@ public class MessengerClient {
                 // FIXME: пример реализации для простого текстового сообщения
                 TextMessage sendMessage = new TextMessage();
                 sendMessage.setType(Type.MSG_TEXT);
-                sendMessage.setText(tokens[1]);
+                sendMessage.setSenderId(Long.getLong(tokens[1]));
+                sendMessage.setText(tokens[2]);
                 send(sendMessage);
                 break;
             // TODO: implement another types from wiki
@@ -150,7 +152,7 @@ public class MessengerClient {
         MessengerClient client = new MessengerClient();
         client.setHost("localhost");
         client.setPort(19000);
-        client.setProtocol(new StringProtocol());
+        client.setProtocol(new JsonProtocol());
 
         try {
             client.initSocket();

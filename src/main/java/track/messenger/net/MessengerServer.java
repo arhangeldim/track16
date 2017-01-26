@@ -1,5 +1,8 @@
 package track.messenger.net;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -15,6 +18,8 @@ public class MessengerServer {
     private Session session; //TODO очередь сессий
     private String host;
     private int port;
+
+    static Logger log = LoggerFactory.getLogger(MessengerServer.class);
 
     public void setHost(String host) {
         this.host = host;
@@ -95,7 +100,7 @@ public class MessengerServer {
     }
 
     public static void main(String args[]) {
-        MessengerServer server = new MessengerServer("localhost", 3129);
+        MessengerServer server = new MessengerServer("localhost", 19000);
         server.run();
     }
 }

@@ -66,7 +66,7 @@ public class Session {
 
     public void onMessage(Message msg) {
         // TODO: Пришло некое сообщение от клиента, его нужно обработать
-        System.out.println("Client said: " + msg.toString());
+        System.out.println(Long.toString(msg.getSenderId()) + msg.toString());
 
     }
 
