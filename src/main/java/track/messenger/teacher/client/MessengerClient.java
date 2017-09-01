@@ -11,14 +11,10 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import track.messenger.messages.LoginMessage;
-import track.messenger.messages.Message;
-import track.messenger.messages.TextMessage;
-import track.messenger.messages.Type;
+import track.messenger.messages.*;
 import track.messenger.net.JsonProtocol;
 import track.messenger.net.Protocol;
 import track.messenger.net.ProtocolException;
-import track.messenger.net.StringProtocol;
 
 
 /**
@@ -129,21 +125,21 @@ public class MessengerClient {
                     System.out.println("Usage: \"/login <login> <password> \"");
                 }
                 break;
+            case "/info":
+                InfoMessage infoMessage = new InfoMessage();
+                infoMessage.setType(Type.MSG_INFO);
+                if (tokens.length > 1) {
+                    try {
+                        infoMessage.setUserId(new Long(tokens[1]));
+                    } catch (Exception e) {
+                        System.out.println("Usage: \"/info (<id>) \"");
+                    }
+                }
+                send(infoMessage);
+                break;
             case "/help":
                 // TODO: реализация
                 break;
-            case "/text":
-                // FIXME: пример реализации для простого текстового сообщения
-                TextMessage textMessage = new TextMessage();
-                textMessage.setType(Type.MSG_TEXT);
-                try {
-                    textMessage.setText(tokens[1]);
-                } catch (Exception e) {
-                    System.out.println("Usage: \"/text <Your text>\"");
-                }
-                send(textMessage);
-                break;
-            // TODO: implement another types from wiki
 
             default:
                 log.error("Invalid input: " + line);

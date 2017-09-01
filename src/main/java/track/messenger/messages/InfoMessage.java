@@ -6,23 +6,14 @@ import java.util.Objects;
  * Created by ksushar on 1/15/17.
  */
 public class InfoMessage extends Message {
-    private long userId;
-    private String info;
+    private Long userId;
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
     public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
+        this.userId = new Long(userId);
     }
 
     @Override
@@ -37,22 +28,21 @@ public class InfoMessage extends Message {
             return false;
         }
         InfoMessage message = (InfoMessage) other;
-        return Objects.equals(userId, message.getUserId()) && Objects.equals(info, message.getInfo());
+        return Objects.equals(userId, message.getUserId());
     }
 
     @Override
     public int hashCode() {
-        StringBuilder builder = new StringBuilder(Long.toString(userId));
-        builder.append("#");
-        builder.append(info);
-        return Objects.hash(super.hashCode(), builder.toString());
+        return Objects.hash(super.hashCode(), Long.toString(userId).toString());
     }
 
     @Override
     public String toString() {
+        if (userId == null) {
+            return "{InfoMessage{userId=-1})";
+        }
         return "InfoMessage{" +
-                "userId='" + Long.toString(userId) + "', " +
-                "info='" + info + '\'' +
-                '}';
+                "userId='" + Long.toString(userId) +
+                "'}";
     }
 }

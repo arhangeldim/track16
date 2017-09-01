@@ -11,15 +11,11 @@ import track.messenger.store.UserList;
 import track.messenger.store.UserStore;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/**
- *
- */
+
 public class MessengerServer {
     private ServerSocket serverSocket;
     private String host;
@@ -87,23 +83,22 @@ public class MessengerServer {
 
     public void listen() {
         try {
-
             // ждём нового подключения, после чего запускаем обработку клиента
-            // в новый вычислительный поток
+            // в новый поток
             Thread listenerThread = new Thread(() -> {
                 while (true) {
                     try {
                         Socket clientSocket = serverSocket.accept();
-                        Session session = new Session(clientSocket);
+                        Session session = new Session(clientSocket, userStore, messageStore);
                         new Thread(() -> {
                             while (true) {
                                 try {
                                     Message msg = session.receiveMessage();
                                     Command command = CommandFactory.get(msg.getType());
                                     command.execute(session, msg, messageStore, userStore);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
                                 } catch (ProtocolException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                             }

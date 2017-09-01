@@ -47,8 +47,6 @@ public class StringProtocol implements Protocol {
                 break;
             default:
                 throw new ProtocolException("Invalid type: " + type);
-
-
         }
         log.info("encoded: {}", builder.toString());
         return builder.toString().getBytes();
