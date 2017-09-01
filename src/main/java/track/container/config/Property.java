@@ -6,13 +6,16 @@ package track.container.config;
  */
 public class Property {
     private String name; // Имя поля
-    private String value; // Значение поля
-    private ValueType type; // Метка ссылочное значение или примитив
+    private String val; // Значение поля
+    private String ref; // Метка ссылочное значение
 
-    public Property(String name, String value, ValueType type) {
+    public Property() {
+    }
+
+    public Property(String name, String val, String ref) {
         this.name = name;
-        this.value = value;
-        this.type = type;
+        this.val = val;
+        this.ref = ref;
     }
 
     public String getName() {
@@ -23,28 +26,28 @@ public class Property {
         this.name = name;
     }
 
-    public String getValue() {
-        return value;
+    public String getVal() {
+        return val;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setVal(String val) {
+        this.val = val;
     }
 
-    public ValueType getType() {
-        return type;
+    public String getRef() {
+        return ref;
     }
 
-    public void setType(ValueType type) {
-        this.type = type;
+    public void setRef(String ref) {
+        this.ref = ref;
     }
 
     @Override
     public String toString() {
         return "Property{" +
                 "name='" + name + '\'' +
-                ", value='" + value + '\'' +
-                ", type=" + type +
+                ", val='" + val + '\'' +
+                ", ref=" + ref +
                 '}';
     }
 }

@@ -21,7 +21,7 @@ public class StringProtocol implements Protocol {
         String str = new String(bytes);
         log.info("decoded: {}", str);
         String[] tokens = str.split(DELIMITER);
-        Type type = Type.valueOf(tokens[0]);
+        Type type = Type.valueOf(tokens[0].trim());
         switch (type) {
             case MSG_TEXT:
                 TextMessage textMsg = new TextMessage();
@@ -47,8 +47,6 @@ public class StringProtocol implements Protocol {
                 break;
             default:
                 throw new ProtocolException("Invalid type: " + type);
-
-
         }
         log.info("encoded: {}", builder.toString());
         return builder.toString().getBytes();
